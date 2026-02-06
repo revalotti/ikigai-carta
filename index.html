@@ -286,6 +286,8 @@
     }
 
     @media (max-width: 820px){
+      .reserve-grid{ grid-template-columns:1fr; }
+
       .info-row.two{ grid-template-columns: 1fr; }
     }
 
@@ -520,6 +522,38 @@
     .x::before{ transform: translateY(-50%) rotate(45deg); }
     .x::after{ transform: translateY(-50%) rotate(-45deg); }
 
+
+    /* Reserve form (service/day/time) */
+    .reserve-form{ margin: 12px 0 14px; }
+    .rf{ display:block; margin: 10px 0; }
+    .rf > span{
+      display:block;
+      font-size:12px;
+      color: var(--muted);
+      margin-bottom:6px;
+    }
+    .rf select, .rf input{
+      width:100%;
+      border:1px solid var(--line-strong);
+      border-radius: var(--radius);
+      background: rgba(255,255,255,.18);
+      padding:10px 12px;
+      font-family: var(--sans);
+      font-size:14px;
+      color: var(--ink);
+    }
+    .reserve-grid{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:10px;
+    }
+    .reserve-hint{
+      margin: 10px 0 0;
+      font-size:13px;
+      color: var(--muted);
+      line-height:1.5;
+    }
+
     /* Responsive */
     @media (max-width: 980px){
       .grid-3{ grid-template-columns:1fr; gap:14px; }
@@ -530,6 +564,8 @@
     }
 
     @media (max-width: 820px){
+      .reserve-grid{ grid-template-columns:1fr; }
+
       .header-inner{ flex-wrap:wrap; }
       .tab{ flex:0 0 auto; }
       .modal-actions{ grid-template-columns:1fr; }
@@ -814,19 +850,59 @@ Con este bono regalo podrás elegir entre todos los servicios disponibles o comb
 <!-- Reserve modal -->
 <div class="modal" id="reserve-modal" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="reserve-title">
   <div class="modal-backdrop" data-close="true"></div>
-  <div class="modal-card" role="document">
+    <div class="modal-card" role="document">
     <button class="modal-close" type="button" aria-label="Cerrar" data-close="true">
       <span class="x" aria-hidden="true"></span>
     </button>
 
-    <h2 class="modal-title" id="reserve-title">Reserva tiempo para ti.</h2>
-    <p class="modal-body">Las reservas se realizarán exclusivamente por correo o WhatsApp.</p>
+    <h2 class="modal-title" id="reserve-title">Reservar</h2>
+    <p class="modal-body">Selecciona el servicio y una preferencia de día y hora. Confirmaremos disponibilidad.</p>
+
+    <div class="reserve-form" aria-label="Preferencias de reserva">
+      <label class="rf">
+        <span>Servicio</span>
+        <select id="rf-service">
+          <option value="" selected disabled>Selecciona un servicio</option>
+          <option>Masaje relajante Ikigai</option>
+          <option>Masaje de Tejido profundo</option>
+          <option>Masaje Californiano</option>
+          <option>Masaje con piedras calientes</option>
+          <option>Masaje craneal Hindú</option>
+          <option>Reflexología + Masaje de pies</option>
+          <option>Ritual Ikigai</option>
+          <option>Ritual Exprés Ikigai</option>
+          <option>Ritual Ikigai en pareja</option>
+          <option>Bono mensual</option>
+          <option>Bono regalo</option>
+        </select>
+      </label>
+
+      <div class="reserve-grid">
+        <label class="rf">
+          <span>Día</span>
+          <input id="rf-day" type="date" />
+        </label>
+
+        <label class="rf">
+          <span>Hora</span>
+          <select id="rf-time">
+            <option value="" selected disabled>Elige una hora</option>
+            <option>10:00</option><option>10:30</option><option>11:00</option><option>11:30</option>
+            <option>12:00</option><option>12:30</option><option>13:00</option>
+            <option>17:00</option><option>17:30</option><option>18:00</option><option>18:30</option>
+            <option>19:00</option><option>19:30</option><option>20:00</option>
+          </select>
+        </label>
+      </div>
+
+      <p class="reserve-hint" id="rf-hint" aria-live="polite"></p>
+    </div>
 
     <div class="modal-actions">
-      <a class="cta-btn primary" href="https://w.app/sr3avyqr" target="_blank" rel="noopener">
+      <a class="cta-btn primary" id="reserve-whatsapp" href="#" target="_blank" rel="noopener">
         Reservar por WhatsApp
       </a>
-      <a class="cta-btn" href="mailto:centroikigai.masajes@gmail.com">
+      <a class="cta-btn" id="reserve-email" href="#">
         Reservar por correo
       </a>
     </div>
@@ -875,9 +951,60 @@ Con este bono regalo podrás elegir entre todos los servicios disponibles o comb
     const focusablesSelector = 'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])';
     let lastActive = null;
 
+    // TODO: Replace with the real WhatsApp number in international format, without "+"
+    // Example Spain: 346XXXXXXXX
+    const PHONE_NUMBER = "34695752476";
+    const EMAIL = "centroikigai.masajes@gmail.com";
+
+    const get = (id) => document.getElementById(id);
+
+    function formatDateES(iso){
+      if(!iso) return "";
+      const [y,m,d] = iso.split('-').map(Number);
+      if(!y || !m || !d) return iso;
+      return `${String(d).padStart(2,'0')}/${String(m).padStart(2,'0')}/${y}`;
+    }
+
+    function buildMessage(){
+      const service = get('rf-service')?.value || "";
+      const day = formatDateES(get('rf-day')?.value || "");
+      const time = get('rf-time')?.value || "";
+
+      const lines = ["Hola, me gustaría reservar:"];
+      if(service) lines.push(`• Servicio: ${service}`);
+      if(day) lines.push(`• Día: ${day}`);
+      if(time) lines.push(`• Hora: ${time}`);
+      lines.push("Gracias.");
+      return lines.join("\n");
+    }
+
+    function updateLinks(){
+      const msg = buildMessage();
+      const encoded = encodeURIComponent(msg);
+
+      // WhatsApp
+      const waURL = `https://wa.me/${PHONE_NUMBER}?text=${encoded}`;
+      get('reserve-whatsapp')?.setAttribute('href', waURL);
+
+      // Email
+      const subject = encodeURIComponent("Reserva · Ikigai");
+      const mailURL = `mailto:${EMAIL}?subject=${subject}&body=${encoded}`;
+      get('reserve-email')?.setAttribute('href', mailURL);
+
+      // Hint
+      const hasAny = Boolean(get('rf-service')?.value || get('rf-day')?.value || get('rf-time')?.value);
+      const hint = get('rf-hint');
+      if(hint){
+        hint.textContent = hasAny
+          ? "El mensaje se completará automáticamente con tu selección."
+          : "Puedes completar solo lo que sepas. Confirmaremos disponibilidad por WhatsApp o correo.";
+      }
+    }
+
     function openModal(){
       lastActive = document.activeElement;
       modal.setAttribute('aria-hidden','false');
+      updateLinks();
       const first = modal.querySelector(focusablesSelector);
       if(first) first.focus();
       document.body.style.overflow = 'hidden';
@@ -913,6 +1040,12 @@ Con este bono regalo podrás elegir entre todos los servicios disponibles o comb
           }
         }
       }
+    });
+
+    // Live updates while modal is open
+    document.addEventListener('change', (e) => {
+      if(modal.getAttribute('aria-hidden') !== 'false') return;
+      if(['rf-service','rf-day','rf-time'].includes(e.target.id)) updateLinks();
     });
   })();
 </script>
