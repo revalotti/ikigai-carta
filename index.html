@@ -1,210 +1,191 @@
+<!doctype html>
+<html lang="es">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Ikigai · Carta de tratamientos</title>
+  <meta name="description" content="Carta de tratamientos · Ikigai Centro de Masajes" />
+
+  <!-- Google Fonts (forma segura, sin @import) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
 
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Poppins:wght@300;400;500;600&display=swap');
+    :root{
+      --paper:#efe7da;
+      --ink:#2a2621;
+      --muted:#6e655c;
+      --line:rgba(42,38,33,.35);
+      --serif:"Playfair Display", Georgia, "Times New Roman", serif;
+      --sans:"Poppins", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    }
 
-:root{
-  --paper:#efe7da;              /* crema carta */
-  --ink:#2a2621;                /* tinta suave */
-  --muted:#6e655c;              /* gris cálido */
-  --line:rgba(42,38,33,.35);    /* línea */
-  --serif:"Playfair Display", ui-serif, Georgia, "Times New Roman", serif;
-  --sans:"Poppins", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-}
+    *{box-sizing:border-box}
 
-*{box-sizing:border-box}
+    body{
+      margin:0;
+      background:var(--paper);
+      color:var(--ink);
+      font-family:var(--sans);
+    }
 
-body{
-  margin:0;
-  background:var(--paper);
-  color:var(--ink);
-}
+    /* HEADER */
+    .site-header{
+      position:sticky;
+      top:0;
+      z-index:10;
+      background:var(--paper);
+      border-bottom:1px solid var(--line);
+    }
 
-/* HEADER */
-.site-header{
-  position:sticky;
-  top:0;
-  z-index:10;
-  background:var(--paper);
-  border-bottom:1px solid var(--line);
-}
+    .header-inner{
+      max-width:1280px;
+      margin:0 auto;
+      padding:16px 46px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:20px;
+    }
 
-.header-inner{
-  max-width:1280px;
-  margin:0 auto;
-  padding:16px 46px;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:20px;
-}
+    .logo-text{
+      display:flex;
+      flex-direction:column;
+      line-height:1;
+    }
 
-.logo-text{
-  display:flex;
-  flex-direction:column;
-  line-height:1;
-}
+    .logo-word{
+      font-family:var(--serif);
+      font-weight:600;
+      font-size:28px;
+    }
 
-.logo-word{
-  font-family:var(--serif);
-  font-weight:600;
-  font-size:28px;
-  letter-spacing:.2px;
-}
+    .logo-sub{
+      font-size:10px;
+      letter-spacing:.18em;
+      text-transform:uppercase;
+      color:var(--muted);
+      margin-top:6px;
+    }
 
-.logo-sub{
-  font-family:var(--sans);
-  font-size:10px;
-  letter-spacing:.18em;
-  text-transform:uppercase;
-  color:var(--muted);
-  margin-top:6px;
-}
+    .header-actions{
+      display:flex;
+      gap:12px;
+    }
 
-.header-actions{
-  display:flex;
-  gap:12px;
-}
+    .btn{
+      font-size:13px;
+      padding:10px 16px;
+      border-radius:999px;
+      border:1px solid var(--line);
+      text-decoration:none;
+      color:var(--ink);
+      background:transparent;
+      white-space:nowrap;
+    }
 
-.btn{
-  font-family:var(--sans);
-  font-size:13px;
-  padding:10px 16px;
-  border-radius:999px;
-  border:1px solid var(--line);
-  text-decoration:none;
-  color:var(--ink);
-  background:transparent;
-  white-space:nowrap;
-}
+    .btn.primary{
+      background:var(--ink);
+      color:var(--paper);
+      border-color:var(--ink);
+    }
 
-.btn.primary{
-  background:var(--ink);
-  color:var(--paper);
-  border-color:var(--ink);
-}
+    /* PAGE */
+    .page{
+      max-width:1280px;
+      margin:0 auto;
+      padding:34px 46px 44px;
+    }
 
-.btn.secondary{
-  background:transparent;
-}
+    .section-head{
+      display:grid;
+      grid-template-columns:1fr auto;
+      align-items:center;
+      padding:10px 0 12px;
+      border-top:1px solid var(--line);
+      border-bottom:1px solid var(--line);
+      margin-bottom:26px;
+    }
 
-/* PAGE */
-.page{
-  max-width:1280px;
-  margin:0 auto;
-  padding:34px 46px 44px;
-}
+    .section-head--rituals{
+      margin-top:34px;
+      grid-template-columns:1fr;
+    }
 
-/* Section headers like original */
-.section-head{
-  display:grid;
-  grid-template-columns:1fr auto;
-  align-items:center;
-  padding:10px 0 12px;
-  border-top:1px solid var(--line);
-  border-bottom:1px solid var(--line);
-  margin-bottom:26px;
-}
+    .section-title{
+      font-family:var(--serif);
+      font-style:italic;
+      font-size:18px;
+      color:var(--muted);
+    }
 
-.section-head--rituals{
-  margin-top:34px;
-  grid-template-columns:1fr;
-}
+    .section-note{
+      font-family:var(--serif);
+      color:var(--muted);
+    }
 
-.section-title{
-  font-family:var(--serif);
-  font-style:italic;
-  font-weight:500;
-  font-size:18px;
-  color:var(--muted);
-}
+    .grid-3{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:44px;
+    }
 
-.section-title.italic{ font-style:italic; }
+    .h3{
+      font-family:var(--serif);
+      font-size:28px;
+      margin:0 0 12px;
+    }
 
-.section-note{
-  font-family:var(--serif);
-  font-weight:500;
-  font-size:16px;
-  color:var(--muted);
-}
+    .h3.big{font-size:30px}
 
-.star{ font-family:var(--serif); font-weight:600; }
+    .p{
+      font-size:13px;
+      line-height:1.7;
+      margin:0 0 18px;
+      max-width:56ch;
+    }
 
-/* 3-column editorial layout */
-.grid-3{
-  display:grid;
-  grid-template-columns:repeat(3, 1fr);
-  gap:44px;
-}
+    .note{
+      display:block;
+      margin-top:10px;
+      font-style:italic;
+      color:var(--muted);
+      font-family:var(--serif);
+    }
 
-/* Typography */
-.h3{
-  font-family:var(--serif);
-  font-weight:600;
-  font-size:28px;
-  line-height:1.12;
-  margin:0 0 12px;
-}
+    .spacer-lg{height:30px}
 
-.h3.big{ font-size:30px; }
+    .info-footer{
+      margin-top:48px;
+      padding-top:18px;
+      border-top:1px solid var(--line);
+      text-align:center;
+      font-size:13px;
+      color:var(--muted);
+    }
 
-.p{
-  font-family:var(--sans);
-  font-size:13px;
-  line-height:1.7;
-  color:var(--ink);
-  margin:0 0 18px;
-  max-width:56ch;
-}
-
-.note{
-  display:block;
-  margin-top:10px;
-  font-family:var(--serif);
-  font-style:italic;
-  font-size:13px;
-  color:var(--muted);
-}
-
-.spacer-lg{ height:30px; }
-
-.info-footer{
-  margin-top:48px;
-  padding-top:18px;
-  border-top:1px solid var(--line);
-  font-family:var(--sans);
-  font-size:13px;
-  color:var(--muted);
-  text-align:center;
-}
-
-/* Mobile */
-@media (max-width: 980px){
-  .header-inner{padding:14px 18px; flex-wrap:wrap;}
-  .page{padding:24px 18px 34px;}
-  .grid-3{grid-template-columns:1fr; gap:26px;}
-  .section-head{grid-template-columns:1fr; gap:6px;}
-}
-
+    @media (max-width: 980px){
+      .header-inner{padding:14px 18px; flex-wrap:wrap}
+      .page{padding:24px 18px 34px}
+      .grid-3{grid-template-columns:1fr; gap:26px}
+      .section-head{grid-template-columns:1fr}
+    }
   </style>
 </head>
+
+<body>
+
 <header class="site-header">
   <div class="header-inner">
-    <!-- Logo (texto, para que siempre funcione). Si luego quieres imagen, lo cambiamos -->
     <div class="logo-text">
       <span class="logo-word">ikigai</span>
       <span class="logo-sub">CENTRO DE MASAJES</span>
     </div>
 
     <div class="header-actions">
-      <a class="btn primary" href="https://wa.me/34662447261" target="_blank" rel="noopener">
-        Reservar por WhatsApp
-      </a>
-      <a class="btn secondary" href="mailto:centroikigai.masajes@gmail.com">
-        Reservar por correo
-      </a>
+      <a class="btn primary" href="https://wa.me/34662447261" target="_blank">Reservar por WhatsApp</a>
+      <a class="btn" href="mailto:centroikigai.masajes@gmail.com">Reservar por correo</a>
     </div>
   </div>
 </header>
@@ -213,89 +194,60 @@ body{
 
   <div class="section-head">
     <div class="section-title">Masajes terapéuticos</div>
-    <div class="section-note"><span class="star">*</span> Recomendado</div>
+    <div class="section-note">*</div>
   </div>
 
   <div class="grid-3">
-    <div class="block">
+    <div>
       <h3 class="h3">Masaje relajante Ikigai</h3>
-      <p class="p">
-        Masaje suave y armonioso, ayuda a liberar el estrés, calmar la mente y relajar el cuerpo,
-        mejorando el descanso y recuperando la sensación de bienestar y equilibrio.
-      </p>
+      <p class="p">Masaje suave y armonioso, ayuda a liberar el estrés, calmar la mente y relajar el cuerpo.</p>
 
       <div class="spacer-lg"></div>
 
-      <h3 class="h3"><span class="star">*</span> Masaje de Tejido profundo</h3>
-      <p class="p">
-        Masaje enfocado en las capas más profundas del músculo, diseñado para liberar tensiones,
-        rigidez y nudos musculares. Ayuda a aliviar molestias persistentes, mejorar la movilidad y
-        devolver al cuerpo una sensación de ligereza.
-      </p>
+      <h3 class="h3">Masaje de Tejido profundo</h3>
+      <p class="p">Masaje enfocado en las capas más profundas del músculo para liberar tensiones.</p>
     </div>
 
-    <div class="block">
+    <div>
       <h3 class="h3">Masaje Californiano</h3>
-      <p class="p">
-        Masaje fluido y envolvente, conocido como una danza sanadora, que favorece la conexión
-        cuerpo-mente, ayudando a soltar tensiones físicas y emocionales y a entrar en un profundo
-        estado de relajación.
-      </p>
+      <p class="p">Masaje fluido y envolvente que favorece la conexión cuerpo-mente.</p>
 
       <div class="spacer-lg"></div>
 
       <h3 class="h3">Masaje con piedras calientes</h3>
-      <p class="p">
-        Masaje relajante que combina suaves movimientos con la aplicación de piedras volcánicas
-        sobre puntos estratégicos del cuerpo. Ayuda a soltar tensiones acumuladas, relajar la
-        musculatura y revitalizar la energía.
-      </p>
+      <p class="p">Combina movimientos suaves con piedras volcánicas para relajar la musculatura.</p>
     </div>
 
-    <div class="block">
+    <div>
       <h3 class="h3">Masaje craneal Hindú</h3>
-      <p class="p">
-        Masaje tradicional de la India que combina presión y movimientos ágiles sobre cabeza,
-        cuello y hombros, ayudando a aliviar tensiones, reducir dolores de cabeza y estrés acumulado.
-      </p>
+      <p class="p">Masaje tradicional enfocado en cabeza, cuello y hombros.</p>
 
       <div class="spacer-lg"></div>
 
       <h3 class="h3">Reflexología + Masaje de pies</h3>
-      <p class="p">
-        Tratamiento que combina la estimulación de puntos reflejos con un masaje profundo de pies,
-        ayudando a liberar tensiones, mejorar la circulación y favorecer el equilibrio natural del
-        cuerpo.
-      </p>
+      <p class="p">Estimulación de puntos reflejos y masaje profundo de pies.</p>
     </div>
   </div>
 
   <div class="section-head section-head--rituals">
-    <div class="section-title italic">Rituales</div>
+    <div class="section-title">Rituales</div>
   </div>
 
-  <div class="grid-3 rituals">
-    <div class="ritual">
+  <div class="grid-3">
+    <div>
       <h3 class="h3 big">Ritual Ikigai</h3>
-      <p class="p">
-        Incluye bañera de hidromasaje con aromaterapia, masaje a elegir y un tratamiento final para
-        equilibrar cuerpo y mente.
-      </p>
+      <p class="p">Experiencia completa de relajación y equilibrio cuerpo–mente.</p>
     </div>
 
-    <div class="ritual">
-      <h3 class="h3 big">Ritual <em>Exprés</em> Ikigai</h3>
-      <p class="p">
-        Incluye bañera de hidromasaje y masaje relajante localizado (espalda o piernas).
-      </p>
+    <div>
+      <h3 class="h3 big">Ritual Exprés Ikigai</h3>
+      <p class="p">Momento de desconexión para quienes disponen de poco tiempo.</p>
     </div>
 
-    <div class="ritual">
-      <h3 class="h3 big">Ritual Ikigai <em>en pareja</em></h3>
-      <p class="p">
-        Incluye bañera de hidromasaje con aromaterapia y masaje relajante.
-        <span class="note">(Masajes realizados de forma consecutiva, no simultánea)</span>
-      </p>
+    <div>
+      <h3 class="h3 big">Ritual Ikigai en pareja</h3>
+      <p class="p">Experiencia compartida diseñada para relajarse y conectar.</p>
+      <span class="note">(Masajes consecutivos, no simultáneos)</span>
     </div>
   </div>
 
@@ -304,3 +256,6 @@ body{
   </footer>
 
 </main>
+
+</body>
+</html>
