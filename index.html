@@ -13,11 +13,19 @@
 
   <style>
     :root{
-      --paper:#efe7da;
-      --ink:#2a2621;
-      --muted:#6e655c;
-      --line:rgba(42,38,33,.22);
-      --line-strong:rgba(42,38,33,.38);
+      /* Brand colors */
+      --nogal:#776B5D;
+      --albura:#EBE3D5;
+      --veta:#1F1F1F;
+
+      /* Derived palette */
+      --paper: var(--albura);
+      --ink: var(--veta);
+      --muted: rgba(31,31,31,.64);
+      --muted-2: rgba(31,31,31,.50);
+      --line: rgba(31,31,31,.18);
+      --line-strong: rgba(31,31,31,.30);
+      --wash: rgba(31,31,31,.04);
 
       --serif:"Playfair Display", Georgia, "Times New Roman", serif;
       --sans:"Poppins", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
@@ -25,23 +33,18 @@
       --max:1120px;
       --px: clamp(16px, 3vw, 28px);
 
-      /* Logo (bigger + responsive) */
-      --logo-h: clamp(64px, 7vw, 104px);
+      /* Logo */
+      --logo-h: clamp(66px, 7.2vw, 110px);
 
-      /* Tabs */
-      --tab-bg: rgba(42,38,33,.06);
-      --tab-active: rgba(42,38,33,.10);
-
-      /* Bottom sticky CTA */
-      --cta-h: 78px;
-
-      /* Card style */
-      --card-stroke: rgba(42,38,33,.42);
-      --card-radius: 18px;
+      /* Unified radius (same as service cards) */
+      --radius: 8px;
 
       /* spacing */
       --gap: 18px;
       --page-top: 22px;
+
+      /* Bottom sticky CTA */
+      --cta-h: 108px; /* increased because accordion lives here */
     }
 
     *{box-sizing:border-box}
@@ -63,7 +66,7 @@
       position:sticky;
       top:0;
       z-index:40;
-      background:rgba(239,231,218,.92);
+      background: rgba(235,227,213,.92);
       backdrop-filter: blur(10px);
       border-bottom:1px solid var(--line);
     }
@@ -89,7 +92,8 @@
       display:block;
       height: var(--logo-h);
       width:auto;
-      max-width: 340px;
+      max-width: 360px;
+      filter: none;
     }
 
     .brand-fallback{
@@ -111,20 +115,11 @@
       margin-top:6px;
     }
 
-    /* Top note (moved from footer) */
-    .top-note{
-      max-width: 46ch;
-      text-align:right;
-      color:var(--muted);
-      font-size:13px;
-      line-height:1.45;
-    }
-
     /* Tabs */
     .tabs-bar{
       border-top:1px solid var(--line);
       border-bottom:1px solid var(--line);
-      background:rgba(239,231,218,.75);
+      background: rgba(235,227,213,.76);
     }
     .tabs-inner{
       display:flex;
@@ -135,9 +130,9 @@
     .tab{
       appearance:none;
       border:1px solid var(--line);
-      background:var(--tab-bg);
+      background: rgba(31,31,31,.04);
       color:var(--ink);
-      border-radius:999px;
+      border-radius: var(--radius);
       padding:10px 14px;
       font-family:var(--sans);
       font-size:13px;
@@ -145,20 +140,21 @@
       cursor:pointer;
       line-height:1;
       white-space:nowrap;
+      transition: background .15s ease, border-color .15s ease;
     }
     .tab[aria-selected="true"]{
-      background:var(--tab-active);
-      border-color:var(--line-strong);
+      background: rgba(31,31,31,.08);
+      border-color: var(--line-strong);
     }
     .tab:focus-visible{
-      outline:2px solid rgba(42,38,33,.35);
+      outline:2px solid rgba(31,31,31,.28);
       outline-offset:2px;
     }
 
     /* PAGE */
     main{
       padding: var(--page-top) 0 44px;
-      padding-bottom: calc(44px + var(--cta-h) + 14px);
+      padding-bottom: calc(44px + var(--cta-h) + 16px);
     }
 
     /* Panels */
@@ -173,13 +169,13 @@
       align-items: start;
     }
 
-    /* Card */
+    /* Cards */
     .card{
-      border:1px solid var(--card-stroke);
-      border-radius: var(--card-radius);
-      background: rgba(255,255,255,.08);
+      border:1px solid rgba(31,31,31,.28);
+      border-radius: var(--radius);
+      background: rgba(255,255,255,.06);
       padding:22px 22px 18px;
-      box-shadow: 0 0 0 1px rgba(42,38,33,.05) inset;
+      box-shadow: 0 0 0 1px rgba(31,31,31,.04) inset;
     }
 
     /* Headings */
@@ -196,9 +192,9 @@
     }
     .flag .dot{
       width:8px; height:8px;
-      border-radius:999px;
-      border:1px solid var(--line-strong);
-      background: rgba(42,38,33,.10);
+      border-radius: 999px;
+      border:1px solid rgba(31,31,31,.32);
+      background: rgba(119,107,93,.22); /* nogal wash */
     }
 
     .h3{
@@ -207,6 +203,7 @@
       font-size:28px;
       line-height:1.08;
       margin:0 0 10px;
+      color: var(--ink);
     }
     .h3.big{ font-size:30px; }
 
@@ -215,7 +212,7 @@
       line-height:1.75;
       margin:0 0 14px;
       max-width:62ch;
-      color:var(--ink);
+      color: var(--ink);
     }
 
     .meta{
@@ -231,20 +228,20 @@
     .pill{
       display:inline-flex;
       align-items:center;
-      padding:7px 10px;
-      border-radius:999px;
+      padding:8px 10px;
+      border-radius: var(--radius);
       border:1px solid var(--line);
-      background:rgba(42,38,33,.04);
-      font-size:13px;
-      color:var(--muted);
+      background: rgba(31,31,31,.03);
+      font-size:14px;
+      color: #1f1f1f;
       white-space:nowrap;
     }
 
     .choice{
       font-family:var(--serif);
-      font-style:italic;
-      color:var(--muted);
-      font-size:13px;
+      font-style:medium;
+      color:#1f1f1f;
+      font-size:14px;
     }
 
     /* Ritual includes */
@@ -256,8 +253,8 @@
     .includes-title{
       font-family:var(--sans);
       font-size:12px;
-      letter-spacing:.06em;
-      text-transform:none; /* Case normal */
+      letter-spacing:.02em;
+      text-transform:none;
       color:var(--muted);
       margin-bottom:10px;
       font-weight:600;
@@ -275,14 +272,14 @@
     .includes-row strong{ font-weight:600; color:var(--ink); }
     .includes-time{ color:var(--muted); white-space:nowrap; }
 
-    .note{
-      display:block;
-      margin-top:10px;
-      font-style:italic;
-      color:var(--muted);
-      font-family:var(--serif);
-      font-size:14px;
-      line-height:1.35;
+    /* Inline note next to "Masaje relajante" (same line) */
+    .inline-note{
+      font-family: var(--serif);
+      font-style: italic;
+      color: var(--muted-2);
+      font-size: 13px;
+      margin-left: 6px;
+      white-space: nowrap;
     }
 
     /* BONO card */
@@ -311,14 +308,14 @@
       line-height:1.75;
     }
 
-    /* BOTTOM STICKY CTAs */
+    /* BOTTOM STICKY CTAs + accordion */
     .bottom-cta{
       position:fixed;
       left:0;
       right:0;
       bottom:0;
       z-index:50;
-      background:rgba(239,231,218,.92);
+      background: rgba(235,227,213,.92);
       backdrop-filter: blur(10px);
       border-top:1px solid var(--line);
     }
@@ -329,7 +326,6 @@
       grid-template-columns:1fr 1fr;
       gap:10px;
       align-items:center;
-      min-height: calc(var(--cta-h) - 24px);
     }
 
     .cta-btn{
@@ -337,7 +333,7 @@
       font-size:14px;
       font-weight:600;
       padding:12px 14px;
-      border-radius:999px;
+      border-radius: var(--radius);
       border:1px solid var(--line-strong);
       text-decoration:none;
       color:var(--ink);
@@ -350,32 +346,76 @@
       white-space:nowrap;
     }
     .cta-btn.primary{
-      background:var(--ink);
-      color:var(--paper);
-      border-color:var(--ink);
+      background: var(--veta);
+      color: var(--albura);
+      border-color: var(--veta);
+    }
+
+    /* Accordion under CTAs */
+    .price-accordion{
+      margin-top:10px;
+      border:1px solid var(--line);
+      border-radius: var(--radius);
+      background: rgba(255,255,255,.05);
+      overflow:hidden;
+    }
+    .price-accordion summary{
+      cursor:pointer;
+      list-style:none;
+      padding:10px 12px;
+      font-family:var(--sans);
+      font-size:13px;
+      font-weight:600;
+      color: var(--ink);
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+    }
+    .price-accordion summary::-webkit-details-marker{ display:none; }
+    .price-accordion summary .chev{
+      width:10px; height:10px;
+      border-right:2px solid rgba(31,31,31,.55);
+      border-bottom:2px solid rgba(31,31,31,.55);
+      transform: rotate(45deg);
+      transition: transform .18s ease;
+      margin-right:2px;
+      flex: 0 0 auto;
+    }
+    .price-accordion[open] summary .chev{
+      transform: rotate(225deg);
+    }
+    .price-accordion .content{
+      padding:0 12px 10px;
+      font-size:12.5px;
+      line-height:1.45;
+      color: var(--muted);
+      border-top:1px solid var(--line);
+      background: rgba(31,31,31,.02);
     }
 
     /* Responsive */
     @media (max-width: 980px){
       .grid-3{ grid-template-columns:1fr; gap:14px; }
-      .card{ padding:18px 18px 16px; border-radius: 16px; }
+      .card{ padding:18px 18px 16px; border-radius: var(--radius); }
       .h3{ font-size:26px; }
       .h3.big{ font-size:28px; }
-      .top-note{ text-align:left; max-width: none; }
+      .header-inner{ padding:14px 0; }
     }
 
     @media (max-width: 820px){
-      .header-inner{ padding:14px 0; flex-wrap:wrap; }
-      .top-note{ width:100%; }
+      .header-inner{ flex-wrap:wrap; }
       .tabs-inner{
         overflow:auto;
         -webkit-overflow-scrolling:touch;
       }
       .tab{ flex:0 0 auto; }
+      :root{ --cta-h: 148px; }
     }
 
     @media (max-width: 420px){
       .cta-inner{ grid-template-columns:1fr; }
+      :root{ --cta-h: 198px; }
     }
   </style>
 </head>
@@ -400,11 +440,6 @@
             <span class="word">ikigai</span>
             <span class="sub">CENTRO DE MASAJES</span>
           </div>
-        </div>
-
-        <!-- moved from footer -->
-        <div class="top-note">
-          Para conocer precios y disponibilidad, consúltanos en el centro o a través de WhatsApp.
         </div>
       </div>
     </div>
@@ -462,7 +497,6 @@
           </div>
         </article>
 
-        <!-- ✅ Californiano visible + HTML fixed -->
         <article class="card">
           <h3 class="h3">Masaje Californiano</h3>
           <p class="p">
@@ -566,20 +600,20 @@
               <div class="includes-time">40 min</div>
             </div>
 
-            <!-- ✅ changed time -->
+            <!-- Same line note -->
             <div class="includes-row">
-              <div><strong>Masaje relajante</strong></div>
+              <div>
+                <strong>Masaje relajante</strong>
+                <span style="color:var(--muted)">(Masajes realizados de forma consecutiva, no simultánea)</span>
+              </div>
               <div class="includes-time">25 min p/p</div>
             </div>
 
-            <!-- ✅ no dash + included -->
             <div class="includes-row">
               <div><strong>Bombones y Cava</strong> <span style="color:var(--muted)">(Incluidos)</span></div>
               <div class="includes-time"></div>
             </div>
           </div>
-
-          <span class="note">(Masajes realizados de forma consecutiva, no simultánea)</span>
         </article>
 
       </div>
@@ -621,9 +655,10 @@
   </div>
 </main>
 
-<!-- Bottom sticky CTAs -->
+<!-- Bottom sticky CTAs + accordion -->
 <nav class="bottom-cta" aria-label="Reservas">
   <div class="wrap">
+
     <div class="cta-inner">
       <a class="cta-btn primary" href="https://wa.me/34662447261" target="_blank" rel="noopener">
         Reservar por WhatsApp
@@ -632,6 +667,17 @@
         Reservar por correo
       </a>
     </div>
+
+    <details class="price-accordion">
+      <summary>
+        ¿Dónde puedo ver los precios?
+        <span class="chev" aria-hidden="true"></span>
+      </summary>
+      <div class="content">
+        Para conocer precios y disponibilidad, consúltanos en el centro o a través de WhatsApp.
+      </div>
+    </details>
+
   </div>
 </nav>
 
