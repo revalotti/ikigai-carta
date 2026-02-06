@@ -233,13 +233,13 @@
 
     .h3{
       font-family:var(--serif);
-      font-weight:600;
+      font-weight:400;
       font-size:28px;
       line-height:1.08;
       margin:0 0 10px;
       color: var(--ink);
     }
-    .h3.big{ font-size:30px; }
+    .h3.big{ font-size:28px; }
 
     .p{
       font-size:14px;
@@ -285,8 +285,8 @@
       padding-top:12px;
     }
     .includes-title{
-      font-family:var(--sans);
-      font-size:12px;
+      font-family:var(--serif);
+      font-size:16px;
       letter-spacing:.02em;
       text-transform:none;
       color:var(--muted);
@@ -294,17 +294,18 @@
       font-weight:600;
     }
     .includes-row{
+      font-family:var(--serif);
       display:flex;
       justify-content:space-between;
       gap:14px;
       padding:8px 0;
       border-bottom:1px solid var(--line);
-      font-size:14px;
-      line-height:1.35;
+      font-size:16px;
+      line-height:1.6;
     }
     .includes-row:last-child{ border-bottom:none; }
     .includes-row strong{ font-weight:600; color:var(--ink); }
-    .includes-time{ color:var(--muted); white-space:nowrap; }
+    .includes-time{ font-family:var(--sans); font-size:14px; color:var(--muted); white-space:nowrap; }
 
     /* Inline note next to "Masaje relajante" (same line) */
     .inline-note{
@@ -319,7 +320,7 @@
     /* BONO card */
     .bonus-title{
       font-family:var(--serif);
-      font-weight:600;
+      font-weight:400;
       font-size:28px;
       margin:0 0 10px;
     }
@@ -331,7 +332,7 @@
     .cond-title{
       font-family:var(--serif);
       font-style:italic;
-      color:var(--muted);
+      color:var(--ink);
       margin:0 0 10px;
     }
     .bullets{
@@ -346,8 +347,8 @@
     .cta-btn{
       font-family:var(--sans);
       font-size:14px;
-      font-weight:600;
-      padding:12px 14px;
+      font-weight:500;
+      padding:8px 16px;
       border-radius: var(--radius);
       border:1px solid var(--line-strong);
       text-decoration:none;
@@ -356,7 +357,7 @@
       display:inline-flex;
       align-items:center;
       justify-content:center;
-      min-height:48px;
+      min-height:44px;
       width:100%;
       white-space:nowrap;
     }
@@ -369,8 +370,8 @@
     /* Header reserve button */
     .reserve-btn{
       width:auto;
-      padding:12px 16px;
-      min-height:44px;
+      padding:8px 12px;
+      min-height:2px;
     }
 
     /* Modal */
@@ -619,7 +620,7 @@
             <div class="includes-title">Incluye</div>
 
             <div class="includes-row">
-              <div><strong>Bañera de Hidromasaje</strong><br><span style="color:var(--muted)">con aromaterapia</span></div>
+              <div><strong>Bañera de Hidromasaje<br><span>con aromaterapia</span></strong></div>
               <div class="includes-time">30 min</div>
             </div>
 
@@ -658,15 +659,14 @@
             <div class="includes-title">Incluye</div>
 
             <div class="includes-row">
-              <div><strong>Bañera de Hidromasaje</strong><br><span style="color:var(--muted)">con aromaterapia</span></div>
+              <div><strong>Bañera de Hidromasaje<br><span>con aromaterapia</span></strong></div>
               <div class="includes-time">40 min</div>
             </div>
 
             <!-- Same line note -->
             <div class="includes-row">
               <div>
-                <strong>Masaje relajante</strong>
-                <span style="color:var(--muted)">(Masajes realizados de forma consecutiva, no simultánea)</span>
+                <strong>Masaje relajante</strong><br><span style="color:var(--muted)">(Masajes realizados de forma consecutiva,</span> <br><span style="color:var(--muted)"> no simultánea)</span>
               </div>
               <div class="includes-time">25 min p/p</div>
             </div>
@@ -698,9 +698,10 @@
           <div class="divider"></div>
 
           <div class="meta" aria-label="Detalle del bono">
-            <span class="pill">Masaje tejido profundo</span>
-            <span class="pill">50 min</span>
+            
+            <span class="pill">Masaje de Tejido profundo</span>
             <span class="pill">4 sesiones</span>
+            <span class="pill">50 min cada sesión</span>
           </div>
 
           <div class="divider"></div>
@@ -712,7 +713,32 @@
             <li>Validez de 1 mes.</li>
           </ul>
         </article>
-      </div>
+      
+        <article class="card">
+          <h3 class="bonus-title">Bono regalo</h3>
+          <div class="includes"></div>
+
+          <p class="p">
+Este bono regalo está pensado para ofrecer una experiencia de cuidado y bienestar, un momento de pausa y conexión con el cuerpo en un entorno tranquilo y respetuoso.          </p>
+          <p class="p">
+Con este bono regalo podrás elegir entre todos los servicios disponibles o combinarlos entre sí, adaptando la experiencia a las necesidades y preferencias de cada persona.          </p>
+          
+          <div class="divider"></div>
+
+          <div class="meta" aria-label="Detalle del bono">
+            <span class="pill">Personalizalo en el momento de la reserva</span>
+                      </div>
+
+          <div class="divider"></div>
+
+          <div class="cond-title">Condiciones</div>
+          <ul class="bullets">
+            <li>Bono personal e intransferible.</li>
+            <li>Reserva previa obligatoria.</li>
+            <li>Validez de 1 año.</li>
+          </ul>
+        </article>
+        </div>
     </section>
 
   </div>
