@@ -127,16 +127,16 @@
       align-items:center;
       padding:12px 0;
     }
-    .tab{
+     .tab{
       appearance:none;
       border:1px solid var(--line);
       background: rgba(31,31,31,.04);
-      color:var(--ink);
+      color:var(--nogal);
       border-radius: var(--radius);
-      padding:10px 14px;
+      padding:10px 12px;
       font-family:var(--sans);
-      font-size:13px;
-      font-weight:500;
+      font-size:14px;
+      font-weight:400;
       cursor:pointer;
       line-height:1;
       white-space:nowrap;
@@ -144,10 +144,14 @@
     }
     .tab[aria-selected="true"]{
       background: rgba(31,31,31,.08);
-      border-color: var(--line-strong);
+      color:#776B5D;
+      border-color: var(--nogal);
+      font-family:var(--sans);
+      font-size:14px;
+      font-weight:500;
     }
     .tab:focus-visible{
-      outline:2px solid rgba(31,31,31,.28);
+      outline:4px solid rgba(31,31,31,.28);
       outline-offset:2px;
     }
 
