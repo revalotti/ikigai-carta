@@ -6,7 +6,7 @@
   <title>Ikigai · Carta de tratamientos</title>
   <meta name="description" content="Carta de tratamientos · Ikigai Centro de Masajes" />
 
-  <!-- Google Fonts -->
+  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -17,12 +17,25 @@
       --ink:#2a2621;
       --muted:#6e655c;
       --line:rgba(42,38,33,.28);
+      --line-strong:rgba(42,38,33,.35);
+
       --serif:"Playfair Display", Georgia, "Times New Roman", serif;
       --sans:"Poppins", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+
+      /* Layout rhythm */
+      --max:1120px;
+      --px:18px;
+
+      /* Logo sizing: consistent “space” per device */
+      --logo-h: clamp(44px, 6vw, 68px);
+
+      /* Tabs */
+      --tab-bg: rgba(42,38,33,.06);
+      --tab-active: rgba(42,38,33,.10);
     }
 
     *{box-sizing:border-box}
-
+    html, body { height: 100%; }
     body{
       margin:0;
       background:var(--paper);
@@ -32,57 +45,53 @@
       -webkit-font-smoothing:antialiased;
       -moz-osx-font-smoothing:grayscale;
     }
-
     a{color:inherit}
+    .wrap{ max-width:var(--max); margin:0 auto; padding:0 var(--px); }
 
     /* HEADER */
     .site-header{
       position:sticky;
       top:0;
-      z-index:10;
+      z-index:30;
       background:rgba(239,231,218,.92);
       backdrop-filter: blur(10px);
       border-bottom:1px solid var(--line);
     }
 
     .header-inner{
-      max-width:1120px;
-      margin:0 auto;
-      padding:14px 18px;
       display:flex;
       align-items:center;
       justify-content:space-between;
       gap:14px;
+      padding:16px 0;
+      min-height: calc(var(--logo-h) + 18px);
     }
 
-    /* Logo */
     .brand{
       display:flex;
       align-items:center;
       gap:12px;
-      min-width: 140px;
+      min-width: 180px;
     }
 
     .brand-logo{
       display:block;
-      height:120px;
+      height: var(--logo-h);
       width:auto;
+      max-width: 240px;
     }
 
-    /* Fallback text (si el svg no carga, se verá igual de elegante) */
     .brand-fallback{
       display:none;
       flex-direction:column;
       line-height:1;
     }
-
     .brand-fallback .word{
       font-family:var(--serif);
       font-weight:600;
       font-size:26px;
       letter-spacing:.2px;
     }
-
     .brand-fallback .sub{
       font-size:10px;
       letter-spacing:.18em;
@@ -103,7 +112,7 @@
       font-weight:500;
       padding:10px 14px;
       border-radius:999px;
-      border:1px solid var(--line);
+      border:1px solid var(--line-strong);
       text-decoration:none;
       color:var(--ink);
       background:transparent;
@@ -120,11 +129,46 @@
       border-color:var(--ink);
     }
 
+    /* TABS (just under header) */
+    .tabs-bar{
+      border-top:1px solid var(--line);
+      border-bottom:1px solid var(--line);
+      background:rgba(239,231,218,.75);
+    }
+
+    .tabs-inner{
+      display:flex;
+      gap:10px;
+      align-items:center;
+      padding:12px 0;
+    }
+
+    .tab{
+      appearance:none;
+      border:1px solid var(--line);
+      background:var(--tab-bg);
+      color:var(--ink);
+      border-radius:999px;
+      padding:10px 14px;
+      font-family:var(--sans);
+      font-size:13px;
+      font-weight:500;
+      cursor:pointer;
+      line-height:1;
+      white-space:nowrap;
+    }
+    .tab[aria-selected="true"]{
+      background:var(--tab-active);
+      border-color:var(--line-strong);
+    }
+    .tab:focus-visible{
+      outline:2px solid rgba(42,38,33,.35);
+      outline-offset:2px;
+    }
+
     /* PAGE */
-    .page{
-      max-width:1120px;
-      margin:0 auto;
-      padding:22px 18px 44px;
+    main{
+      padding:22px 0 44px;
     }
 
     .section-head{
@@ -152,29 +196,88 @@
       white-space:nowrap;
     }
 
-    /* Desktop grid */
     .grid-3{
       display:grid;
       grid-template-columns:repeat(3, 1fr);
       gap:42px;
     }
 
+    .item{ padding:0; }
+
     .h3{
       font-family:var(--serif);
       font-weight:600;
       font-size:28px;
-      line-height:1.1;
+      line-height:1.08;
       margin:0 0 10px;
     }
-
-    .h3.big{font-size:30px}
+    .h3.big{ font-size:30px; }
 
     .p{
       font-size:14px;
       line-height:1.75;
-      margin:0 0 16px;
+      margin:0 0 14px;
       max-width:62ch;
       color:var(--ink);
+    }
+
+    .meta{
+      display:flex;
+      gap:10px;
+      align-items:center;
+      flex-wrap:wrap;
+      margin-top:8px;
+      color:var(--muted);
+      font-size:13px;
+      font-family:var(--sans);
+    }
+
+    .pill{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:6px 10px;
+      border-radius:999px;
+      border:1px solid var(--line);
+      background:rgba(42,38,33,.04);
+      font-size:13px;
+      color:var(--muted);
+      white-space:nowrap;
+    }
+
+    .spacer-lg{ height:26px; }
+
+    /* Ritual includes */
+    .includes{
+      margin-top:10px;
+      border-top:1px solid var(--line);
+      padding-top:12px;
+    }
+    .includes-title{
+      font-family:var(--sans);
+      font-size:12px;
+      letter-spacing:.06em;
+      text-transform:uppercase;
+      color:var(--muted);
+      margin-bottom:10px;
+    }
+    .includes-row{
+      display:flex;
+      justify-content:space-between;
+      gap:14px;
+      padding:8px 0;
+      border-bottom:1px solid var(--line);
+      font-size:14px;
+      line-height:1.35;
+    }
+    .includes-row:last-child{ border-bottom:none; }
+    .includes-row strong{
+      font-weight:600;
+      color:var(--ink);
+    }
+    .includes-time{
+      color:var(--muted);
+      white-space:nowrap;
     }
 
     .note{
@@ -187,8 +290,6 @@
       line-height:1.35;
     }
 
-    .spacer-lg{height:26px}
-
     .info-footer{
       margin-top:34px;
       padding-top:16px;
@@ -198,75 +299,74 @@
       color:var(--muted);
     }
 
-    /* --- Mobile Optimization --- */
+    /* BONO block */
+    .bonus-card{
+      max-width: 760px;
+    }
+    .bonus-title{
+      font-family:var(--serif);
+      font-weight:600;
+      font-size:30px;
+      margin:0 0 10px;
+    }
+    .divider{
+      height:1px;
+      background:var(--line);
+      margin:18px 0;
+    }
+    .cond-title{
+      font-family:var(--serif);
+      font-style:italic;
+      color:var(--muted);
+      margin:0 0 10px;
+    }
+    .bullets{
+      margin:0;
+      padding-left:18px;
+      color:var(--ink);
+      font-size:14px;
+      line-height:1.75;
+    }
+
+    /* Panels */
+    .panel{ display:none; }
+    .panel[aria-hidden="false"]{ display:block; }
+
+    /* Responsive */
+    @media (max-width: 900px){
+      :root{ --px:16px; }
+      .grid-3{ grid-template-columns:1fr; gap:0; }
+      .grid-3 > .item{
+        padding:18px 0;
+        border-bottom:1px solid var(--line);
+      }
+      .grid-3 > .item:last-child{ border-bottom:none; }
+      .h3{ font-size:26px; }
+      .h3.big{ font-size:28px; }
+      .spacer-lg{ height:18px; }
+    }
+
     @media (max-width: 820px){
       .header-inner{
         flex-direction:column;
         align-items:stretch;
         gap:10px;
+        padding:14px 0;
       }
-
-      .brand{
-        justify-content:flex-start;
-      }
-
-      .brand-logo{
-        height:38px;
-      }
-
+      .brand{ justify-content:flex-start; min-width: 0; }
       .header-actions{
         display:grid;
         grid-template-columns:1fr 1fr;
         gap:10px;
       }
-
-      .btn{
-        width:100%;
-        min-height:46px;
-        font-size:14px;
-      }
-
-      .page{
-        padding:18px 16px 40px;
-      }
-
-      .grid-3{
-        grid-template-columns:1fr;
-        gap:0;
-      }
-
-      .grid-3 > div{
-        padding:18px 0;
-        border-bottom:1px solid var(--line);
-      }
-      .grid-3 > div:last-child{
-        border-bottom:none;
-      }
-
-      .h3{ font-size:26px; }
-      .h3.big{ font-size:28px; }
-
-      .p{
-        font-size:14px;
-        max-width:100%;
-      }
-
-      .spacer-lg{ height:18px; }
-
-      .info-footer{
-        margin-top:26px;
-        font-size:13px;
-        text-wrap:balance;
-      }
+      .btn{ width:100%; min-height:46px; font-size:14px; }
+      .tabs-inner{ overflow:auto; -webkit-overflow-scrolling:touch; }
+      .tabs-inner::-webkit-scrollbar{ height: 8px; }
+      .tab{ flex:0 0 auto; }
     }
 
-    /* Very small phones */
     @media (max-width: 420px){
-  .brand-logo{
-    height:48px;
-  }
-}
-
+      .header-actions{ grid-template-columns:1fr; }
     }
   </style>
 </head>
@@ -274,124 +374,300 @@
 <body>
 
 <header class="site-header">
-  <div class="header-inner">
+  <div class="wrap">
+    <div class="header-inner">
+      <div class="brand">
+        <img
+          class="brand-logo"
+          src="./assets/images/ikigai-logo.svg"
+          alt="Ikigai · Centro de Masajes"
+          loading="eager"
+          decoding="async"
+          onerror="this.style.display='none'; document.querySelector('.brand-fallback').style.display='flex';"
+        />
+        <div class="brand-fallback">
+          <span class="word">ikigai</span>
+          <span class="sub">CENTRO DE MASAJES</span>
+        </div>
+      </div>
 
-    <!-- ✅ Logo desde tu ruta -->
-    <div class="brand">
-      <img
-        class="brand-logo"
-        src="./assets/images/ikigai-logo.svg"
-        alt="Ikigai · Centro de Masajes"
-        loading="eager"
-        decoding="async"
-        onerror="this.style.display='none'; document.querySelector('.brand-fallback').style.display='flex';"
-      />
-
-      <!-- Fallback (solo se mostrará si el SVG no carga) -->
-      <div class="brand-fallback">
-        <span class="word">ikigai</span>
-        <span class="sub">CENTRO DE MASAJES</span>
+      <div class="header-actions">
+        <a class="btn primary" href="https://wa.me/34662447261" target="_blank" rel="noopener">
+          Reservar por WhatsApp
+        </a>
+        <a class="btn" href="mailto:centroikigai.masajes@gmail.com">
+          Reservar por correo
+        </a>
       </div>
     </div>
+  </div>
 
-    <div class="header-actions">
-      <a class="btn primary" href="https://wa.me/34662447261" target="_blank" rel="noopener">
-        Reservar por WhatsApp
-      </a>
-      <a class="btn" href="mailto:centroikigai.masajes@gmail.com">
-        Reservar por correo
-      </a>
+  <!-- Tabs just under header -->
+  <div class="tabs-bar" role="tablist" aria-label="Secciones de la carta">
+    <div class="wrap">
+      <div class="tabs-inner">
+        <button class="tab" role="tab" id="tab-masajes" aria-selected="true" aria-controls="panel-masajes" type="button">
+          Masajes terapéuticos
+        </button>
+        <button class="tab" role="tab" id="tab-rituales" aria-selected="false" aria-controls="panel-rituales" type="button">
+          Rituales
+        </button>
+        <button class="tab" role="tab" id="tab-bonos" aria-selected="false" aria-controls="panel-bonos" type="button">
+          Bonos
+        </button>
+      </div>
     </div>
-
   </div>
 </header>
 
-<main class="page">
+<main>
+  <div class="wrap">
 
-  <div class="section-head">
-    <div class="section-title">Masajes terapéuticos</div>
-    <div class="section-note">* Recomendado</div>
+    <!-- PANEL: MASAJES -->
+    <section class="panel" id="panel-masajes" role="tabpanel" aria-labelledby="tab-masajes" aria-hidden="false">
+      <div class="section-head">
+        <div class="section-title">Masajes terapéuticos</div>
+        <div class="section-note">* Recomendado</div>
+      </div>
+
+      <div class="grid-3">
+        <div class="item">
+          <h3 class="h3">Masaje relajante Ikigai</h3>
+          <p class="p">
+            Masaje suave y armonioso, ayuda a liberar el estrés, calmar la mente y relajar el cuerpo,
+            mejorando el descanso y recuperando la sensación de bienestar y equilibrio.
+          </p>
+          <div class="meta">
+            <span class="pill">30 min</span>
+            <span class="pill">50 min</span>
+          </div>
+
+          <div class="spacer-lg"></div>
+
+          <h3 class="h3">* Masaje de Tejido profundo</h3>
+          <p class="p">
+            Masaje enfocado en las capas más profundas del músculo, diseñado para liberar tensiones,
+            rigidez y nudos musculares. Ayuda a aliviar molestias persistentes, mejorar la movilidad y
+            devolver al cuerpo una sensación de ligereza.
+          </p>
+          <div class="meta">
+            <span class="pill">30 min</span>
+            <span class="pill">50 min</span>
+          </div>
+        </div>
+
+        <div class="item">
+          <h3 class="h3">Masaje Californiano</h3>
+          <p class="p">
+            Masaje fluido y envolvente, conocido como una danza sanadora, que favorece la conexión
+            cuerpo-mente, ayudando a soltar tensiones físicas y emocionales y a entrar en un profundo
+            estado de relajación.
+          </p>
+          <div class="meta">
+            <span class="pill">50 min</span>
+          </div>
+
+          <div class="spacer-lg"></div>
+
+          <h3 class="h3">Masaje con piedras calientes</h3>
+          <p class="p">
+            Masaje relajante que combina suaves movimientos con la aplicación de piedras volcánicas
+            sobre puntos estratégicos del cuerpo. Ayuda a soltar tensiones acumuladas, relajar la
+            musculatura y revitalizar la energía.
+          </p>
+          <div class="meta">
+            <span class="pill">60 min</span>
+          </div>
+        </div>
+
+        <div class="item">
+          <h3 class="h3">Masaje craneal Hindú</h3>
+          <p class="p">
+            Masaje tradicional de la India que combina presión y movimientos ágiles sobre cabeza,
+            cuello y hombros, ayuda a aliviar tensiones, reducir dolores de cabeza y estrés acumulado.
+          </p>
+          <div class="meta">
+            <span class="pill">30 min</span>
+          </div>
+
+          <div class="spacer-lg"></div>
+
+          <h3 class="h3">Reflexología + Masaje de pies</h3>
+          <p class="p">
+            Tratamiento que combina la estimulación de puntos reflejos con un masaje profundo de pies,
+            ayudando a liberar tensiones, mejorar la circulación y favorecer el equilibrio natural del
+            cuerpo, proporcionando una sensación de ligereza y renovación.
+          </p>
+          <div class="meta">
+            <span class="pill">40 min</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="info-footer">
+        Para conocer precios y disponibilidad, consúltanos en el centro o a través de WhatsApp.
+      </div>
+    </section>
+
+    <!-- PANEL: RITUALES -->
+    <section class="panel" id="panel-rituales" role="tabpanel" aria-labelledby="tab-rituales" aria-hidden="true">
+      <div class="section-head">
+        <div class="section-title">Rituales</div>
+        <div class="section-note">&nbsp;</div>
+      </div>
+
+      <div class="grid-3">
+        <div class="item">
+          <h3 class="h3 big">Ritual Ikigai</h3>
+
+          <div class="includes">
+            <div class="includes-title">Incluye</div>
+
+            <div class="includes-row">
+              <div><strong>Bañera de Hidromasaje</strong><br><span style="color:var(--muted)">con aromaterapia</span></div>
+              <div class="includes-time">30 min</div>
+            </div>
+
+            <div class="includes-row">
+              <div><strong>Masaje a elegir:</strong><br>Relajado o de Tejido profundo</div>
+              <div class="includes-time">50 min</div>
+            </div>
+
+            <div class="includes-row">
+              <div><strong>Tratamiento final a elegir:</strong><br>Mini facial o Masaje de pies</div>
+              <div class="includes-time">30 min</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="item">
+          <h3 class="h3 big">Ritual <em>Exprés</em> Ikigai</h3>
+
+          <div class="includes">
+            <div class="includes-title">Incluye</div>
+
+            <div class="includes-row">
+              <div><strong>Bañera de Hidromasaje</strong></div>
+              <div class="includes-time">25 min</div>
+            </div>
+
+            <div class="includes-row">
+              <div><strong>Masaje relajante localizado:</strong><br>espalda o piernas</div>
+              <div class="includes-time">25 min</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="item">
+          <h3 class="h3 big">Ritual Ikigai <em>en pareja</em></h3>
+
+          <div class="includes">
+            <div class="includes-title">Incluye</div>
+
+            <div class="includes-row">
+              <div><strong>Bañera de Hidromasaje</strong><br><span style="color:var(--muted)">con aromaterapia</span></div>
+              <div class="includes-time">40 min</div>
+            </div>
+
+            <div class="includes-row">
+              <div><strong>Masaje relajante</strong></div>
+              <div class="includes-time">50 min</div>
+            </div>
+
+            <div class="includes-row">
+              <div><strong>Bombones y Cava</strong></div>
+              <div class="includes-time">—</div>
+            </div>
+          </div>
+
+          <span class="note">(Masajes realizados de forma consecutiva, no simultánea)</span>
+        </div>
+      </div>
+
+      <div class="info-footer">
+        Para conocer precios y disponibilidad, consúltanos en el centro o a través de WhatsApp.
+      </div>
+    </section>
+
+    <!-- PANEL: BONOS -->
+    <section class="panel" id="panel-bonos" role="tabpanel" aria-labelledby="tab-bonos" aria-hidden="true">
+      <div class="section-head">
+        <div class="section-title">Bonos</div>
+        <div class="section-note">&nbsp;</div>
+      </div>
+
+      <div class="bonus-card">
+        <h3 class="bonus-title">Bono mensual</h3>
+
+        <p class="p">
+          Este bono está pensado para personas que sienten tensión y sobrecarga corporal que desean un espacio regular de cuidado.
+        </p>
+        <p class="p">
+          La continuidad de las sesiones favorece una mayor sensación de bienestar, ligereza y equilibrio, respetando siempre el ritmo del cuerpo
+        </p>
+
+        <div class="divider"></div>
+
+        <div class="meta" aria-label="Duración del servicio del bono">
+          <span class="pill">Masaje tejido profundo</span>
+          <span class="pill">50 min</span>
+          <span class="pill">4 sesiones</span>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="cond-title">Condiciones</div>
+        <ul class="bullets">
+          <li>Bono personal e intransferible.</li>
+          <li>Reserva previa.</li>
+          <li>Validez de 1 mes.</li>
+        </ul>
+
+        <div class="info-footer" style="text-align:left; margin-top:26px;">
+          Para conocer precios y disponibilidad, consúltanos en el centro o a través de WhatsApp.
+        </div>
+      </div>
+    </section>
+
   </div>
-
-  <div class="grid-3">
-    <div>
-      <h3 class="h3">Masaje relajante Ikigai</h3>
-      <p class="p">
-        Masaje suave y armonioso, ayuda a liberar el estrés, calmar la mente y relajar el cuerpo,
-        mejorando el descanso y recuperando la sensación de bienestar y equilibrio.
-      </p>
-
-      <div class="spacer-lg"></div>
-
-      <h3 class="h3">Masaje de Tejido profundo</h3>
-      <p class="p">
-        Masaje enfocado en las capas más profundas del músculo para liberar tensiones, rigidez y nudos musculares.
-        Ayuda a aliviar molestias persistentes, mejorar la movilidad y devolver al cuerpo una sensación de ligereza.
-      </p>
-    </div>
-
-    <div>
-      <h3 class="h3">Masaje Californiano</h3>
-      <p class="p">
-        Masaje fluido y envolvente, conocido como una danza sanadora, que favorece la conexión cuerpo-mente,
-        ayudando a soltar tensiones físicas y emocionales y a entrar en un profundo estado de relajación.
-      </p>
-
-      <div class="spacer-lg"></div>
-
-      <h3 class="h3">Masaje con piedras calientes</h3>
-      <p class="p">
-        Masaje relajante que combina suaves movimientos con la aplicación de piedras volcánicas sobre puntos estratégicos del cuerpo.
-        Ayuda a soltar tensiones acumuladas, relajar la musculatura y revitalizar la energía.
-      </p>
-    </div>
-
-    <div>
-      <h3 class="h3">Masaje craneal Hindú</h3>
-      <p class="p">
-        Masaje tradicional de la India que combina presión y movimientos ágiles sobre cabeza, cuello y hombros,
-        ayudando a aliviar tensiones, reducir dolores de cabeza y estrés acumulado.
-      </p>
-
-      <div class="spacer-lg"></div>
-
-      <h3 class="h3">Reflexología + Masaje de pies</h3>
-      <p class="p">
-        Tratamiento que combina la estimulación de puntos reflejos con un masaje profundo de pies,
-        ayudando a liberar tensiones, mejorar la circulación y favorecer el equilibrio natural del cuerpo.
-      </p>
-    </div>
-  </div>
-
-  <div class="section-head">
-    <div class="section-title">Rituales</div>
-  </div>
-
-  <div class="grid-3">
-    <div>
-      <h3 class="h3 big">Ritual Ikigai</h3>
-      <p class="p">Experiencia completa de relajación y equilibrio cuerpo–mente.</p>
-    </div>
-
-    <div>
-      <h3 class="h3 big">Ritual Exprés Ikigai</h3>
-      <p class="p">Momento de desconexión para quienes disponen de poco tiempo.</p>
-    </div>
-
-    <div>
-      <h3 class="h3 big">Ritual Ikigai en pareja</h3>
-      <p class="p">
-        Experiencia compartida diseñada para relajarse y conectar.
-        <span class="note">(Masajes consecutivos, no simultáneos)</span>
-      </p>
-    </div>
-  </div>
-
-  <footer class="info-footer">
-    Para conocer precios y disponibilidad, consúltanos en el centro o a través de WhatsApp.
-  </footer>
-
 </main>
+
+<script>
+  (function(){
+    const tabs = Array.from(document.querySelectorAll('[role="tab"]'));
+    const panels = tabs.map(t => document.getElementById(t.getAttribute('aria-controls')));
+
+    function setActive(tab){
+      tabs.forEach((t, i) => {
+        const active = t === tab;
+        t.setAttribute('aria-selected', active ? 'true' : 'false');
+        panels[i].setAttribute('aria-hidden', active ? 'false' : 'true');
+      });
+
+      // Optional: keep URL hash for sharing
+      const id = tab.id.replace('tab-','');
+      history.replaceState(null, '', '#' + id);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    tabs.forEach(t => {
+      t.addEventListener('click', () => setActive(t));
+      t.addEventListener('keydown', (e) => {
+        const idx = tabs.indexOf(t);
+        if(e.key === 'ArrowRight'){ e.preventDefault(); tabs[(idx+1)%tabs.length].focus(); }
+        if(e.key === 'ArrowLeft'){ e.preventDefault(); tabs[(idx-1+tabs.length)%tabs.length].focus(); }
+        if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); setActive(t); }
+      });
+    });
+
+    // Open correct tab by hash
+    const hash = (location.hash || '').replace('#','').trim();
+    if(hash){
+      const target = document.getElementById('tab-' + hash);
+      if(target) setActive(target);
+    }
+  })();
+</script>
 
 </body>
 </html>
