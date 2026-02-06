@@ -17,7 +17,7 @@
       --ink:#2a2621;
       --muted:#6e655c;
       --line:rgba(42,38,33,.28);
-      --line-strong:rgba(42,38,33,.35);
+      --line-strong:rgba(42,38,33,.38);
 
       --serif:"Playfair Display", Georgia, "Times New Roman", serif;
       --sans:"Poppins", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
@@ -25,8 +25,8 @@
       --max:1120px;
       --px:18px;
 
-      /* ✅ Bigger + responsive logo for more presence */
-      --logo-h: clamp(56px, 7vw, 88px);
+      /* Logo size (protagonist) */
+      --logo-h: clamp(58px, 7.5vw, 92px);
 
       /* Tabs */
       --tab-bg: rgba(42,38,33,.06);
@@ -34,6 +34,11 @@
 
       /* Bottom sticky CTA */
       --cta-h: 78px;
+
+      /* Card style (rounded boxes like your reference) */
+      --card-bg: rgba(239,231,218,.35);
+      --card-stroke: rgba(42,38,33,.42);
+      --card-radius: 18px;
     }
 
     *{box-sizing:border-box}
@@ -86,7 +91,7 @@
       display:block;
       height: var(--logo-h);
       width:auto;
-      max-width: 280px;
+      max-width: 300px;
     }
 
     .brand-fallback{
@@ -150,42 +155,47 @@
        ========================= */
     main{
       padding:22px 0 44px;
-      /* ✅ leave room so content isn't hidden behind bottom CTA */
       padding-bottom: calc(44px + var(--cta-h) + 14px);
     }
 
-    .section-head{
-      display:flex;
-      align-items:baseline;
-      justify-content:space-between;
-      gap:12px;
-      padding:10px 0 12px;
-      border-top:1px solid var(--line);
-      border-bottom:1px solid var(--line);
-      margin:18px 0 18px;
-    }
+    /* Panels */
+    .panel{ display:none; }
+    .panel[aria-hidden="false"]{ display:block; }
 
-    .section-title{
-      font-family:var(--serif);
-      font-style:italic;
-      font-size:18px;
-      color:var(--muted);
-    }
-
-    .section-note{
-      font-family:var(--serif);
-      color:var(--muted);
-      font-size:14px;
-      white-space:nowrap;
-    }
-
+    /* Grid -> cards */
     .grid-3{
       display:grid;
       grid-template-columns:repeat(3, 1fr);
-      gap:42px;
+      gap:18px;
     }
 
-    .item{ padding:0; }
+    /* Rounded service card */
+    .card{
+      border:1px solid var(--card-stroke);
+      border-radius: var(--card-radius);
+      background: rgba(255,255,255,.08);
+      padding:22px 22px 18px;
+      box-shadow: 0 0 0 1px rgba(42,38,33,.06) inset;
+    }
+
+    /* Card headings */
+    .flag{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      margin-bottom:10px;
+      color:var(--muted);
+      font-size:12px;
+      letter-spacing:.06em;
+      text-transform:uppercase;
+      font-weight:600;
+    }
+    .flag .dot{
+      width:8px; height:8px;
+      border-radius:999px;
+      border:1px solid var(--line-strong);
+      background: rgba(42,38,33,.10);
+    }
 
     .h3{
       font-family:var(--serif);
@@ -204,22 +214,22 @@
       color:var(--ink);
     }
 
+    /* Time / selectable time copy */
     .meta{
       display:flex;
       gap:10px;
       align-items:center;
       flex-wrap:wrap;
-      margin-top:8px;
+      margin-top:10px;
       color:var(--muted);
       font-size:13px;
-      font-family:var(--sans);
     }
 
     .pill{
       display:inline-flex;
       align-items:center;
       gap:8px;
-      padding:6px 10px;
+      padding:7px 10px;
       border-radius:999px;
       border:1px solid var(--line);
       background:rgba(42,38,33,.04);
@@ -228,11 +238,16 @@
       white-space:nowrap;
     }
 
-    .spacer-lg{ height:26px; }
+    .choice{
+      font-family:var(--serif);
+      font-style:italic;
+      color:var(--muted);
+      font-size:13px;
+    }
 
-    /* Ritual includes */
+    /* Ritual includes inside card */
     .includes{
-      margin-top:10px;
+      margin-top:12px;
       border-top:1px solid var(--line);
       padding-top:12px;
     }
@@ -243,6 +258,7 @@
       text-transform:uppercase;
       color:var(--muted);
       margin-bottom:10px;
+      font-weight:600;
     }
     .includes-row{
       display:flex;
@@ -274,7 +290,7 @@
     }
 
     .info-footer{
-      margin-top:34px;
+      margin-top:22px;
       padding-top:16px;
       border-top:1px solid var(--line);
       text-align:center;
@@ -282,10 +298,7 @@
       color:var(--muted);
     }
 
-    /* BONO block */
-    .bonus-card{
-      max-width: 760px;
-    }
+    /* BONO block card tweaks */
     .bonus-title{
       font-family:var(--serif);
       font-weight:600;
@@ -310,10 +323,6 @@
       font-size:14px;
       line-height:1.75;
     }
-
-    /* Panels */
-    .panel{ display:none; }
-    .panel[aria-hidden="false"]{ display:block; }
 
     /* =========================
        BOTTOM STICKY CTAs
@@ -368,15 +377,10 @@
     /* Responsive */
     @media (max-width: 900px){
       :root{ --px:16px; }
-      .grid-3{ grid-template-columns:1fr; gap:0; }
-      .grid-3 > .item{
-        padding:18px 0;
-        border-bottom:1px solid var(--line);
-      }
-      .grid-3 > .item:last-child{ border-bottom:none; }
+      .grid-3{ grid-template-columns:1fr; gap:14px; }
       .h3{ font-size:26px; }
       .h3.big{ font-size:28px; }
-      .spacer-lg{ height:18px; }
+      .card{ padding:18px 18px 16px; border-radius: 16px; }
     }
 
     @media (max-width: 820px){
@@ -389,21 +393,17 @@
       }
       .tabs-inner::-webkit-scrollbar{ height: 8px; }
       .tab{ flex:0 0 auto; }
-
-      /* bottom cta stays 2 columns on normal phones */
     }
 
     @media (max-width: 420px){
-      .cta-inner{
-        grid-template-columns:1fr;
-      }
+      .cta-inner{ grid-template-columns:1fr; }
     }
   </style>
 </head>
 
 <body>
 
-<!-- ✅ TOP STICKY (logo + tabs) -->
+<!-- TOP STICKY (logo + tabs) -->
 <div class="top-sticky">
   <header class="site-header">
     <div class="wrap">
@@ -449,13 +449,10 @@
 
     <!-- PANEL: MASAJES -->
     <section class="panel" id="panel-masajes" role="tabpanel" aria-labelledby="tab-masajes" aria-hidden="false">
-      <div class="section-head">
-        <div class="section-title">Masajes terapéuticos</div>
-        <div class="section-note">* Recomendado</div>
-      </div>
 
       <div class="grid-3">
-        <div class="item">
+
+        <article class="card">
           <h3 class="h3">Masaje relajante Ikigai</h3>
           <p class="p">
             Masaje suave y armonioso, ayuda a liberar el estrés, calmar la mente y relajar el cuerpo,
@@ -464,11 +461,13 @@
           <div class="meta">
             <span class="pill">30 min</span>
             <span class="pill">50 min</span>
+            <span class="choice">Duración a elegir.</span>
           </div>
+        </article>
 
-          <div class="spacer-lg"></div>
-
-          <h3 class="h3">* Masaje de Tejido profundo</h3>
+        <article class="card">
+          <div class="flag"><span class="dot"></span>Recomendado</div>
+          <h3 class="h3">Masaje de Tejido profundo</h3>
           <p class="p">
             Masaje enfocado en las capas más profundas del músculo, diseñado para liberar tensiones,
             rigidez y nudos musculares. Ayuda a aliviar molestias persistentes, mejorar la movilidad y
@@ -477,10 +476,11 @@
           <div class="meta">
             <span class="pill">30 min</span>
             <span class="pill">50 min</span>
+            <span class="choice">Duración a elegir.</span>
           </div>
-        </div>
+        </article>
 
-        <div class="item">
+        <article class="card">
           <h3 class="h3">Masaje Californiano</h3>
           <p class="p">
             Masaje fluido y envolvente, conocido como una danza sanadora, que favorece la conexión
@@ -490,9 +490,9 @@
           <div class="meta">
             <span class="pill">50 min</span>
           </div>
+        </article>
 
-          <div class="spacer-lg"></div>
-
+        <article class="card">
           <h3 class="h3">Masaje con piedras calientes</h3>
           <p class="p">
             Masaje relajante que combina suaves movimientos con la aplicación de piedras volcánicas
@@ -502,9 +502,9 @@
           <div class="meta">
             <span class="pill">60 min</span>
           </div>
-        </div>
+        </article>
 
-        <div class="item">
+        <article class="card">
           <h3 class="h3">Masaje craneal Hindú</h3>
           <p class="p">
             Masaje tradicional de la India que combina presión y movimientos ágiles sobre cabeza,
@@ -513,9 +513,9 @@
           <div class="meta">
             <span class="pill">30 min</span>
           </div>
+        </article>
 
-          <div class="spacer-lg"></div>
-
+        <article class="card">
           <h3 class="h3">Reflexología + Masaje de pies</h3>
           <p class="p">
             Tratamiento que combina la estimulación de puntos reflejos con un masaje profundo de pies,
@@ -525,7 +525,8 @@
           <div class="meta">
             <span class="pill">40 min</span>
           </div>
-        </div>
+        </article>
+
       </div>
 
       <div class="info-footer">
@@ -535,13 +536,10 @@
 
     <!-- PANEL: RITUALES -->
     <section class="panel" id="panel-rituales" role="tabpanel" aria-labelledby="tab-rituales" aria-hidden="true">
-      <div class="section-head">
-        <div class="section-title">Rituales</div>
-        <div class="section-note">&nbsp;</div>
-      </div>
 
       <div class="grid-3">
-        <div class="item">
+
+        <article class="card">
           <h3 class="h3 big">Ritual Ikigai</h3>
 
           <div class="includes">
@@ -562,9 +560,9 @@
               <div class="includes-time">30 min</div>
             </div>
           </div>
-        </div>
+        </article>
 
-        <div class="item">
+        <article class="card">
           <h3 class="h3 big">Ritual <em>Exprés</em> Ikigai</h3>
 
           <div class="includes">
@@ -580,9 +578,9 @@
               <div class="includes-time">25 min</div>
             </div>
           </div>
-        </div>
+        </article>
 
-        <div class="item">
+        <article class="card">
           <h3 class="h3 big">Ritual Ikigai <em>en pareja</em></h3>
 
           <div class="includes">
@@ -605,7 +603,8 @@
           </div>
 
           <span class="note">(Masajes realizados de forma consecutiva, no simultánea)</span>
-        </div>
+        </article>
+
       </div>
 
       <div class="info-footer">
@@ -615,48 +614,46 @@
 
     <!-- PANEL: BONOS -->
     <section class="panel" id="panel-bonos" role="tabpanel" aria-labelledby="tab-bonos" aria-hidden="true">
-      <div class="section-head">
-        <div class="section-title">Bonos</div>
-        <div class="section-note">&nbsp;</div>
+
+      <div class="grid-3" style="grid-template-columns:1fr; max-width:820px;">
+        <article class="card">
+          <h3 class="bonus-title">Bono mensual</h3>
+
+          <p class="p">
+            Este bono está pensado para personas que sienten tensión y sobrecarga corporal que desean un espacio regular de cuidado.
+          </p>
+          <p class="p">
+            La continuidad de las sesiones favorece una mayor sensación de bienestar, ligereza y equilibrio, respetando siempre el ritmo del cuerpo
+          </p>
+
+          <div class="divider"></div>
+
+          <div class="meta" aria-label="Detalle del bono">
+            <span class="pill">Masaje tejido profundo</span>
+            <span class="pill">50 min</span>
+            <span class="pill">4 sesiones</span>
+          </div>
+
+          <div class="divider"></div>
+
+          <div class="cond-title">Condiciones</div>
+          <ul class="bullets">
+            <li>Bono personal e intransferible.</li>
+            <li>Reserva previa.</li>
+            <li>Validez de 1 mes.</li>
+          </ul>
+        </article>
       </div>
 
-      <div class="bonus-card">
-        <h3 class="bonus-title">Bono mensual</h3>
-
-        <p class="p">
-          Este bono está pensado para personas que sienten tensión y sobrecarga corporal que desean un espacio regular de cuidado.
-        </p>
-        <p class="p">
-          La continuidad de las sesiones favorece una mayor sensación de bienestar, ligereza y equilibrio, respetando siempre el ritmo del cuerpo
-        </p>
-
-        <div class="divider"></div>
-
-        <div class="meta" aria-label="Duración del servicio del bono">
-          <span class="pill">Masaje tejido profundo</span>
-          <span class="pill">50 min</span>
-          <span class="pill">4 sesiones</span>
-        </div>
-
-        <div class="divider"></div>
-
-        <div class="cond-title">Condiciones</div>
-        <ul class="bullets">
-          <li>Bono personal e intransferible.</li>
-          <li>Reserva previa.</li>
-          <li>Validez de 1 mes.</li>
-        </ul>
-
-        <div class="info-footer" style="text-align:left; margin-top:26px;">
-          Para conocer precios y disponibilidad, consúltanos en el centro o a través de WhatsApp.
-        </div>
+      <div class="info-footer">
+        Para conocer precios y disponibilidad, consúltanos en el centro o a través de WhatsApp.
       </div>
     </section>
 
   </div>
 </main>
 
-<!-- ✅ Bottom sticky CTAs -->
+<!-- Bottom sticky CTAs -->
 <nav class="bottom-cta" aria-label="Reservas">
   <div class="wrap">
     <div class="cta-inner">
@@ -683,6 +680,7 @@
       });
 
       const id = tab.id.replace('tab-','');
+      history.replaceState(null, '', '#' 기억);
       history.replaceState(null, '', '#' + id);
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
