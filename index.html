@@ -221,7 +221,7 @@
     .card-flag{
       display:block;
       font-family:var(--serif);
-      font-size:14px;
+      font-size:16px;
       color:var(--nogal);
       margin: 2px 0 10px;
     }
@@ -299,7 +299,7 @@
 
     .h3{
       font-family:var(--serif);
-      font-weight:400;
+      font-weight:500;
       font-size:28px;
       line-height:1.08;
       margin:0 0 10px;
@@ -366,8 +366,8 @@
       gap:15px;
       padding:8px 0;
       border-bottom:1px solid var(--line);
-      font-size:16px;
-      line-height:1.6;
+      font-size:18px;
+      line-height:1.4;
     }
     .includes-row:last-child{ border-bottom:none; }
     .includes-row strong{ font-weight:600; color:var(--ink); }
@@ -442,6 +442,18 @@
       min-height:44px;
       cursor:pointer;
     }
+    .contact-btn{
+      width:auto;
+      padding:8px 12px;
+      min-height:44px;
+      cursor:pointer;
+      background: transparent;
+    }
+    @media (max-width:480px){
+      .header-inner{ gap:10px; }
+      .contact-btn{ padding:8px 10px; }
+      .reserve-btn{ padding:8px 10px; }
+    }
 
     /* Modal */
     .modal{
@@ -475,7 +487,7 @@
     .modal-title{
       font-family: var(--serif);
       font-weight:600;
-      font-size:22px;
+      font-size:28px;
       margin:0 0 10px;
     }
     .modal-body{
@@ -592,13 +604,36 @@
     @media (max-width: 820px){
       #panel-bonos .grid-3 > .card{ flex-basis: 100%; }
     }
-
-    /* Keep Playfair Display only for Bonos (premium) */
-    #panel-bonos .h3,
-    #panel-bonos .cond-title,
-    #panel-bonos .bullets,
-    #panel-bonos .p{
+    /* Bonos text styles (editable) */
+    #panel-bonos .bonos-title{
       font-family: var(--serif-display);
+      font-weight:500;
+      font-size:24px;
+      line-height:1.08;
+      margin:0 0 10px;
+      color: var(--ink);
+    }
+    #panel-bonos .bonos-text{
+      font-family: var(--sans);
+      font-size:14px;
+      line-height:1.75;
+      margin:0 0 14px;
+      max-width:62ch;
+      color: var(--ink);
+    }
+    #panel-bonos .bonos-conditions-title{
+      font-family: var(--serif-display);
+      font-style: italic;
+      color: var(--ink);
+      margin:0 0 10px;
+    }
+    #panel-bonos .bonos-bullets{
+      font-family: var(--sans);
+      margin:0;
+      padding-left:18px;
+      color: var(--ink);
+      font-size:14px;
+      line-height:1.75;
     }
 
     .bonus-highlight{
@@ -607,29 +642,16 @@
       border-radius: var(--radius);
       background: rgba(31,31,31,.03);
       padding:12px 16px;
-      display:flex;
-      align-items:flex-start;
-      justify-content:space-between;
-      gap:12px;
-    }
-    .bonus-highlight strong{
-      font-family: var(--sans);
-      font-size:13px;
-      letter-spacing:.06em;
-      text-transform:uppercase;
-      color: var(--muted);
-      font-weight:600;
-      white-space:nowrap;
+      border-left: 4px solid var(--nogal);
     }
     .bonus-highlight span{
+      display:block;
       font-family: var(--sans);
       font-size:14px;
       color: var(--ink);
-      line-height:1.4;
-      text-align:right;
+      line-height:1.45;
     }
-
-    /* Sticky accordion (precios) */
+/* Sticky accordion (precios) */
     .sticky-accordion{
       position:fixed;
       left:0;
@@ -694,6 +716,63 @@
       color: var(--nogal);
     }
 
+
+    /* Header actions (Reservar + Contáctanos) */
+    .header-actions{
+      display:flex;
+      align-items:center;
+      gap:16px;
+      flex:0 0 auto;
+    }
+/* Footer */
+.site-footer{
+  border-top:1px solid var(--line);
+  background: rgba(235,227,213,.76);
+  padding:22px 0 28px;
+  text-align:center;
+}
+.site-footer p{
+  margin:0;
+  font-size:13px;
+  line-height:1.6;
+  color: var(--muted);
+  text-align:center;
+}
+.footer-top,
+.footer-bottom{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:12px;
+}
+.footer-prices,
+.footer-rights{
+  max-width: 78ch;
+}
+.footer-actions{
+  width:auto;
+  display:flex;
+  justify-content:center;
+}
+.footer-contact-btn{
+  width:auto;
+  min-width: 220px;
+}
+.footer-divider{
+  height:1px;
+  width:100%;
+  background: var(--line);
+  margin:18px 0;
+}
+@media (max-width: 640px){
+  .footer-actions{ width:100%; }
+  .footer-contact-btn{
+    width:100%;
+    min-width: 0;
+  }
+}
+      .footer-actions{ justify-content:flex-start; }
+    }
   </style>
 </head>
 <body>
@@ -709,9 +788,11 @@
 <span class="sub">CENTRO DE MASAJES</span>
 </div>
 </div>
+<div class="header-actions">
 <button aria-controls="reserve-modal" aria-haspopup="dialog" class="cta-btn primary reserve-btn" id="open-reserve" type="button">
           Reservar
         </button>
+</div>
 </div>
 </div>
 </header>
@@ -862,7 +943,7 @@
 <div class="includes-time">25 min p/p</div>
 </div>
 <div class="includes-row">
-<div><strong>Bombones y Cava</strong> <span style="color:var(--muted)">(Incluidos)</span></div>
+<div><strong>Bombones y Cava</strong></div>
 <div class="includes-time"></div>
 </div>
 </div>
@@ -873,42 +954,40 @@
 <section aria-hidden="true" aria-labelledby="tab-bonos" class="panel" id="panel-bonos" role="tabpanel">
 <div class="grid-3">
 <article class="card">
-<h3 class="h3">Bono mensual</h3>
+<h3 class="h3 bonos-title">Bono mensual</h3>
 <div class="includes"></div>
-<p class="p">
+<p class="p bonos-text">
             Este bono está pensado para personas que sienten tensión y sobrecarga corporal que desean un espacio regular de cuidado.
           </p>
-<p class="p">
+<p class="p bonos-text">
             La continuidad de las sesiones favorece una mayor sensación de bienestar, ligereza y equilibrio, respetando siempre el ritmo del cuerpo
           </p>
 <div class="divider"></div>
 <div aria-label="Detalle del bono" class="bonus-highlight">
-<strong>Incluye</strong>
 <span>4 sesiones · Masaje de Tejido profundo (50 min por sesión)</span>
 </div>
 <div class="divider"></div>
-<div class="cond-title">Condiciones</div>
-<ul class="bullets">
+<div class="cond-title bonos-conditions-title">Condiciones</div>
+<ul class="bullets bonos-bullets">
 <li>Bono personal e intransferible.</li>
 <li>Reserva previa.</li>
 <li>Validez de 1 mes.</li>
 </ul>
 </article>
 <article class="card">
-<h3 class="h3">Bono regalo</h3>
+<h3 class="h3 bonos-title">Bono regalo</h3>
 <div class="includes"></div>
-<p class="p">
+<p class="p bonos-text">
 Este bono regalo está pensado para ofrecer una experiencia de cuidado y bienestar, un momento de pausa y conexión con el cuerpo en un entorno tranquilo y respetuoso.          </p>
-<p class="p">
+<p class="p bonos-text">
 Con este bono regalo podrás elegir entre todos los servicios disponibles o combinarlos entre sí, adaptando la experiencia a las necesidades y preferencias de cada persona.          </p>
 <div class="divider"></div>
 <div aria-label="Detalle del bono" class="bonus-highlight">
-<strong>Destacado</strong>
 <span>Personalízalo en el momento de la reserva</span>
 </div>
 <div class="divider"></div>
-<div class="cond-title">Condiciones</div>
-<ul class="bullets">
+<div class="cond-title bonos-conditions-title">Condiciones</div>
+<ul class="bullets bonos-bullets">
 <li>Bono personal e intransferible.</li>
 <li>Reserva previa obligatoria.</li>
 <li>Validez de 1 año.</li>
@@ -918,6 +997,24 @@ Con este bono regalo podrás elegir entre todos los servicios disponibles o comb
 </section>
 </div>
 </main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-top">
+      <p class="footer-prices">Para conocer los precios de los servicios, contacta con nosotros mediante WhatsApp o correo.</p>
+      <div class="footer-actions">
+        <button aria-controls="consult-modal" aria-haspopup="dialog" class="cta-btn secondary contact-btn footer-contact-btn" id="open-contact-footer" type="button">Contáctanos</button>
+      </div>
+    </div>
+
+    <div class="footer-divider" role="presentation"></div>
+
+    <div class="footer-bottom">
+      <p class="footer-rights">Todos los derechos reservados para Ikigai · Centro de Masajes</p>
+    </div>
+  </div>
+</footer>
+
 <!-- Reserve modal -->
 <div aria-hidden="true" aria-labelledby="reserve-title" aria-modal="true" class="modal" id="reserve-modal" role="dialog">
 <div class="modal-backdrop" data-close="true"></div>
@@ -929,7 +1026,7 @@ Con este bono regalo podrás elegir entre todos los servicios disponibles o comb
 <p class="modal-body">¿Ya sabes lo que quieres? Selecciona el servicio y una preferencia de día y hora. Confirmaremos disponibilidad lo antes posible.</p>
 <div aria-label="Preferencias de reserva" class="reserve-form">
 <label class="rf">
-<span>Servicio</span>
+<span>Tratamiento</span>
 <select id="rf-service">
 <option disabled="" selected="" value="">Selecciona un servicio</option>
 <option>Masaje relajante Ikigai</option>
@@ -947,7 +1044,7 @@ Con este bono regalo podrás elegir entre todos los servicios disponibles o comb
 </label>
 <div class="reserve-grid">
 <label class="rf">
-<span>Día</span>
+<span>Fecha</span>
 <input id="rf-day" type="date"/>
 </label>
 <label class="rf">
@@ -973,23 +1070,6 @@ Con este bono regalo podrás elegir entre todos los servicios disponibles o comb
 </div>
 </div>
 </div>
-<!-- Sticky accordion (precios) -->
-<div class="sticky-accordion" id="prices-accordion">
-<div class="wrap">
-<button aria-controls="acc-panel" aria-expanded="false" class="acc-toggle" id="acc-toggle" type="button">
-<span>¿Dónde puedo consultar precios?</span>
-<span aria-hidden="true" class="chev"></span>
-</button>
-<div aria-label="Información de precios" class="acc-panel" id="acc-panel" role="region">
-<div class="acc-content">
-<p class="acc-text">Para conocer precios y disponibilidad, contáctanos por WhatsApp o correo y te responderemos lo antes posible.</p>
-<button aria-controls="consult-modal" aria-haspopup="dialog" class="cta-btn secondary" id="open-consult" type="button">
-          Contáctanos
-        </button>
-</div>
-</div>
-</div>
-</div>
 <!-- Consult modal -->
 <div aria-hidden="true" aria-labelledby="consult-title" aria-modal="true" class="modal" id="consult-modal" role="dialog">
 <div class="modal-backdrop" data-close="true"></div>
@@ -997,14 +1077,14 @@ Con este bono regalo podrás elegir entre todos los servicios disponibles o comb
 <button aria-label="Cerrar" class="modal-close" data-close="true" type="button">
 <span aria-hidden="true" class="x"></span>
 </button>
-<h2 class="modal-title" id="consult-title">Consultar</h2>
-<p class="modal-body">¿Quieres saber más antes de reservar? Pide más información sobre nosotros o nuestros servicios.</p>
+<h2 class="modal-title" id="consult-title">Contáctanos</h2>
+<p class="modal-body">Si quieres saber más información sobre nosotros o nuestros servicios, puedes hacerlo pulsando abajo, mediante Whatsapp o correo.</p>
 <div class="modal-actions">
 <a class="cta-btn primary" href="#" id="consult-whatsapp" rel="noopener" target="_blank">
-        Consultar por WhatsApp
+        WhatsApp
       </a>
 <a class="cta-btn" href="#" id="consult-email">
-        Consultar por correo
+        Correo
       </a>
 </div>
 </div>
@@ -1047,7 +1127,11 @@ Con este bono regalo podrás elegir entre todos los servicios disponibles o comb
   (function(){
     const openBtn = document.getElementById('open-reserve');
     const modal = document.getElementById('reserve-modal');
-    const consultOpenBtn = document.getElementById('open-consult');
+    const consultOpenBtns = [
+      document.getElementById('open-contact'),
+      document.getElementById('open-contact-footer'),
+      document.getElementById('open-consult')
+    ].filter(Boolean);
     const consultModal = document.getElementById('consult-modal');
     const focusablesSelector = 'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])';
     let lastActive = null;
@@ -1067,27 +1151,21 @@ Con este bono regalo podrás elegir entre todos los servicios disponibles o comb
     }
 
     function buildMessage(){
-      const service = get('rf-service')?.value || "";
-      const day = formatDateES(get('rf-day')?.value || "");
-      const time = get('rf-time')?.value || "";
+  const service = get('rf-service')?.value || "";
+  const day = formatDateES(get('rf-day')?.value || "");
+  const time = get('rf-time')?.value || "";
 
-      // Use simple, widely-supported emojis to avoid issues in WhatsApp/email clients
-      const EMOJI_SERVICE = "💆";
-      const EMOJI_DATE = "📅";
-      const EMOJI_TIME = "⏳";
-      const EMOJI_THANKS = "🌿";
+  const lines = [];
+  lines.push("Hola, me gustaría hacer la siguiente reserva:");
+  lines.push("");
+  if(service) lines.push(`Tratamiento - ${service}`);
+  if(day) lines.push(`Fecha - ${day}`);
+  if(time) lines.push(`Hora - ${time}`);
+  lines.push("");
+  lines.push("Gracias");
 
-      const lines = [];
-      lines.push("Hola, me gustaría hacer la siguiente reserva:");
-      lines.push("");
-      if(service) lines.push(`${EMOJI_SERVICE} ${service}`);
-      if(day) lines.push(`${EMOJI_DATE} ${day}`);
-      if(time) lines.push(`${EMOJI_TIME} ${time}`);
-      lines.push("");
-      lines.push(`Gracias ${EMOJI_THANKS}`);
-
-      return lines.join("\n");
-    }
+  return lines.join("\n");
+}
 
     function buildEmailMessage(){
       const service = get('rf-service')?.value || "";
@@ -1097,8 +1175,8 @@ Con este bono regalo podrás elegir entre todos los servicios disponibles o comb
       const lines = [];
       lines.push("Hola, me gustaría hacer la siguiente reserva:");
       lines.push("");
-      if(service) lines.push(`Servicio: ${service}`);
-      if(day) lines.push(`Día: ${day}`);
+      if(service) lines.push(`Tratamiento: ${service}`);
+      if(day) lines.push(`Fecha: ${day}`);
       if(time) lines.push(`Hora: ${time}`);
       lines.push("");
       lines.push("Gracias");
@@ -1131,12 +1209,13 @@ Con este bono regalo podrás elegir entre todos los servicios disponibles o comb
         waEl.setAttribute('href', waURL);
       }
       if(mailEl){
-        // Use Gmail compose in browser for maximum reliability, keep mailto as fallback
-        mailEl.dataset.href = gmailURL;
+        // Default: open Gmail web compose for maximum reliability.
+        // Users can still open their mail app with Ctrl/⌘ click (handled in the click guard).
+        mailEl.dataset.gmail = gmailURL;
         mailEl.dataset.mailto = mailURL;
         mailEl.setAttribute('href', gmailURL);
-        mailEl.setAttribute('target','_blank');
-        mailEl.setAttribute('rel','noopener');
+        mailEl.removeAttribute('target');
+        mailEl.removeAttribute('rel');
       }
 
       // Hint
@@ -1165,7 +1244,7 @@ Con este bono regalo podrás elegir entre todos los servicios disponibles o comb
       mailEl?.addEventListener('click', (e) => {
         // Default to Gmail compose (web) for reliability.
         // If user holds Ctrl/⌘, use the mail app (mailto) instead.
-        const gmail = mailEl.dataset.href || mailEl.getAttribute('href');
+        const gmail = mailEl.dataset.gmail || mailEl.getAttribute('href');
         const mailto = mailEl.dataset.mailto;
         const url = (e.ctrlKey || e.metaKey) && mailto ? mailto : gmail;
         if(!url || url === '#') return;
@@ -1220,12 +1299,12 @@ Con este bono regalo podrás elegir entre todos los servicios disponibles o comb
         waEl.setAttribute('href', waURL);
       }
       if(mailEl){
-        // Use Gmail compose in browser for maximum reliability, keep mailto as fallback
-        mailEl.dataset.href = gmailURL;
+        const gmailURL = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(EMAIL)}&su=${subject}&body=${emailBody}`;
+        mailEl.dataset.gmail = gmailURL;
         mailEl.dataset.mailto = mailURL;
         mailEl.setAttribute('href', gmailURL);
-        mailEl.setAttribute('target','_blank');
-        mailEl.setAttribute('rel','noopener');
+        mailEl.removeAttribute('target');
+        mailEl.removeAttribute('rel');
       }
     }
 
@@ -1241,10 +1320,16 @@ Con este bono regalo podrás elegir entre todos los servicios disponibles o comb
       });
 
       mailEl?.addEventListener('click', (e) => {
-        const url = mailEl.dataset.href || mailEl.getAttribute('href');
+        const gmail = mailEl.dataset.gmail || mailEl.getAttribute('href');
+        const mailto = mailEl.dataset.mailto;
+        const url = (e.ctrlKey || e.metaKey) && mailto ? mailto : gmail;
         if(!url || url === '#') return;
         e.preventDefault();
-        window.location.href = url;
+        if(url.startsWith('mailto:')){
+          window.location.href = url;
+        }else{
+          window.open(url, '_blank', 'noopener');
+        }
       });
     }
 
@@ -1265,7 +1350,7 @@ Con este bono regalo podrás elegir entre todos los servicios disponibles o comb
       if(lastActive && typeof lastActive.focus === 'function') lastActive.focus();
     }
 
-    consultOpenBtn?.addEventListener('click', openConsultModal);
+    consultOpenBtns.forEach(btn => btn.addEventListener('click', openConsultModal));
 
     modal.addEventListener('click', (e) => {
       const trigger = e.target?.closest?.('[data-close="true"]');
