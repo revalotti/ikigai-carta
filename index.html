@@ -68,8 +68,8 @@
       z-index:40;
       background: rgba(235,227,213,.92);
       backdrop-filter: blur(10px);
-      border-bottom:1px solid var(--line);
-    }
+      border-bottom:none;
+}
     .site-header{ border-bottom:1px solid var(--line); }
 
     .header-inner{
@@ -117,9 +117,11 @@
 
     /* Tabs */
     .tabs-bar{
-      border-top:0,5px solid var(--line);
-      border-bottom:0,5px solid var(--line);
+      border-top:none;
+      border-bottom:1px solid var(--line);
       background: rgba(235,227,213,.76);
+    
+    
     }
     .tabs-inner{
       display:flex;
@@ -827,6 +829,7 @@
   </style>
 </head>
 <body>
+<div data-view="carta" id="view-carta"><div id="carta" style="position:relative; top:-80px;"></div>
 <!-- TOP STICKY (logo + tabs) -->
 <div class="top-sticky">
 <header class="site-header">
@@ -840,9 +843,7 @@
 </div>
 </div>
 <div class="header-actions">
-<button aria-controls="reserve-modal" aria-haspopup="dialog" class="cta-btn primary reserve-btn" id="open-reserve" type="button">
-          Reservar
-        </button>
+<a class="cta-btn primary reserve-btn" href="#reservas" id="go-reservas">Reservar</a>
 </div>
 </div>
 </div>
@@ -1048,93 +1049,99 @@ Con este bono regalo podrás elegir entre todos los servicios disponibles o comb
 </section>
 </div>
 </main>
-
-<footer class="site-footer">
-  <div class="wrap">
-    <div class="footer-top">
-      <p class="footer-prices">Para conocer los precios de los servicios, contacta con nosotros mediante WhatsApp o correo.</p>
-      <div class="footer-actions">
-        <button aria-controls="consult-modal" aria-haspopup="dialog" class="cta-btn secondary contact-btn footer-contact-btn" id="open-contact-footer" type="button">Contáctanos</button>
-      </div>
-    </div>
-
-    <div class="footer-divider" role="presentation"></div>
-
-    <div class="footer-bottom">
-      <p class="footer-rights">Todos los derechos reservados para Ikigai · Centro de Masajes</p>
-    </div>
-  </div>
-</footer>
-
-<!-- Reserve modal -->
-<div aria-hidden="true" aria-labelledby="reserve-title" aria-modal="true" class="modal" id="reserve-modal" role="dialog">
-<div class="modal-backdrop" data-close="true"></div>
-<div class="modal-card" role="document">
-<button aria-label="Cerrar" class="modal-close" data-close="true" type="button">
-<span aria-hidden="true" class="x"></span>
-</button>
-<h2 class="modal-title" id="reserve-title">Reserva tiempo para ti.</h2>
+</div>
+<div data-view="reservas" id="view-reservas" style="display:none;"><div id="reservas" style="position:relative; top:-80px;"></div>
+<div class="top-sticky">
+<header class="site-header">
+<div class="wrap">
+<div class="header-inner">
+<div class="brand">
+<img alt="Ikigai · Centro de Masajes" class="brand-logo" decoding="async" loading="eager" onerror="this.style.display='none'; document.querySelector('.brand-fallback').style.display='flex';" src="./assets/images//Ikigai_Imagotipo-Horizontal-Color-Negativo-SF.svg"/>
+<div class="brand-fallback">
+<span class="word">ikigai</span>
+<span class="sub">CENTRO DE MASAJES</span>
+</div>
+</div>
+<div class="header-actions">
+<a class="cta-btn primary reserve-btn" href="#carta" rel="noopener">Ver Carta</a>
+</div>
+</div>
+</div>
+</header>
+</div>
+<main>
+<div class="wrap">
+<div class="booking-wrap">
+<section aria-label="Reserva" class="card booking-card">
+<h1 class="modal-title">Reserva tiempo para ti.</h1>
 <p class="modal-body">¿Ya sabes lo que quieres? Selecciona el servicio y una preferencia de día y hora. Confirmaremos disponibilidad lo antes posible.</p>
 <div aria-label="Preferencias de reserva" class="reserve-form">
 <label class="rf">
-  <span>Nombre</span>
-  <input id="rf-name" type="text" placeholder="Escribe tu nombre" autocomplete="name" />
+<span>Nombre</span>
+<input autocomplete="name" id="rf-name" placeholder="Escribe tu nombre" type="text"/>
 </label>
-
-  <label class="rf">
-    <span>Tipo de servicio</span>
-    <select id="rf-type">
-      <option value="" selected disabled>Selecciona un tipo de servicio</option>
-      <option value="masaje">Masaje terapéutico</option>
-      <option value="ritual">Ritual</option>
-      <option value="bono_mensual">Bono mensual</option>
-      <option value="bono_regalo">Bono regalo</option>
-    </select>
-  </label>
-
-  <div class="reserve-grid" id="rf-dependent">
-    <div class="rf" id="rf-treatment-wrap" style="display:none;">
-      <span>Tratamiento</span>
-      <select id="rf-treatment" disabled>
-        <option value="" selected disabled>Selecciona un tratamiento</option>
-      </select>
-
-      <!-- Accessible multi-select (checkbox list) -->
-      <fieldset class="rf-fieldset" id="rf-treatment-fieldset" hidden disabled>
-        <legend class="sr-only">Tratamientos</legend>
-        <div class="rf-checkboxes" id="rf-treatment-checkboxes"></div>
-      </fieldset>
-    </div>
-
-    <label class="rf" id="rf-day-wrap" style="display:none;">
-      <span>Fecha</span>
-      <input id="rf-day" type="date" disabled />
-    </label>
-
-    <label class="rf" id="rf-time-wrap" style="display:none;">
-      <span>Hora</span>
-      <select id="rf-time" disabled>
-        <option value="" selected disabled>Elige una hora</option>
-        <option>10:00</option><option>10:30</option><option>11:00</option><option>11:30</option>
-        <option>12:00</option><option>12:30</option><option>13:00</option>
-        <option>17:00</option><option>17:30</option><option>18:00</option><option>18:30</option>
-        <option>19:00</option><option>19:30</option><option>20:00</option>
-      </select>
-    </label>
-  </div>
-
-  <p aria-live="polite" class="reserve-hint" id="rf-hint"></p>
+<label class="rf">
+<span>Tipo de servicio</span>
+<select id="rf-type">
+<option disabled="" selected="" value="">Selecciona un tipo de servicio</option>
+<option value="masaje">Masaje terapéutico</option>
+<option value="ritual">Ritual</option>
+<option value="bono_mensual">Bono mensual</option>
+<option value="bono_regalo">Bono regalo</option>
+</select>
+</label>
+<div class="reserve-grid" id="rf-dependent">
+<div class="rf" id="rf-treatment-wrap" style="display:none;">
+<span>Tratamiento</span>
+<select disabled="" id="rf-treatment">
+<option disabled="" selected="" value="">Selecciona un tratamiento</option>
+</select>
+<!-- Accessible multi-select (checkbox list) -->
+<fieldset class="rf-fieldset" disabled="" hidden="" id="rf-treatment-fieldset">
+<legend class="sr-only">Tratamientos</legend>
+<div class="rf-checkboxes" id="rf-treatment-checkboxes"></div>
+</fieldset>
+</div>
+<label class="rf" id="rf-day-wrap" style="display:none;">
+<span>Fecha</span>
+<input disabled="" id="rf-day" type="date"/>
+</label>
+<label class="rf" id="rf-time-wrap" style="display:none;">
+<span>Hora</span>
+<select disabled="" id="rf-time">
+<option disabled="" selected="" value="">Elige una hora</option>
+<option>10:00</option><option>10:30</option><option>11:00</option><option>11:30</option>
+<option>12:00</option><option>12:30</option><option>13:00</option>
+<option>17:00</option><option>17:30</option><option>18:00</option><option>18:30</option>
+<option>19:00</option><option>19:30</option><option>20:00</option>
+</select>
+</label>
+</div>
+<p aria-live="polite" class="reserve-hint" id="rf-hint"></p>
 </div>
 <div class="modal-actions">
-<a class="cta-btn primary" href="#" id="reserve-whatsapp" rel="noopener" target="_blank">
-        Reservar por WhatsApp
-      </a>
-<a class="cta-btn" href="#" id="reserve-email">
-        Reservar por correo
-      </a>
+<a class="cta-btn primary" href="#" id="reserve-whatsapp" rel="noopener" target="_blank">Reservar por WhatsApp</a>
+<a class="cta-btn" href="#" id="reserve-email">Reservar por correo</a>
+</div>
+</section>
 </div>
 </div>
+</main>
 </div>
+<footer class="site-footer">
+<div class="wrap">
+<div class="footer-top">
+<p class="footer-prices">Para conocer los precios de los servicios, contacta con nosotros mediante WhatsApp o correo.</p>
+<div class="footer-actions">
+<button aria-controls="consult-modal" aria-haspopup="dialog" class="cta-btn secondary contact-btn footer-contact-btn" id="open-contact-footer" type="button">Contáctanos</button>
+</div>
+</div>
+<div class="footer-divider" role="presentation"></div>
+<div class="footer-bottom">
+<p class="footer-rights">Todos los derechos reservados para Ikigai · Centro de Masajes</p>
+</div>
+</div>
+</footer>
 <!-- Consult modal -->
 <div aria-hidden="true" aria-labelledby="consult-title" aria-modal="true" class="modal" id="consult-modal" role="dialog">
 <div class="modal-backdrop" data-close="true"></div>
@@ -1155,7 +1162,31 @@ Con este bono regalo podrás elegir entre todos los servicios disponibles o comb
 </div>
 </div>
 <script>
-  (function(){
+(function(){
+  const viewCarta = document.getElementById('view-carta');
+  const viewReservas = document.getElementById('view-reservas');
+
+  function setView(){
+    const hash = (window.location.hash || '#carta').toLowerCase();
+    const showReservas = (hash === '#reservas');
+    if(viewCarta) viewCarta.style.display = showReservas ? 'none' : 'block';
+    if(viewReservas) viewReservas.style.display = showReservas ? 'block' : 'none';
+
+    // Make sure we start at the top of the visible view
+    if(showReservas){
+      const a = document.getElementById('reservas');
+      if(a) a.scrollIntoView({block:'start'});
+    } else {
+      const a = document.getElementById('carta');
+      if(a) a.scrollIntoView({block:'start'});
+    }
+  }
+
+  window.addEventListener('hashchange', setView);
+  document.addEventListener('DOMContentLoaded', setView);
+})();
+</script><script>
+(function(){
     const tabs = Array.from(document.querySelectorAll('[role="tab"]'));
     const panels = tabs.map(t => document.getElementById(t.getAttribute('aria-controls')));
 
@@ -1187,467 +1218,422 @@ Con este bono regalo podrás elegir entre todos los servicios disponibles o comb
       if(target) setActive(target);
     }
   })();
-</script>
-<script>
+</script><script>
 (function(){
-  const get = (id) => document.getElementById(id);
+    const get = (id) => document.getElementById(id);
 
-  const reserveOpenBtn = get('open-reserve');
-  const reserveModal = get('reserve-modal');
+    const consultModal = get('consult-modal');
+    const consultOpenBtns = [ get('open-contact-footer') ].filter(Boolean);
 
-  const consultModal = get('consult-modal');
-  const consultOpenBtns = [
-    get('open-contact'),
-    get('open-contact-footer'),
-    get('open-consult')
-  ].filter(Boolean);
+    const PHONE_NUMBER = "34695752476"; // digits only
+    const EMAIL = "centroikigai.masajes@gmail.com";
 
-  const PHONE_NUMBER = "34695752476"; // digits only (Spain example)
-  const EMAIL = "centroikigai.masajes@gmail.com";
+    // ---------- Modal helpers (consult only) ----------
+    const focusablesSelector = 'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])';
+    let lastActiveEl = null;
 
-  // ---------- Modal helpers ----------
-  const focusablesSelector = 'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])';
-  let lastActiveEl = null;
+    function getFocusable(modalEl){
+      return Array.from(modalEl.querySelectorAll(focusablesSelector))
+        .filter(el => el.offsetParent !== null);
+    }
 
-  function getFocusable(modalEl){
-    return Array.from(modalEl.querySelectorAll(focusablesSelector))
-      .filter(el => el.offsetParent !== null);
-  }
+    function openModal(modalEl){
+      if(!modalEl) return;
+      lastActiveEl = document.activeElement;
+      modalEl.setAttribute('aria-hidden','false');
+      document.body.style.overflow = 'hidden';
+      const f = getFocusable(modalEl);
+      (f[0] || modalEl).focus?.();
+    }
 
-  function openModal(modalEl){
-    if(!modalEl) return;
-    lastActiveEl = document.activeElement;
-    modalEl.setAttribute('aria-hidden','false');
-    document.body.style.overflow = 'hidden';
-    const f = getFocusable(modalEl);
-    (f[0] || modalEl).focus?.();
-  }
+    function closeModal(modalEl){
+      if(!modalEl) return;
+      modalEl.setAttribute('aria-hidden','true');
+      document.body.style.overflow = '';
+      lastActiveEl?.focus?.();
+    }
 
-  function closeModal(modalEl){
-    if(!modalEl) return;
-    modalEl.setAttribute('aria-hidden','true');
-    document.body.style.overflow = '';
-    lastActiveEl?.focus?.();
-  }
+    function wireModal(modalEl){
+      if(!modalEl) return;
+      modalEl.addEventListener('click', (e) => {
+        const t = e.target;
+        if(t?.dataset?.close === 'true') closeModal(modalEl);
+      });
 
-  function wireModal(modalEl){
-    if(!modalEl) return;
-    modalEl.addEventListener('click', (e) => {
-      const t = e.target;
-      if(t?.dataset?.close === 'true') closeModal(modalEl);
-    });
+      modalEl.addEventListener('keydown', (e) => {
+        if(e.key === 'Escape') closeModal(modalEl);
 
-    modalEl.addEventListener('keydown', (e) => {
-      if(e.key === 'Escape') closeModal(modalEl);
+        if(e.key === 'Tab'){
+          const f = getFocusable(modalEl);
+          if(!f.length) return;
+          const first = f[0];
+          const last = f[f.length - 1];
 
-      if(e.key === 'Tab'){
-        const f = getFocusable(modalEl);
-        if(!f.length) return;
-        const first = f[0];
-        const last = f[f.length - 1];
-
-        if(e.shiftKey && document.activeElement === first){
-          e.preventDefault(); last.focus();
-        } else if(!e.shiftKey && document.activeElement === last){
-          e.preventDefault(); first.focus();
+          if(e.shiftKey && document.activeElement === first){
+            e.preventDefault(); last.focus();
+          } else if(!e.shiftKey && document.activeElement === last){
+            e.preventDefault(); first.focus();
+          }
         }
-      }
-    });
-  }
-
-  wireModal(reserveModal);
-  wireModal(consultModal);
-
-  reserveOpenBtn?.addEventListener('click', () => {
-    openModal(reserveModal);
-    updateReserveLinks();
-  });
-
-  consultOpenBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
-      openModal(consultModal);
-      updateConsultLinks();
-    });
-  });
-
-  // ---------- Reservation form logic ----------
-  const typeSel = get('rf-type');
-  const nameInput = get('rf-name');
-  const treatmentWrap = get('rf-treatment-wrap');
-  const treatmentSel = get('rf-treatment');
-  const treatmentFieldset = get('rf-treatment-fieldset');
-  const treatmentCheckboxes = get('rf-treatment-checkboxes');
-  const dayWrap = get('rf-day-wrap');
-  const dayInput = get('rf-day');
-  const timeWrap = get('rf-time-wrap');
-  const timeSel = get('rf-time');
-  const hintEl = get('rf-hint');
-
-  function optionEl(value){
-    const o = document.createElement('option');
-    o.value = value;
-    o.textContent = value;
-    return o;
-  }
-
-  function collectNames(panelId){
-    const panel = get(panelId);
-    if(!panel) return [];
-    return Array.from(panel.querySelectorAll('h3.h3'))
-      .map(el => (el.textContent || '').trim())
-      .filter(Boolean);
-  }
-
-  function expandMasajes(names){
-  const out = [];
-  (names || []).forEach((n) => {
-    if(n === 'Masaje relajante Ikigai'){
-      out.push('Masaje relajante Ikigai (30 min)');
-      out.push('Masaje relajante Ikigai (50 min)');
-      return;
+      });
     }
-    if(n === 'Masaje de Tejido profundo'){
-      out.push('Masaje de Tejido profundo (30 min)');
-      out.push('Masaje de Tejido profundo (50 min)');
-      return;
-    }
-    out.push(n);
-  });
-  return out;
-}
 
-const MASAJES = () => expandMasajes(collectNames('panel-masajes'));
+    wireModal(consultModal);
 
-  const RITUALES = () => collectNames('panel-rituales');
-
-  function resetSelect(selectEl){
-    if(!selectEl) return;
-    selectEl.value = '';
-    Array.from(selectEl.options).forEach((opt, idx) => {
-      if(idx === 0) return; // keep placeholder
-      opt.remove();
+    consultOpenBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        openModal(consultModal);
+        updateConsultLinks();
+      });
     });
-  }
 
-  function resetCheckboxes(){
-    if(!treatmentCheckboxes) return;
-    treatmentCheckboxes.innerHTML = "";
-  }
+    // ---------- Reservation data (hardcoded for reservation page) ----------
+    const MASAJES = [
+      "Masaje relajante Ikigai (30 min)",
+      "Masaje relajante Ikigai (50 min)",
+      "Masaje de Tejido profundo (30 min)",
+      "Masaje de Tejido profundo (50 min)",
+      "Masaje Californiano",
+      "Masaje con piedras calientes",
+      "Masaje craneal Hindú",
+      "Reflexología + Masaje de pies"
+    ];
 
-  function setTreatmentMode(mode){
-    // mode: "single" | "multi"
-    if(mode === 'multi'){
-      // Hide select
-      if(treatmentSel){
-        treatmentSel.style.display = 'none';
-        treatmentSel.setAttribute('disabled','disabled');
-      }
-      // Show fieldset
-      if(treatmentFieldset){
-        treatmentFieldset.hidden = false;
-        treatmentFieldset.removeAttribute('disabled');
-      }
-    } else {
-      // Show select
-      if(treatmentSel){
-        treatmentSel.style.display = '';
-        treatmentSel.removeAttribute('disabled');
-      }
-      // Hide fieldset
-      if(treatmentFieldset){
-        treatmentFieldset.hidden = true;
-        treatmentFieldset.setAttribute('disabled','disabled');
-      }
-      resetCheckboxes();
+    const RITUALES = [
+      "Ritual Ikigai",
+      "Ritual Exprés Ikigai",
+      "Ritual Ikigai en pareja"
+    ];
+
+    // ---------- Reservation form logic ----------
+    const typeSel = get('rf-type');
+    const nameInput = get('rf-name');
+    const treatmentWrap = get('rf-treatment-wrap');
+    const treatmentSel = get('rf-treatment');
+    const treatmentFieldset = get('rf-treatment-fieldset');
+    const treatmentCheckboxes = get('rf-treatment-checkboxes');
+    const dayWrap = get('rf-day-wrap');
+    const dayInput = get('rf-day');
+    const timeWrap = get('rf-time-wrap');
+    const timeSel = get('rf-time');
+    const hintEl = get('rf-hint');
+
+    function optionEl(value){
+      const o = document.createElement('option');
+      o.value = value;
+      o.textContent = value;
+      return o;
     }
-  }
 
-  function setVisible(el, visible){
-    if(!el) return;
-    el.style.display = visible ? '' : 'none';
-  }
+    function resetSelect(selectEl){
+      if(!selectEl) return;
+      selectEl.value = '';
+      Array.from(selectEl.options).forEach((opt, idx) => {
+        if(idx === 0) return; // keep placeholder
+        opt.remove();
+      });
+    }
 
-  function configureFormFor(type){
-    // Hide everything by default until there's a type (per your instruction)
-    if(!type){
-      setVisible(treatmentWrap, false);
-      setVisible(dayWrap, false);
-      setVisible(timeWrap, false);
+    function resetCheckboxes(){
+      if(!treatmentCheckboxes) return;
+      treatmentCheckboxes.innerHTML = "";
+    }
 
-      treatmentSel?.setAttribute('disabled','disabled');
-      dayInput?.setAttribute('disabled','disabled');
-      timeSel?.setAttribute('disabled','disabled');
+    function setTreatmentMode(mode){
+      // mode: "single" | "multi"
+      if(mode === 'multi'){
+        if(treatmentSel){
+          treatmentSel.style.display = 'none';
+          treatmentSel.setAttribute('disabled','disabled');
+        }
+        if(treatmentFieldset){
+          treatmentFieldset.hidden = false;
+          treatmentFieldset.removeAttribute('disabled');
+        }
+      } else {
+        if(treatmentSel){
+          treatmentSel.style.display = '';
+          treatmentSel.removeAttribute('disabled');
+        }
+        if(treatmentFieldset){
+          treatmentFieldset.hidden = true;
+          treatmentFieldset.setAttribute('disabled','disabled');
+        }
+        resetCheckboxes();
+      }
+    }
 
-      if(hintEl) hintEl.textContent = "Selecciona primero el tipo de servicio para continuar.";
+    function setVisible(el, visible){
+      if(!el) return;
+      el.style.display = visible ? '' : 'none';
+    }
+
+    function configureFormFor(type){
+      // Hide everything by default until there's a type
+      if(!type){
+        setVisible(treatmentWrap, false);
+        setVisible(dayWrap, false);
+        setVisible(timeWrap, false);
+
+        treatmentSel?.setAttribute('disabled','disabled');
+        dayInput?.setAttribute('disabled','disabled');
+        timeSel?.setAttribute('disabled','disabled');
+
+        if(hintEl) hintEl.textContent = "Selecciona primero el tipo de servicio para continuar.";
+        setTreatmentMode('single');
+        resetSelect(treatmentSel);
+        dayInput.value = '';
+        timeSel.value = '';
+        updateReserveLinks();
+        return;
+      }
+
+      setVisible(treatmentWrap, true);
       setTreatmentMode('single');
       resetSelect(treatmentSel);
-      dayInput.value = '';
-      timeSel.value = '';
-      updateReserveLinks();
-      return;
-    }
 
-    // Common: treatment is shown for all types
-    setVisible(treatmentWrap, true);
-    setTreatmentMode('single');
-
-    // Default placeholders
-    if(treatmentSel){
-      treatmentSel.multiple = false;
-      treatmentSel.size = 1;
-    }
-    resetSelect(treatmentSel);
-
-    if(type === 'masaje'){
-      MASAJES().forEach(n => treatmentSel?.appendChild(optionEl(n)));
-      setVisible(dayWrap, true);
-      setVisible(timeWrap, true);
-      dayInput?.removeAttribute('disabled');
-      timeSel?.removeAttribute('disabled');
-      if(hintEl) hintEl.textContent = "Selecciona tratamiento, fecha y hora. El mensaje se completará automáticamente.";
-    }
-
-    if(type === 'ritual'){
-      RITUALES().forEach(n => treatmentSel?.appendChild(optionEl(n)));
-      setVisible(dayWrap, true);
-      setVisible(timeWrap, true);
-      dayInput?.removeAttribute('disabled');
-      timeSel?.removeAttribute('disabled');
-      if(hintEl) hintEl.textContent = "Selecciona tratamiento, fecha y hora. El mensaje se completará automáticamente.";
-    }
-
-    if(type === 'bono_mensual'){
-      treatmentSel?.appendChild(optionEl('Masaje de Tejido profundo'));
-      setVisible(dayWrap, false);
-      setVisible(timeWrap, false);
-      dayInput.value = '';
-      timeSel.value = '';
-      dayInput?.setAttribute('disabled','disabled');
-      timeSel?.setAttribute('disabled','disabled');
-      if(hintEl) hintEl.textContent = "Bono mensual: selecciona el tratamiento. Confirmaremos disponibilidad contigo.";
-    }
-
-    if(type === 'bono_regalo'){
-      // Multi-select: masajes + rituales (accessible checkbox list)
-      const all = [...MASAJES(), ...RITUALES()];
-      setTreatmentMode('multi');
-      resetCheckboxes();
-
-      if(treatmentCheckboxes){
-        all.forEach((name, idx) => {
-          const id = `rf-treat-${idx}`;
-          const row = document.createElement('label');
-          row.className = 'rf-check';
-          row.setAttribute('for', id);
-
-          const input = document.createElement('input');
-          input.type = 'checkbox';
-          input.id = id;
-          input.value = name;
-
-          const text = document.createElement('span');
-          text.textContent = name;
-
-          row.appendChild(input);
-          row.appendChild(text);
-          treatmentCheckboxes.appendChild(row);
-        });
+      if(type === 'masaje'){
+        MASAJES.forEach(n => treatmentSel?.appendChild(optionEl(n)));
+        setVisible(dayWrap, true);
+        setVisible(timeWrap, true);
+        dayInput?.removeAttribute('disabled');
+        timeSel?.removeAttribute('disabled');
+        if(hintEl) hintEl.textContent = "Selecciona tratamiento, fecha y hora. El mensaje se completará automáticamente.";
       }
 
-      setVisible(dayWrap, false);
-      setVisible(timeWrap, false);
-      dayInput.value = '';
-      timeSel.value = '';
-      dayInput?.setAttribute('disabled','disabled');
-      timeSel?.setAttribute('disabled','disabled');
-      if(hintEl) hintEl.textContent = "Bono regalo: puedes seleccionar varios tratamientos.";
+      if(type === 'ritual'){
+        RITUALES.forEach(n => treatmentSel?.appendChild(optionEl(n)));
+        setVisible(dayWrap, true);
+        setVisible(timeWrap, true);
+        dayInput?.removeAttribute('disabled');
+        timeSel?.removeAttribute('disabled');
+        if(hintEl) hintEl.textContent = "Selecciona tratamiento, fecha y hora. El mensaje se completará automáticamente.";
+      }
+
+      if(type === 'bono_mensual'){
+        treatmentSel?.appendChild(optionEl('Masaje de Tejido profundo'));
+        setVisible(dayWrap, false);
+        setVisible(timeWrap, false);
+        dayInput.value = '';
+        timeSel.value = '';
+        dayInput?.setAttribute('disabled','disabled');
+        timeSel?.setAttribute('disabled','disabled');
+        if(hintEl) hintEl.textContent = "Bono mensual: selecciona el tratamiento. Confirmaremos disponibilidad contigo.";
+      }
+
+      if(type === 'bono_regalo'){
+        const all = [...MASAJES, ...RITUALES];
+        setTreatmentMode('multi');
+        resetCheckboxes();
+
+        if(treatmentCheckboxes){
+          all.forEach((name, idx) => {
+            const id = `rf-treat-${idx}`;
+            const row = document.createElement('label');
+            row.className = 'rf-check';
+            row.setAttribute('for', id);
+
+            const input = document.createElement('input');
+            input.type = 'checkbox';
+            input.id = id;
+            input.value = name;
+
+            const text = document.createElement('span');
+            text.textContent = name;
+
+            row.appendChild(input);
+            row.appendChild(text);
+            treatmentCheckboxes.appendChild(row);
+          });
+        }
+
+        setVisible(dayWrap, false);
+        setVisible(timeWrap, false);
+        dayInput.value = '';
+        timeSel.value = '';
+        dayInput?.setAttribute('disabled','disabled');
+        timeSel?.setAttribute('disabled','disabled');
+        if(hintEl) hintEl.textContent = "Bono regalo: puedes seleccionar varios tratamientos.";
+      }
+
+      updateReserveLinks();
     }
 
-    updateReserveLinks();
-  }
-
-  function formatDateES(iso){
-    if(!iso) return "";
-    const [y,m,d] = iso.split('-').map(Number);
-    if(!y || !m || !d) return iso;
-    return `${String(d).padStart(2,'0')}/${String(m).padStart(2,'0')}/${y}`;
-  }
-
-  function typeLabel(type){
-    switch(type){
-      case 'masaje': return 'Masaje terapéutico';
-      case 'ritual': return 'Ritual';
-      case 'bono_mensual': return 'Bono mensual';
-      case 'bono_regalo': return 'Bono regalo';
-      default: return '';
+    function formatDateES(iso){
+      if(!iso) return "";
+      const parts = iso.split('-').map(Number);
+      const y = parts[0], m = parts[1], d = parts[2];
+      if(!y || !m || !d) return iso;
+      return `${String(d).padStart(2,'0')}/${String(m).padStart(2,'0')}/${y}`;
     }
-  }
 
-  function selectedTreatments(){
-    // Checkbox mode (bono_regalo)
-    if(treatmentFieldset && !treatmentFieldset.hidden){
-      return Array.from(treatmentFieldset.querySelectorAll('input[type="checkbox"]'))
-        .filter(i => i.checked)
-        .map(i => (i.value || '').trim())
+    function typeLabel(type){
+      switch(type){
+        case 'masaje': return 'Masaje terapéutico';
+        case 'ritual': return 'Ritual';
+        case 'bono_mensual': return 'Bono mensual';
+        case 'bono_regalo': return 'Bono regalo';
+        default: return '';
+      }
+    }
+
+    function selectedTreatments(){
+      if(treatmentFieldset && !treatmentFieldset.hidden){
+        return Array.from(treatmentFieldset.querySelectorAll('input[type="checkbox"]'))
+          .filter(i => i.checked)
+          .map(i => (i.value || '').trim())
+          .filter(Boolean);
+      }
+
+      if(!treatmentSel) return [];
+      return Array.from(treatmentSel.selectedOptions || [])
+        .map(o => (o.value || o.textContent || '').trim())
         .filter(Boolean);
     }
 
-    // Select mode (single)
-    if(!treatmentSel) return [];
-    return Array.from(treatmentSel.selectedOptions || [])
-      .map(o => (o.value || o.textContent || '').trim())
-      .filter(Boolean);
-  }
+    function buildReserveMessage(){
+      const type = typeSel?.value || "";
+      const typeText = typeLabel(type);
+      const name = (nameInput?.value || "").trim();
+      const treatments = selectedTreatments();
+      const day = formatDateES(dayInput?.value || "");
+      const time = timeSel?.value || "";
 
-  function buildReserveMessage(){
-    const type = typeSel?.value || "";
-    const typeText = typeLabel(type);
-    const name = (nameInput?.value || "").trim();
-    const treatments = selectedTreatments();
-    const day = formatDateES(dayInput?.value || "");
-    const time = timeSel?.value || "";
+      const lines = [];
+      lines.push("Hola, me gustaría hacer la siguiente reserva:");
+      lines.push("");
+      if(name) lines.push(`Nombre - ${name}`);
+      if(typeText) lines.push(`Tipo de servicio - ${typeText}`);
 
-    const lines = [];
-    lines.push("Hola, me gustaría hacer la siguiente reserva:");
-    lines.push("");
-    if(name) lines.push(`Nombre - ${name}`);
-    if(typeText) lines.push(`Tipo de servicio - ${typeText}`);
+      if(type === 'bono_regalo'){
+        if(treatments.length) lines.push(`Tratamientos - ${treatments.join(", ")}`);
+      } else {
+        if(treatments.length) lines.push(`Tratamiento - ${treatments[0]}`);
+      }
 
-    if(type === 'bono_regalo'){
-      if(treatments.length) lines.push(`Tratamientos - ${treatments.join(", ")}`);
-    } else {
-      if(treatments.length) lines.push(`Tratamiento - ${treatments[0]}`);
+      if((type === 'masaje' || type === 'ritual') && day) lines.push(`Fecha - ${day}`);
+      if((type === 'masaje' || type === 'ritual') && time) lines.push(`Hora - ${time}`);
+
+      lines.push("");
+      lines.push("Gracias");
+      return lines.join("\n");
     }
 
-    if((type === 'masaje' || type === 'ritual') && day) lines.push(`Fecha - ${day}`);
-    if((type === 'masaje' || type === 'ritual') && time) lines.push(`Hora - ${time}`);
-
-    lines.push("");
-    lines.push("Gracias");
-    return lines.join("\n");
-  }
-
-  function buildReserveEmailBody(){
-    // Keep email plain text (best compatibility)
-    const msg = buildReserveMessage()
-      .replace(/ - /g, ": ");
-    return msg;
-  }
-
-  function updateReserveLinks(){
-    const waBtn = get('reserve-whatsapp');
-    const mailBtn = get('reserve-email');
-
-    const waText = encodeURIComponent(buildReserveMessage());
-    const waURL = `https://wa.me/${PHONE_NUMBER}?text=${waText}`;
-
-    const subject = encodeURIComponent("Reserva - Ikigai");
-    const body = encodeURIComponent(buildReserveEmailBody()).replace(/%0A/g, "%0D%0A");
-    const mailtoURL = `mailto:${EMAIL}?subject=${subject}&body=${body}`;
-    const gmailURL = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(EMAIL)}&su=${subject}&body=${body}`;
-
-    if(waBtn){
-      waBtn.href = waURL;
-      waBtn.dataset.href = waURL;
-      waBtn.rel = 'noopener';
-      waBtn.target = '_blank';
+    function buildReserveEmailBody(){
+      return buildReserveMessage().replace(/ - /g, ": ");
     }
 
-    if(mailBtn){
-      // Default to Gmail web compose (more reliable)
-      mailBtn.href = gmailURL;
-      mailBtn.dataset.gmail = gmailURL;
-      mailBtn.dataset.mailto = mailtoURL;
-      mailBtn.removeAttribute('target');
-      mailBtn.removeAttribute('rel');
+    function updateReserveLinks(){
+      const waBtn = get('reserve-whatsapp');
+      const mailBtn = get('reserve-email');
+
+      const waText = encodeURIComponent(buildReserveMessage());
+      const waURL = `https://wa.me/${PHONE_NUMBER}?text=${waText}`;
+
+      const subject = encodeURIComponent("Reserva - Ikigai");
+      const body = encodeURIComponent(buildReserveEmailBody()).replace(/%0A/g, "%0D%0A");
+      const mailtoURL = `mailto:${EMAIL}?subject=${subject}&body=${body}`;
+      const gmailURL = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(EMAIL)}&su=${subject}&body=${body}`;
+
+      if(waBtn){
+        waBtn.href = waURL;
+        waBtn.dataset.href = waURL;
+        waBtn.rel = 'noopener';
+        waBtn.target = '_blank';
+      }
+
+      if(mailBtn){
+        mailBtn.href = gmailURL;
+        mailBtn.dataset.gmail = gmailURL;
+        mailBtn.dataset.mailto = mailtoURL;
+        mailBtn.removeAttribute('target');
+        mailBtn.removeAttribute('rel');
+      }
     }
-  }
 
-  function attachReserveLinkGuards(){
-    const waBtn = get('reserve-whatsapp');
-    const mailBtn = get('reserve-email');
+    function attachReserveLinkGuards(){
+      const waBtn = get('reserve-whatsapp');
+      const mailBtn = get('reserve-email');
 
-    waBtn?.addEventListener('click', (e) => {
-      const url = waBtn.dataset.href || waBtn.getAttribute('href');
-      if(!url || url === '#') return;
-      e.preventDefault();
-      window.open(url, '_blank', 'noopener');
+      waBtn?.addEventListener('click', (e) => {
+        const url = waBtn.dataset.href || waBtn.getAttribute('href');
+        if(!url || url === '#') return;
+        e.preventDefault();
+        window.open(url, '_blank', 'noopener');
+      });
+
+      mailBtn?.addEventListener('click', (e) => {
+        const url = mailBtn.dataset.gmail || mailBtn.getAttribute('href');
+        const mailto = mailBtn.dataset.mailto;
+        if(!url || url === '#') return;
+        e.preventDefault();
+        const w = window.open(url, '_blank');
+        if(!w && mailto) window.location.href = mailto;
+      });
+    }
+
+    // ---------- Consult links ----------
+    function updateConsultLinks(){
+      const waBtn = get('consult-whatsapp');
+      const mailBtn = get('consult-email');
+
+      const consultText = encodeURIComponent("Hola, me gustaría pedir más información sobre.");
+      const waURL = `https://wa.me/${PHONE_NUMBER}?text=${consultText}`;
+
+      const subject = encodeURIComponent("Consulta - Ikigai");
+      const body = encodeURIComponent("Hola, me gustaría pedir más información sobre.").replace(/%0A/g, "%0D%0A");
+      const mailtoURL = `mailto:${EMAIL}?subject=${subject}&body=${body}`;
+      const gmailURL = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(EMAIL)}&su=${subject}&body=${body}`;
+
+      if(waBtn){
+        waBtn.href = waURL;
+        waBtn.dataset.href = waURL;
+        waBtn.rel = 'noopener';
+        waBtn.target = '_blank';
+      }
+      if(mailBtn){
+        mailBtn.href = gmailURL;
+        mailBtn.dataset.gmail = gmailURL;
+        mailBtn.dataset.mailto = mailtoURL;
+      }
+    }
+
+    function attachConsultLinkGuards(){
+      const waBtn = get('consult-whatsapp');
+      const mailBtn = get('consult-email');
+
+      waBtn?.addEventListener('click', (e) => {
+        const url = waBtn.dataset.href || waBtn.getAttribute('href');
+        if(!url || url === '#') return;
+        e.preventDefault();
+        window.open(url, '_blank', 'noopener');
+      });
+
+      mailBtn?.addEventListener('click', (e) => {
+        const url = mailBtn.dataset.gmail || mailBtn.getAttribute('href');
+        const mailto = mailBtn.dataset.mailto;
+        if(!url || url === '#') return;
+        e.preventDefault();
+        const w = window.open(url, '_blank');
+        if(!w && mailto) window.location.href = mailto;
+      });
+    }
+
+    // ---------- Wire form events ----------
+    typeSel?.addEventListener('change', () => configureFormFor(typeSel.value));
+
+    [nameInput, treatmentSel, dayInput, timeSel].forEach(el => {
+      el?.addEventListener('change', updateReserveLinks);
+      el?.addEventListener('input', updateReserveLinks);
     });
+    treatmentCheckboxes?.addEventListener('change', updateReserveLinks);
 
-    mailBtn?.addEventListener('click', (e) => {
-      const url = mailBtn.dataset.gmail || mailBtn.getAttribute('href');
-      const mailto = mailBtn.dataset.mailto;
-      if(!url || url === '#') return;
-      e.preventDefault();
-      // Try Gmail web compose first; fallback to mailto if blocked
-      const w = window.open(url, '_blank');
-      if(!w && mailto) window.location.href = mailto;
-    });
-  }
-
-  // ---------- Consult links ----------
-  function updateConsultLinks(){
-    const waBtn = get('consult-whatsapp');
-    const mailBtn = get('consult-email');
-
-    const consultText = encodeURIComponent("Hola, me gustaría pedir más información sobre.");
-    const waURL = `https://wa.me/${PHONE_NUMBER}?text=${consultText}`;
-
-    const subject = encodeURIComponent("Consulta - Ikigai");
-    const body = encodeURIComponent("Hola, me gustaría pedir más información sobre.").replace(/%0A/g, "%0D%0A");
-    const mailtoURL = `mailto:${EMAIL}?subject=${subject}&body=${body}`;
-    const gmailURL = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(EMAIL)}&su=${subject}&body=${body}`;
-
-    if(waBtn){
-      waBtn.href = waURL;
-      waBtn.dataset.href = waURL;
-      waBtn.rel = 'noopener';
-      waBtn.target = '_blank';
-    }
-    if(mailBtn){
-      mailBtn.href = gmailURL;
-      mailBtn.dataset.gmail = gmailURL;
-      mailBtn.dataset.mailto = mailtoURL;
-    }
-  }
-
-  function attachConsultLinkGuards(){
-    const waBtn = get('consult-whatsapp');
-    const mailBtn = get('consult-email');
-
-    waBtn?.addEventListener('click', (e) => {
-      const url = waBtn.dataset.href || waBtn.getAttribute('href');
-      if(!url || url === '#') return;
-      e.preventDefault();
-      window.open(url, '_blank', 'noopener');
-    });
-
-    mailBtn?.addEventListener('click', (e) => {
-      const url = mailBtn.dataset.gmail || mailBtn.getAttribute('href');
-      const mailto = mailBtn.dataset.mailto;
-      if(!url || url === '#') return;
-      e.preventDefault();
-      const w = window.open(url, '_blank');
-      if(!w && mailto) window.location.href = mailto;
-    });
-  }
-
-  // ---------- Wire form events ----------
-  typeSel?.addEventListener('change', () => configureFormFor(typeSel.value));
-
-  [nameInput, treatmentSel, dayInput, timeSel].forEach(el => {
-    el?.addEventListener('change', updateReserveLinks);
-    el?.addEventListener('input', updateReserveLinks);
-  });
-  treatmentCheckboxes?.addEventListener('change', updateReserveLinks);
-
-  // Init
-  configureFormFor(typeSel?.value || "");
-  updateReserveLinks();
-  updateConsultLinks();
-  attachReserveLinkGuards();
-  attachConsultLinkGuards();
-})();
-</script>
-</body>
+    // Init
+    configureFormFor(typeSel?.value || "");
+    updateReserveLinks();
+    updateConsultLinks();
+    attachReserveLinkGuards();
+    attachConsultLinkGuards();
+  })();
+</script></body>
 </html>
