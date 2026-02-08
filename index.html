@@ -1076,7 +1076,11 @@ Con este bono regalo podrás elegir entre todos los servicios disponibles o comb
 <h2 class="modal-title" id="reserve-title">Reserva tiempo para ti.</h2>
 <p class="modal-body">¿Ya sabes lo que quieres? Selecciona el servicio y una preferencia de día y hora. Confirmaremos disponibilidad lo antes posible.</p>
 <div aria-label="Preferencias de reserva" class="reserve-form">
-<div aria-label="Preferencias de reserva" class="reserve-form">
+<label class="rf">
+  <span>Nombre</span>
+  <input id="rf-name" type="text" placeholder="Escribe tu nombre" autocomplete="name" />
+</label>
+
   <label class="rf">
     <span>Tipo de servicio</span>
     <select id="rf-type">
@@ -1120,7 +1124,6 @@ Con este bono regalo podrás elegir entre todos los servicios disponibles o comb
   </div>
 
   <p aria-live="polite" class="reserve-hint" id="rf-hint"></p>
-</div>
 </div>
 <div class="modal-actions">
 <a class="cta-btn primary" href="#" id="reserve-whatsapp" rel="noopener" target="_blank">
@@ -1269,6 +1272,7 @@ Con este bono regalo podrás elegir entre todos los servicios disponibles o comb
 
   // ---------- Reservation form logic ----------
   const typeSel = get('rf-type');
+  const nameInput = get('rf-name');
   const treatmentWrap = get('rf-treatment-wrap');
   const treatmentSel = get('rf-treatment');
   const treatmentFieldset = get('rf-treatment-fieldset');
@@ -1294,7 +1298,26 @@ Con este bono regalo podrás elegir entre todos los servicios disponibles o comb
       .filter(Boolean);
   }
 
-  const MASAJES = () => collectNames('panel-masajes');
+  function expandMasajes(names){
+  const out = [];
+  (names || []).forEach((n) => {
+    if(n === 'Masaje relajante Ikigai'){
+      out.push('Masaje relajante Ikigai (30 min)');
+      out.push('Masaje relajante Ikigai (50 min)');
+      return;
+    }
+    if(n === 'Masaje de Tejido profundo'){
+      out.push('Masaje de Tejido profundo (30 min)');
+      out.push('Masaje de Tejido profundo (50 min)');
+      return;
+    }
+    out.push(n);
+  });
+  return out;
+}
+
+const MASAJES = () => expandMasajes(collectNames('panel-masajes'));
+
   const RITUALES = () => collectNames('panel-rituales');
 
   function resetSelect(selectEl){
@@ -1479,6 +1502,7 @@ Con este bono regalo podrás elegir entre todos los servicios disponibles o comb
   function buildReserveMessage(){
     const type = typeSel?.value || "";
     const typeText = typeLabel(type);
+    const name = (nameInput?.value || "").trim();
     const treatments = selectedTreatments();
     const day = formatDateES(dayInput?.value || "");
     const time = timeSel?.value || "";
@@ -1486,6 +1510,7 @@ Con este bono regalo podrás elegir entre todos los servicios disponibles o comb
     const lines = [];
     lines.push("Hola, me gustaría hacer la siguiente reserva:");
     lines.push("");
+    if(name) lines.push(`Nombre - ${name}`);
     if(typeText) lines.push(`Tipo de servicio - ${typeText}`);
 
     if(type === 'bono_regalo'){
@@ -1610,7 +1635,7 @@ Con este bono regalo podrás elegir entre todos los servicios disponibles o comb
   // ---------- Wire form events ----------
   typeSel?.addEventListener('change', () => configureFormFor(typeSel.value));
 
-  [treatmentSel, dayInput, timeSel].forEach(el => {
+  [nameInput, treatmentSel, dayInput, timeSel].forEach(el => {
     el?.addEventListener('change', updateReserveLinks);
     el?.addEventListener('input', updateReserveLinks);
   });
