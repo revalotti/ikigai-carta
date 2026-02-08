@@ -570,33 +570,37 @@
       border-radius: var(--radius);
       background: rgba(255,255,255,.18);
       padding:10px 12px;
-      padding-right: 44px; /* room for clear (X) button */
       font-family: var(--sans);
       font-size:14px;
       color: var(--ink);
     }
 
-    /* Field wrapper to integrate the clear (X) button within inputs/selects */
-    .rf-control{
-      position:relative;
-      display:block;
-    }
-    .rf-clear{
-      position:absolute;
-      top:50%;
-      right:10px;
-      transform: translateY(-50%);
-      width:28px;
-      height:28px;
-      border-radius:999px;
-      border:1px solid rgba(31,31,31,.18);
-      background: rgba(255,255,255,.22);
-      display:grid;
-      place-items:center;
-      cursor:pointer;
-      padding:0;
-      opacity:.85;
-    }
+    /* Field wrapper: input/select + clear button side-by-side (X OUTSIDE the field) */
+.rf-control{
+  display:flex;
+  gap:8px;
+  align-items:stretch;
+}
+.rf-control > select,
+.rf-control > input{
+  flex:1 1 auto;
+  min-width:0;
+}
+
+.rf-clear{
+  position:static;
+  width:40px;
+  min-width:40px;
+  border-radius:999px;
+  border:1px solid rgba(31,31,31,.18);
+  background: rgba(255,255,255,.22);
+  display:grid;
+  place-items:center;
+  cursor:pointer;
+  padding:0;
+  opacity:.85;
+  align-self:stretch;
+}
     .rf-clear:hover{ background: rgba(255,255,255,.34); opacity:1; }
     .rf-clear:focus-visible{
       outline:4px solid rgba(31,31,31,.28);
@@ -604,14 +608,24 @@
     }
     .rf-clear[hidden]{ display:none !important; }
 
-    /* Clear button inside checkbox fieldset (top-right) */
-    .rf-control-fieldset{ position:relative; }
-    .rf-clear-fieldset{
-      top:12px;
-      transform:none;
-    }
+    
+/* Checkbox fieldset + clear button side-by-side */
+.rf-control-fieldset{
+  display:flex;
+  gap:8px;
+  align-items:stretch;
+}
+.rf-control-fieldset .rf-fieldset{
+  flex:1 1 auto;
+  min-width:0;
+}
+.rf-clear-fieldset{
+  position:static;
+  transform:none;
+  align-self:stretch;
+}
 
-    .rf select[multiple]{
+.rf select[multiple]{
       min-height: 132px;
       padding-top: 10px;
       padding-bottom: 10px;
