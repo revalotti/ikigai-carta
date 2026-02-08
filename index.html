@@ -570,9 +570,45 @@
       border-radius: var(--radius);
       background: rgba(255,255,255,.18);
       padding:10px 12px;
+      padding-right: 44px; /* room for clear (X) button */
       font-family: var(--sans);
       font-size:14px;
       color: var(--ink);
+    }
+
+    /* Field wrapper to integrate the clear (X) button within inputs/selects */
+    .rf-control{
+      position:relative;
+      display:block;
+    }
+    .rf-clear{
+      position:absolute;
+      top:50%;
+      right:10px;
+      transform: translateY(-50%);
+      width:28px;
+      height:28px;
+      border-radius:999px;
+      border:1px solid rgba(31,31,31,.18);
+      background: rgba(255,255,255,.22);
+      display:grid;
+      place-items:center;
+      cursor:pointer;
+      padding:0;
+      opacity:.85;
+    }
+    .rf-clear:hover{ background: rgba(255,255,255,.34); opacity:1; }
+    .rf-clear:focus-visible{
+      outline:4px solid rgba(31,31,31,.28);
+      outline-offset:2px;
+    }
+    .rf-clear[hidden]{ display:none !important; }
+
+    /* Clear button inside checkbox fieldset (top-right) */
+    .rf-control-fieldset{ position:relative; }
+    .rf-clear-fieldset{
+      top:12px;
+      transform:none;
     }
 
     .rf select[multiple]{
@@ -1089,10 +1125,16 @@ Con este bono regalo podrás elegir entre todos los servicios disponibles o comb
 <div aria-label="Preferencias de reserva" class="reserve-form">
 <label class="rf">
 <span>Nombre</span>
+<div class="rf-control">
 <input autocomplete="name" id="rf-name" placeholder="Escribe tu nombre" type="text"/>
+<button aria-label="Borrar nombre" class="rf-clear" data-for="rf-name" type="button" hidden>
+<span aria-hidden="true" class="x"></span>
+</button>
+</div>
 </label>
 <label class="rf">
 <span>Tipo de servicio</span>
+<div class="rf-control">
 <select id="rf-type">
 <option disabled="" selected="" value="">Selecciona un tipo de servicio</option>
 <option value="masaje">Masaje terapéutico</option>
@@ -1100,25 +1142,45 @@ Con este bono regalo podrás elegir entre todos los servicios disponibles o comb
 <option value="bono_mensual">Bono mensual</option>
 <option value="bono_regalo">Bono regalo</option>
 </select>
+<button aria-label="Borrar tipo de servicio" class="rf-clear" data-for="rf-type" type="button" hidden>
+<span aria-hidden="true" class="x"></span>
+</button>
+</div>
 </label>
 <div class="reserve-grid" id="rf-dependent">
 <div class="rf" id="rf-treatment-wrap" style="display:none;">
 <span>Tratamiento</span>
+<div class="rf-control">
 <select disabled="" id="rf-treatment">
 <option disabled="" selected="" value="">Selecciona un tratamiento</option>
 </select>
+<button aria-label="Borrar tratamiento" class="rf-clear" data-for="rf-treatment" type="button" hidden>
+<span aria-hidden="true" class="x"></span>
+</button>
+</div>
 <!-- Accessible multi-select (checkbox list) -->
+<div class="rf-control-fieldset">
 <fieldset class="rf-fieldset" disabled="" hidden="" id="rf-treatment-fieldset">
 <legend class="sr-only">Tratamientos</legend>
 <div class="rf-checkboxes" id="rf-treatment-checkboxes"></div>
 </fieldset>
+<button aria-label="Borrar tratamientos" class="rf-clear rf-clear-fieldset" data-for="rf-treatment-fieldset" type="button" hidden>
+<span aria-hidden="true" class="x"></span>
+</button>
+</div>
 </div>
 <label class="rf" id="rf-day-wrap" style="display:none;">
 <span>Fecha</span>
+<div class="rf-control">
 <input disabled="" id="rf-day" type="date"/>
+<button aria-label="Borrar fecha" class="rf-clear" data-for="rf-day" type="button" hidden>
+<span aria-hidden="true" class="x"></span>
+</button>
+</div>
 </label>
 <label class="rf" id="rf-time-wrap" style="display:none;">
 <span>Hora</span>
+<div class="rf-control">
 <select disabled="" id="rf-time">
 <option disabled="" selected="" value="">Elige una hora</option>
 <option>10:00</option><option>10:30</option><option>11:00</option><option>11:30</option>
@@ -1126,6 +1188,10 @@ Con este bono regalo podrás elegir entre todos los servicios disponibles o comb
 <option>17:00</option><option>17:30</option><option>18:00</option><option>18:30</option>
 <option>19:00</option><option>19:30</option><option>20:00</option>
 </select>
+<button aria-label="Borrar hora" class="rf-clear" data-for="rf-time" type="button" hidden>
+<span aria-hidden="true" class="x"></span>
+</button>
+</div>
 </label>
 </div>
 <p aria-live="polite" class="reserve-hint" id="rf-hint"></p>
@@ -1630,14 +1696,74 @@ Con este bono regalo podrás elegir entre todos los servicios disponibles o comb
       });
     }
 
+// ---------- Clear (X) buttons ----------
+const clearBtns = Array.from(document.querySelectorAll('.rf-clear'));
+
+function dispatchChange(el){
+  if(!el) return;
+  el.dispatchEvent(new Event('input', { bubbles:true }));
+  el.dispatchEvent(new Event('change', { bubbles:true }));
+}
+
+function clearField(targetId){
+  const el = get(targetId);
+  if(!el) return;
+
+  if(el.tagName === 'SELECT' || el.tagName === 'INPUT' || el.tagName === 'TEXTAREA'){
+    el.value = '';
+    dispatchChange(el);
+    return;
+  }
+
+  // Fieldset multi-select
+  if(el.tagName === 'FIELDSET'){
+    const boxes = Array.from(el.querySelectorAll('input[type="checkbox"]'));
+    boxes.forEach(b => b.checked = false);
+    el.dispatchEvent(new Event('change', { bubbles:true }));
+    return;
+  }
+}
+
+function refreshClearButtons(){
+  clearBtns.forEach(btn => {
+    const targetId = btn.dataset.for;
+    const el = targetId ? get(targetId) : null;
+    if(!el){
+      btn.hidden = true;
+      return;
+    }
+
+    // Hide if target isn't visible
+    const isHidden = (el.hidden === true) || (el.offsetParent === null);
+    const isDisabled = !!el.disabled;
+
+    if(el.tagName === 'FIELDSET'){
+      const anyChecked = !!el.querySelector('input[type="checkbox"]:checked');
+      btn.hidden = isHidden || isDisabled || !anyChecked;
+      return;
+    }
+
+    const hasValue = (el.value || '').trim() !== '';
+    btn.hidden = isHidden || isDisabled || !hasValue;
+  });
+}
+
+clearBtns.forEach(btn => {
+  btn.addEventListener('click', () => {
+    clearField(btn.dataset.for);
+    updateReserveLinks();
+    refreshClearButtons();
+  });
+});
+
     // ---------- Wire form events ----------
-    typeSel?.addEventListener('change', () => configureFormFor(typeSel.value));
+    typeSel?.addEventListener('change', () => { configureFormFor(typeSel.value); refreshClearButtons(); });
 
     [nameInput, treatmentSel, dayInput, timeSel].forEach(el => {
-      el?.addEventListener('change', updateReserveLinks);
-      el?.addEventListener('input', updateReserveLinks);
+      el?.addEventListener('change', () => { updateReserveLinks(); refreshClearButtons(); });
+      el?.addEventListener('input', () => { updateReserveLinks(); refreshClearButtons(); });
     });
-    treatmentCheckboxes?.addEventListener('change', updateReserveLinks);
+    treatmentCheckboxes?.addEventListener('change', () => { updateReserveLinks(); refreshClearButtons(); });
 
     // Init
     configureFormFor(typeSel?.value || "");
@@ -1645,6 +1771,7 @@ Con este bono regalo podrás elegir entre todos los servicios disponibles o comb
     updateConsultLinks();
     attachReserveLinkGuards();
     attachConsultLinkGuards();
+    refreshClearButtons();
   })();
 </script></body>
 </html>
