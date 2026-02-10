@@ -1232,7 +1232,7 @@ Con este bono regalo podrás elegir entre todos los servicios disponibles o comb
 
 <p class="footer-instagram">
   Síguenos en Instagram para estar al día de nuestras novedades ·
-  <a href="https://www.instagram.com/centroikigai.masajes?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" rel="noopener">
+  <a href="https://www.instagram.com/centroikigai.masajes/" id="ig-link" target="_blank" rel="noopener">
     @centroikigai.masajes
   </a>
 </p>
@@ -1796,5 +1796,101 @@ clearBtns.forEach(btn => {
     attachConsultLinkGuards();
     refreshClearButtons();
   })();
-</script></body>
+</script>
+<script>
+/* Instagram smart link: try to open the profile inside the Instagram app on mobile,
+   and fall back to the web profile if the app can't route correctly. */
+(function(){
+  const ig = document.getElementById('ig-link');
+  if(!ig) return;
+
+  // Keep a clean, copyable URL (no UTM parameters) for long-press / copy-link
+  const username = "centroikigai.masajes";
+  const webUrl = "https://www.instagram.com/" + username + "/";
+
+  // Basic mobile detection (we only override behavior on mobile)
+  const ua = navigator.userAgent || "";
+  const isMobile = /Android|iPhone|iPad|iPod/i.test(ua);
+
+  // On desktop, default behavior (open in new tab) is fine
+  ig.setAttribute('href', webUrl);
+  if(!isMobile) return;
+
+  function openWithFallback(primaryUrl, fallbackUrl){
+    let didHideOrBlur = false;
+
+    const onVisibility = () => { if(document.hidden) didHideOrBlur = true; };
+    const onBlur = () => { didHideOrBlur = true; };
+
+    document.addEventListener('visibilitychange', onVisibility, { passive: true });
+    window.addEventListener('pagehide', onVisibility, { passive: true });
+    window.addEventListener('blur', onBlur, { passive: true });
+
+    // Try to open the app (must be within the click handler)
+    window.location.href = primaryUrl;
+
+    // If the app didn't take over, fall back to the web profile
+    setTimeout(() => {
+      document.removeEventListener('visibilitychange', onVisibility);
+      window.removeEventListener('pagehide', onVisibility);
+      window.removeEventListener('blur', onBlur);
+
+      if(!didHideOrBlur){
+        // Use same-tab navigation to avoid popup blockers on mobile
+        window.location.href = fallbackUrl;
+      }
+    }, 1200);
+  }
+
+  ig.addEventListener('click', function(e){
+    e.preventDefault();
+
+    // 1) First try Universal Link: on many phones this opens Instagram directly
+    //    and routes to the profile reliably.
+    //    If it doesn't, the browser will just load the web page (acceptable).
+    //    We only attempt deep-links if the universal link doesn't take over quickly.
+    let usedDeepLink = false;
+    let didHideOrBlur = false;
+
+    const markHidden = () => { if(document.hidden) didHideOrBlur = true; };
+    const markBlur = () => { didHideOrBlur = true; };
+
+    document.addEventListener('visibilitychange', markHidden, { passive: true });
+    window.addEventListener('pagehide', markHidden, { passive: true });
+    window.addEventListener('blur', markBlur, { passive: true });
+
+    // Navigate to universal link first
+    window.location.href = webUrl;
+
+    // If after a short moment we are still here, try app deep-link/intent
+    setTimeout(() => {
+      document.removeEventListener('visibilitychange', markHidden);
+      window.removeEventListener('pagehide', markHidden);
+      window.removeEventListener('blur', markBlur);
+
+      if(didHideOrBlur) return;
+
+      usedDeepLink = true;
+
+      const fallback = webUrl;
+
+      // iOS deep-link (works if Instagram is installed)
+      const iosDeepLink = "instagram://user?username=" + encodeURIComponent(username);
+
+      // Android intent with explicit fallback
+      const androidIntent = "intent://instagram.com/_u/" + encodeURIComponent(username) +
+        "/#Intent;package=com.instagram.android;scheme=https;S.browser_fallback_url=" +
+        encodeURIComponent(fallback) + ";end";
+
+      if(/Android/i.test(ua)){
+        openWithFallback(androidIntent, fallback);
+      } else {
+        openWithFallback(iosDeepLink, fallback);
+      }
+    }, 350);
+  }, { passive: false });
+})();
+</script>
+
+</body>
 </html>
