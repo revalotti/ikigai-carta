@@ -4,7 +4,7 @@
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1" name="viewport"/>
-<title>Ikigai · Carta de tratamientos</title>
+<title>Carta de servicios · Ikigai Centro de Masajes</title>
 
 <!-- Favicons -->
 <link rel="icon" href="./favicon.ico" sizes="any">
@@ -15,7 +15,7 @@
 <meta name="theme-color" content="#776B5D">  -->
 
     
-<meta content="Carta de tratamientos · Ikigai Centro de Masajes" name="description"/>
+<meta content="Carta de servicios · Ikigai Centro de Masajes" name="description"/>
 <!-- Fonts -->
 <link href="https://fonts.googleapis.com" rel="preconnect"/>
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
@@ -101,6 +101,14 @@
       align-items:center;
       gap:14px;
       min-width: 240px;
+    }
+
+    .brand-logo-link{
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      text-decoration: none;
+      color: inherit;
     }
 
     .brand-logo{
@@ -885,9 +893,13 @@
 }
 .footer-divider{
   height:1px;
-  width:100%;
+  width:100vw;
+  position:relative;
+  left:50%;
+  margin-left:-50vw;
   background: var(--line);
-  margin:18px 0;
+  margin-top:18px;
+  margin-bottom:18px;
 }
 @media (max-width: 640px){
   .footer-actions{ width:100%; }
@@ -906,11 +918,13 @@
 <div class="wrap">
 <div class="header-inner">
 <div class="brand">
+<a href="#masajes" class="brand-logo-link" aria-label="Ir a Masajes">
 <img alt="Ikigai · Centro de Masajes" class="brand-logo" decoding="async" loading="eager" onerror="this.style.display='none'; document.querySelector('.brand-fallback').style.display='flex';" src="./assets/images//Ikigai_Imagotipo-Horizontal-Color-Negativo-SF.svg"/>
 <div class="brand-fallback">
 <span class="word">ikigai</span>
 <span class="sub">CENTRO DE MASAJES</span>
 </div>
+</a>
 </div>
 <div class="header-actions">
 <a class="cta-btn primary reserve-btn" href="#reservas" id="go-reservas">Reservar</a>
@@ -1055,7 +1069,7 @@
 <div class="includes-title">Incluye</div>
 <div class="includes-row">
 <div><strong>Bañera de Hidromasaje<br/><span>con aromaterapia</span></strong></div>
-<div class="includes-time">40 min</div>
+<div class="includes-time">50 min</div>
 </div>
 <!-- Same line note -->
 <div class="includes-row">
@@ -1093,7 +1107,7 @@
 <ul class="bullets bonos-bullets">
 <li>Bono personal e intransferible.</li>
 <li>Reserva previa.</li>
-<li>Validez de 1 mes.</li>
+<li>Validez de 2 meses.</li>
 </ul>
 </article>
 <article class="card">
@@ -1126,11 +1140,13 @@ Con este bono regalo podrás elegir entre todos los servicios disponibles o comb
 <div class="wrap">
 <div class="header-inner">
 <div class="brand">
+<a href="#masajes" class="brand-logo-link" aria-label="Ir a Masajes">
 <img alt="Ikigai · Centro de Masajes" class="brand-logo" decoding="async" loading="eager" onerror="this.style.display='none'; document.querySelector('.brand-fallback').style.display='flex';" src="./assets/images//Ikigai_Imagotipo-Horizontal-Color-Negativo-SF.svg"/>
 <div class="brand-fallback">
 <span class="word">ikigai</span>
 <span class="sub">CENTRO DE MASAJES</span>
 </div>
+</a>
 </div>
 <div class="header-actions">
 <a class="cta-btn secondary reserve-btn" href="#carta" rel="noopener">Ver Carta</a>
@@ -1208,9 +1224,9 @@ Con este bono regalo podrás elegir entre todos los servicios disponibles o comb
 <select disabled="" id="rf-time">
 <option disabled="" selected="" value="">Elige una hora</option>
 <option>10:00</option><option>10:30</option><option>11:00</option><option>11:30</option>
-<option>12:00</option><option>12:30</option><option>13:00</option>
+<option>12:00</option><option>12:30</option><option>13:00</option><option>13:30</option>
 <option>17:00</option><option>17:30</option><option>18:00</option><option>18:30</option>
-<option>19:00</option><option>19:30</option><option>20:00</option>
+<option>19:00</option><option>19:30</option><option>20:00</option><option>20:30</option>
 </select>
 <button aria-label="Borrar hora" class="rf-clear" data-for="rf-time" type="button" hidden>
 <span aria-hidden="true" class="x"></span>
@@ -1238,14 +1254,14 @@ Con este bono regalo podrás elegir entre todos los servicios disponibles o comb
 </div>
 </div>
 <div class="footer-divider" role="presentation"></div>
-    <div class="footer-bottom">
-
+<div class="footer-bottom">
 <p class="footer-instagram">
   Síguenos en Instagram ·
   <a href="https://www.instagram.com/centroikigai.masajes/" id="ig-link" target="_blank" rel="noopener">
     @centroikigai.masajes
   </a>
 </p>
+</div>
 <div class="footer-divider" role="presentation"></div>
 <div class="footer-bottom">
 <p class="footer-rights">Todos los derechos reservados para <br> Ikigai · Centro de Masajes </br></p>
@@ -1300,6 +1316,12 @@ Con este bono regalo podrás elegir entre todos los servicios disponibles o comb
     const tabs = Array.from(document.querySelectorAll('[role="tab"]'));
     const panels = tabs.map(t => document.getElementById(t.getAttribute('aria-controls')));
 
+    function scrollToTop(){
+      const carta = document.getElementById('carta');
+      if(carta) carta.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      else window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
     function setActive(tab){
       tabs.forEach((t, i) => {
         const active = (t === tab);
@@ -1310,6 +1332,7 @@ Con este bono regalo podrás elegir entre todos los servicios disponibles o comb
 
       const id = tab.id.replace('tab-','');
       history.replaceState(null, '', '#' + id);
+      scrollToTop();
     }
 
     tabs.forEach(t => {
@@ -1322,11 +1345,16 @@ Con este bono regalo podrás elegir entre todos los servicios disponibles o comb
       });
     });
 
-    const hash = (location.hash || '').replace('#','').trim();
-    if(hash){
-      const target = document.getElementById('tab-' + hash);
-      if(target) setActive(target);
+    function syncTabFromHash(){
+      const hash = (location.hash || '').replace('#','').trim();
+      if(hash && ['masajes','rituales','bonos'].includes(hash)){
+        const target = document.getElementById('tab-' + hash);
+        if(target) setActive(target);
+      }
     }
+
+    syncTabFromHash();
+    window.addEventListener('hashchange', syncTabFromHash);
   })();
 </script><script>
 (function(){
@@ -1335,7 +1363,7 @@ Con este bono regalo podrás elegir entre todos los servicios disponibles o comb
     const consultModal = get('consult-modal');
     const consultOpenBtns = [ get('open-contact-footer') ].filter(Boolean);
 
-    const PHONE_NUMBER = "34695752476"; // digits only
+    const PHONE_NUMBER = "34722712587"; // digits only
     const EMAIL = "centroikigai.masajes@gmail.com";
 
     // ---------- Modal helpers (consult only) ----------
@@ -1521,7 +1549,12 @@ Con este bono regalo podrás elegir entre todos los servicios disponibles o comb
       }
 
       if(type === 'bono_mensual'){
-        treatmentSel?.appendChild(optionEl('Masaje de Tejido profundo'));
+        const bonoMensualTreatment = 'Masaje de Tejido profundo';
+        treatmentSel?.appendChild(optionEl(bonoMensualTreatment));
+        if(treatmentSel){
+          treatmentSel.value = bonoMensualTreatment;
+          treatmentSel.dispatchEvent(new Event('change', { bubbles: true }));
+        }
         setVisible(dayWrap, false);
         setVisible(timeWrap, false);
         dayInput.value = '';
@@ -1653,12 +1686,16 @@ Con este bono regalo podrás elegir entre todos los servicios disponibles o comb
       }
 
       if(mailBtn){
-        mailBtn.href = gmailURL;
-        mailBtn.dataset.gmail = gmailURL;
+        mailBtn.href = mailtoURL;
         mailBtn.dataset.mailto = mailtoURL;
+        mailBtn.dataset.gmail = gmailURL;
         mailBtn.removeAttribute('target');
-        mailBtn.removeAttribute('rel');
+        mailBtn.setAttribute('rel', 'noopener');
       }
+    }
+
+    function isMobile(){
+      return window.matchMedia('(max-width: 768px)').matches;
     }
 
     function attachReserveLinkGuards(){
@@ -1673,12 +1710,11 @@ Con este bono regalo podrás elegir entre todos los servicios disponibles o comb
       });
 
       mailBtn?.addEventListener('click', (e) => {
-        const url = mailBtn.dataset.gmail || mailBtn.getAttribute('href');
-        const mailto = mailBtn.dataset.mailto;
-        if(!url || url === '#') return;
         e.preventDefault();
-        const w = window.open(url, '_blank');
-        if(!w && mailto) window.location.href = mailto;
+        const mailto = mailBtn.dataset.mailto;
+        const gmail = mailBtn.dataset.gmail;
+        if(isMobile() && mailto) window.location.href = mailto;
+        else if(gmail){ const w = window.open(gmail, '_blank'); if(!w && mailto) window.location.href = mailto; }
       });
     }
 
@@ -1687,11 +1723,11 @@ Con este bono regalo podrás elegir entre todos los servicios disponibles o comb
       const waBtn = get('consult-whatsapp');
       const mailBtn = get('consult-email');
 
-      const consultText = encodeURIComponent("Hola, me gustaría pedir más información sobre.");
+      const consultText = encodeURIComponent("Hola, me gustaría pedir más información sobre");
       const waURL = `https://wa.me/${PHONE_NUMBER}?text=${consultText}`;
 
       const subject = encodeURIComponent("Consulta - Ikigai");
-      const body = encodeURIComponent("Hola, me gustaría pedir más información sobre.").replace(/%0A/g, "%0D%0A");
+      const body = encodeURIComponent("Hola, me gustaría pedir más información sobre").replace(/%0A/g, "%0D%0A");
       const mailtoURL = `mailto:${EMAIL}?subject=${subject}&body=${body}`;
       const gmailURL = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(EMAIL)}&su=${subject}&body=${body}`;
 
@@ -1702,9 +1738,11 @@ Con este bono regalo podrás elegir entre todos los servicios disponibles o comb
         waBtn.target = '_blank';
       }
       if(mailBtn){
-        mailBtn.href = gmailURL;
-        mailBtn.dataset.gmail = gmailURL;
+        mailBtn.href = mailtoURL;
         mailBtn.dataset.mailto = mailtoURL;
+        mailBtn.dataset.gmail = gmailURL;
+        mailBtn.removeAttribute('target');
+        mailBtn.setAttribute('rel', 'noopener');
       }
     }
 
@@ -1720,12 +1758,11 @@ Con este bono regalo podrás elegir entre todos los servicios disponibles o comb
       });
 
       mailBtn?.addEventListener('click', (e) => {
-        const url = mailBtn.dataset.gmail || mailBtn.getAttribute('href');
-        const mailto = mailBtn.dataset.mailto;
-        if(!url || url === '#') return;
         e.preventDefault();
-        const w = window.open(url, '_blank');
-        if(!w && mailto) window.location.href = mailto;
+        const mailto = mailBtn.dataset.mailto;
+        const gmail = mailBtn.dataset.gmail;
+        if(isMobile() && mailto) window.location.href = mailto;
+        else if(gmail){ const w = window.open(gmail, '_blank'); if(!w && mailto) window.location.href = mailto; }
       });
     }
 
@@ -1798,6 +1835,23 @@ clearBtns.forEach(btn => {
     });
     treatmentCheckboxes?.addEventListener('change', () => { updateReserveLinks(); refreshClearButtons(); });
 
+    // Los domingos no hay reservas
+    dayInput?.addEventListener('change', function(){
+      const v = dayInput.value;
+      if(!v) return;
+      const d = new Date(v + 'T12:00:00');
+      if(d.getDay() === 0){
+        dayInput.value = '';
+        if(hintEl) hintEl.textContent = 'Los domingos no estamos abiertos. Elige otro día.';
+        updateReserveLinks();
+        refreshClearButtons();
+      } else if(hintEl && typeSel){
+        const type = typeSel.value;
+        if(type === 'masaje' || type === 'ritual') hintEl.textContent = "Selecciona tratamiento, fecha y hora. El mensaje se completará automáticamente.";
+        else if(type === 'bonos') hintEl.textContent = "Bono mensual: selecciona el tratamiento. Confirmaremos disponibilidad contigo.";
+      }
+    });
+
     // Init
     configureFormFor(typeSel?.value || "");
     updateReserveLinks();
@@ -1808,97 +1862,14 @@ clearBtns.forEach(btn => {
   })();
 </script>
 <script>
-/* Instagram smart link: try to open the profile inside the Instagram app on mobile,
-   and fall back to the web profile if the app can't route correctly. */
+/* Instagram: enlace directo a la cuenta (funciona en desktop y móvil). */
 (function(){
   const ig = document.getElementById('ig-link');
   if(!ig) return;
-
-  // Keep a clean, copyable URL (no UTM parameters) for long-press / copy-link
-  const username = "centroikigai.masajes";
-  const webUrl = "https://www.instagram.com/" + username + "/";
-
-  // Basic mobile detection (we only override behavior on mobile)
-  const ua = navigator.userAgent || "";
-  const isMobile = /Android|iPhone|iPad|iPod/i.test(ua);
-
-  // On desktop, default behavior (open in new tab) is fine
+  const webUrl = "https://www.instagram.com/centroikigai.masajes/";
   ig.setAttribute('href', webUrl);
-  if(!isMobile) return;
-
-  function openWithFallback(primaryUrl, fallbackUrl){
-    let didHideOrBlur = false;
-
-    const onVisibility = () => { if(document.hidden) didHideOrBlur = true; };
-    const onBlur = () => { didHideOrBlur = true; };
-
-    document.addEventListener('visibilitychange', onVisibility, { passive: true });
-    window.addEventListener('pagehide', onVisibility, { passive: true });
-    window.addEventListener('blur', onBlur, { passive: true });
-
-    // Try to open the app (must be within the click handler)
-    window.location.href = primaryUrl;
-
-    // If the app didn't take over, fall back to the web profile
-    setTimeout(() => {
-      document.removeEventListener('visibilitychange', onVisibility);
-      window.removeEventListener('pagehide', onVisibility);
-      window.removeEventListener('blur', onBlur);
-
-      if(!didHideOrBlur){
-        // Use same-tab navigation to avoid popup blockers on mobile
-        window.location.href = fallbackUrl;
-      }
-    }, 1200);
-  }
-
-  ig.addEventListener('click', function(e){
-    e.preventDefault();
-
-    // 1) First try Universal Link: on many phones this opens Instagram directly
-    //    and routes to the profile reliably.
-    //    If it doesn't, the browser will just load the web page (acceptable).
-    //    We only attempt deep-links if the universal link doesn't take over quickly.
-    let usedDeepLink = false;
-    let didHideOrBlur = false;
-
-    const markHidden = () => { if(document.hidden) didHideOrBlur = true; };
-    const markBlur = () => { didHideOrBlur = true; };
-
-    document.addEventListener('visibilitychange', markHidden, { passive: true });
-    window.addEventListener('pagehide', markHidden, { passive: true });
-    window.addEventListener('blur', markBlur, { passive: true });
-
-    // Navigate to universal link first
-    window.location.href = webUrl;
-
-    // If after a short moment we are still here, try app deep-link/intent
-    setTimeout(() => {
-      document.removeEventListener('visibilitychange', markHidden);
-      window.removeEventListener('pagehide', markHidden);
-      window.removeEventListener('blur', markBlur);
-
-      if(didHideOrBlur) return;
-
-      usedDeepLink = true;
-
-      const fallback = webUrl;
-
-      // iOS deep-link (works if Instagram is installed)
-      const iosDeepLink = "instagram://user?username=" + encodeURIComponent(username);
-
-      // Android intent with explicit fallback
-      const androidIntent = "intent://instagram.com/_u/" + encodeURIComponent(username) +
-        "/#Intent;package=com.instagram.android;scheme=https;S.browser_fallback_url=" +
-        encodeURIComponent(fallback) + ";end";
-
-      if(/Android/i.test(ua)){
-        openWithFallback(androidIntent, fallback);
-      } else {
-        openWithFallback(iosDeepLink, fallback);
-      }
-    }, 350);
-  }, { passive: false });
+  ig.setAttribute('target', '_blank');
+  ig.setAttribute('rel', 'noopener noreferrer');
 })();
 </script>
 
