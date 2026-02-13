@@ -1457,7 +1457,7 @@ Con este bono regalo podrás elegir entre todos los servicios disponibles o comb
 <div class="footer-bottom">
 <p class="footer-instagram">
   Síguenos en Instagram ·
-  <a href="https://www.instagram.com/centroikigai.masajes/" id="ig-link" target="_blank" rel="noopener">
+  <a href="#" id="ig-link" target="_blank" rel="noopener" data-ig-web="https://www.instagram.com/centroikigai.masajes/">
     @centroikigai.masajes
   </a>
 </p>
@@ -2225,13 +2225,33 @@ clearBtns.forEach(btn => {
   })();
 </script>
 <script>
-/* Instagram: siempre abre la web (desktop y móvil) para comportamiento consistente. */
+/* Instagram: en móvil evitamos que el OS abra la app interceptando el enlace.
+   Abrimos con JS la versión web (m.instagram.com) para que cargue en el navegador. */
 (function(){
   const ig = document.getElementById('ig-link');
   if(!ig) return;
-  ig.setAttribute('href', 'https://www.instagram.com/centroikigai.masajes/');
-  ig.setAttribute('target', '_blank');
-  ig.setAttribute('rel', 'noopener noreferrer');
+  var webUrl = ig.getAttribute('data-ig-web') || 'https://www.instagram.com/centroikigai.masajes/';
+  var mobileWebUrl = 'https://www.instagram.com/centroikigai.masajes/';
+
+  function isMobile() {
+    return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
+      || (navigator.maxTouchPoints && navigator.maxTouchPoints > 0 && window.innerWidth < 1024);
+  }
+
+  if (isMobile()) {
+    ig.setAttribute('href', '#');
+    ig.setAttribute('aria-label', 'Abrir perfil de Instagram en el navegador');
+    ig.addEventListener('click', function(e) {
+      e.preventDefault();
+      e.stopPropagation();
+      window.open(mobileWebUrl, '_blank', 'noopener,noreferrer');
+    });
+  } else {
+    ig.setAttribute('href', webUrl);
+    ig.removeAttribute('data-ig-web');
+    ig.setAttribute('target', '_blank');
+    ig.setAttribute('rel', 'noopener noreferrer');
+  }
 })();
 </script>
 
