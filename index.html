@@ -1457,7 +1457,7 @@ Con este bono regalo podrás elegir entre todos los servicios disponibles o comb
 <div class="footer-bottom">
 <p class="footer-instagram">
   Síguenos en Instagram ·
-  <a href="#" id="ig-link" target="_blank" rel="noopener" data-ig-web="https://www.instagram.com/centroikigai.masajes/">
+  <a href="https://www.instagram.com/centroikigai.masajes/" id="ig-link" target="_blank" rel="noopener" data-ig-mobile="ig.html">
     @centroikigai.masajes
   </a>
 </p>
@@ -2225,13 +2225,13 @@ clearBtns.forEach(btn => {
   })();
 </script>
 <script>
-/* Instagram: en móvil evitamos que el OS abra la app interceptando el enlace.
-   Abrimos con JS la versión web (m.instagram.com) para que cargue en el navegador. */
+/* Instagram: en móvil el enlace va a ig.html (mismo sitio); esa página redirige a Instagram
+   en la misma pestaña para intentar que abra en el navegador y no en la app. */
 (function(){
   const ig = document.getElementById('ig-link');
   if(!ig) return;
-  var webUrl = ig.getAttribute('data-ig-web') || 'https://www.instagram.com/centroikigai.masajes/';
-  var mobileWebUrl = 'https://www.instagram.com/centroikigai.masajes/';
+  var webUrl = 'https://www.instagram.com/centroikigai.masajes/';
+  var mobileRedirect = ig.getAttribute('data-ig-mobile') || 'ig.html';
 
   function isMobile() {
     return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
@@ -2239,19 +2239,15 @@ clearBtns.forEach(btn => {
   }
 
   if (isMobile()) {
-    ig.setAttribute('href', '#');
-    ig.setAttribute('aria-label', 'Abrir perfil de Instagram en el navegador');
-    ig.addEventListener('click', function(e) {
-      e.preventDefault();
-      e.stopPropagation();
-      window.open(mobileWebUrl, '_blank', 'noopener,noreferrer');
-    });
+    ig.setAttribute('href', mobileRedirect);
+    ig.removeAttribute('target');
+    ig.setAttribute('rel', 'noopener noreferrer');
   } else {
     ig.setAttribute('href', webUrl);
-    ig.removeAttribute('data-ig-web');
     ig.setAttribute('target', '_blank');
     ig.setAttribute('rel', 'noopener noreferrer');
   }
+  ig.removeAttribute('data-ig-mobile');
 })();
 </script>
 
