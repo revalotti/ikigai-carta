@@ -2225,32 +2225,13 @@ clearBtns.forEach(btn => {
   })();
 </script>
 <script>
-/* Instagram: en desktop abre la web; en móvil intenta abrir la app en el perfil y, si no hay app, la web. */
+/* Instagram: siempre abre la web (desktop y móvil) para comportamiento consistente. */
 (function(){
   const ig = document.getElementById('ig-link');
   if(!ig) return;
-  const webUrl = "https://www.instagram.com/centroikigai.masajes/";
-  const appUrl = "instagram://user?username=centroikigai.masajes";
-  ig.setAttribute('href', webUrl);
+  ig.setAttribute('href', 'https://www.instagram.com/centroikigai.masajes/');
   ig.setAttribute('target', '_blank');
   ig.setAttribute('rel', 'noopener noreferrer');
-
-  function isMobile() {
-    return window.matchMedia('(max-width: 768px)').matches || 'ontouchstart' in window && window.innerWidth < 1024;
-  }
-
-  if (isMobile()) {
-    ig.addEventListener('click', function(e) {
-      e.preventDefault();
-      var start = Date.now();
-      window.location.href = appUrl;
-      setTimeout(function() {
-        if (document.visibilityState === 'visible' && (Date.now() - start) >= 1800) {
-          window.open(webUrl, '_blank', 'noopener,noreferrer');
-        }
-      }, 2000);
-    });
-  }
 })();
 </script>
 
