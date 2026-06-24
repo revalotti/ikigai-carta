@@ -9,6 +9,10 @@
 npm-debug.log
 yarn-error.log
 
+# Environments — NEVER commit these
+/client/src/environments/environment.ts
+/client/src/environments/environment.development.ts
+
 # IDE
 .idea/
 .vscode/*
