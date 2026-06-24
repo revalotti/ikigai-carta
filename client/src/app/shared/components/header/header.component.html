@@ -1,0 +1,31 @@
+<div class="top-sticky">
+  <header class="site-header">
+    <div class="wrap">
+      <div class="header-inner">
+        <div class="brand">
+          <a href="#/masajes" class="brand-logo-link" aria-label="Ir a Masajes">
+            <img
+              alt="Ikigai · Centro de Masajes"
+              class="brand-logo"
+              decoding="async"
+              loading="eager"
+              src="assets/images/Ikigai_Imagotipo-Horizontal-Color-Negativo-SF.svg"
+              (error)="onLogoError()"
+            />
+            <div class="brand-fallback" [style.display]="logoFailed() ? 'flex' : 'none'">
+              <span class="word">ikigai</span>
+              <span class="sub">CENTRO DE MASAJES</span>
+            </div>
+          </a>
+        </div>
+        <div class="header-actions">
+          @if (mode() === 'carta') {
+            <a class="cta-btn primary reserve-btn" routerLink="/reservas">Reservar</a>
+          } @else {
+            <a class="cta-btn secondary reserve-btn" routerLink="/">Ver Carta</a>
+          }
+        </div>
+      </div>
+    </div>
+  </header>
+</div>

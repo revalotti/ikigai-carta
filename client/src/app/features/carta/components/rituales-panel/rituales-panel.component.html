@@ -1,0 +1,7 @@
+<section class="panel" role="tabpanel" id="panel-rituales" aria-labelledby="tab-rituales">
+  <div class="grid-3">
+    @for (card of services; track card.id) {
+      <app-service-card [card]="card" />
+    }
+  </div>
+</section>

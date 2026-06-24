@@ -1,0 +1,17 @@
+@use 'styles/tokens' as t;
+
+:host {
+  display: block;
+}
+
+.top-sticky {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  background: rgba(235, 227, 213, 0.92);
+  backdrop-filter: blur(10px);
+}
+
+main {
+  padding: t.$page-top 0 calc(44px + 86px);
+}

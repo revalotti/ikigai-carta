@@ -1,0 +1,17 @@
+<div class="top-sticky">
+  <app-header mode="carta" />
+  <app-tabs-bar [activeTab]="activeTab()" (tabChange)="onTabChange($event)" />
+</div>
+<main>
+  <div class="wrap">
+    @if (activeTab() === 'masajes') {
+      <app-masajes-panel />
+    }
+    @if (activeTab() === 'rituales') {
+      <app-rituales-panel />
+    }
+    @if (activeTab() === 'bonos') {
+      <app-bonos-panel />
+    }
+  </div>
+</main>

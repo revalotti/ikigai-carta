@@ -1,0 +1,32 @@
+<div class="calendar">
+  <div class="cal-head">
+    <span class="cal-title">{{ title() }}</span>
+    <div class="cal-nav">
+      <button type="button" class="cal-nav-btn" aria-label="Mes anterior"
+              [disabled]="isPrevDisabled()" (click)="prevMonth()">‹</button>
+      <button type="button" class="cal-nav-btn" aria-label="Mes siguiente"
+              (click)="nextMonth()">›</button>
+    </div>
+  </div>
+  <div class="cal-weekdays">
+    @for (d of DIAS_SEM; track d) {
+      <span class="cal-weekday">{{ d }}</span>
+    }
+  </div>
+  <div class="cal-days">
+    @for (day of days(); track day.date + day.day) {
+      <button
+        type="button"
+        class="cal-day"
+        [class.selected]="day.isSelected"
+        [class.disabled]="day.isSunday"
+        [class.past]="day.isPast"
+        [class.other]="day.isOther"
+        [disabled]="day.isDisabled"
+        [attr.data-date]="day.date"
+        (click)="selectDay(day)">
+        {{ day.isOther ? '' : day.day }}
+      </button>
+    }
+  </div>
+</div>

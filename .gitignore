@@ -1,0 +1,26 @@
+# Angular build output
+/client/dist
+/client/tmp
+/client/out-tsc
+/client/.angular/cache
+
+# Node
+/client/node_modules
+npm-debug.log
+yarn-error.log
+
+# IDE
+.idea/
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+.history/
+
+# System
+.DS_Store
+Thumbs.db
+
+# Coverage
+/client/coverage

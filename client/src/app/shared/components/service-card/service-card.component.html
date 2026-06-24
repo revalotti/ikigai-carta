@@ -1,0 +1,72 @@
+<article class="card" [class.featured]="card().featured">
+  @if (card().featured) {
+    <span class="flag">{{ card().flagLabel }}</span>
+  }
+
+  <h3 class="h3">{{ card().name }}</h3>
+
+  @if (card().includes?.length) {
+    <div class="includes">
+      <div class="includes-title">Incluye</div>
+      @for (item of card().includes!; track item.title) {
+        <div class="includes-row">
+          <div>
+            <strong>{{ item.title }}</strong>
+            @if (item.subtitle) {
+              <br /><span>{{ item.subtitle }}</span>
+            }
+            @if (item.note) {
+              <br /><span class="note-text">{{ item.note }}</span>
+            }
+          </div>
+          @if (item.time) {
+            <div class="includes-time">{{ item.time }}</div>
+          }
+        </div>
+      }
+    </div>
+  }
+
+  @if (card().description) {
+    <p class="p">{{ card().description }}</p>
+  }
+
+  @if (card().extraText) {
+    <p class="p">{{ card().extraText }}</p>
+  }
+
+  @if (card().timeSlots?.length) {
+    <div class="time-bar" [class.single]="card().timeSlots!.length === 1">
+      @for (slot of card().timeSlots!; track slot.duration) {
+        <div>
+          <span class="price">{{ slot.price }}</span>
+          <span class="time-sep">|</span>
+          <span class="duration">{{ slot.duration }}</span>
+        </div>
+      }
+    </div>
+  }
+
+  @if (card().highlight) {
+    <div class="divider"></div>
+    <div class="highlight" aria-label="Detalle del bono">
+      <span>{{ card().highlight }}</span>
+    </div>
+  }
+
+  @if (card().conditions?.length) {
+    <div class="divider"></div>
+    <div class="conditions-title">Condiciones</div>
+    <ul class="bullets">
+      @for (c of card().conditions!; track c) {
+        <li>{{ c }}</li>
+      }
+    </ul>
+  }
+
+  @if (card().price) {
+    <div class="price-bar">
+      <span class="card-price">{{ card().price }}</span>
+    </div>
+  }
+</article>
