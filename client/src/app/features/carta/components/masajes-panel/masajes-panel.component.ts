@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, input } from '@angular/core';
 import { ServiceCardComponent } from '../../../../shared/components/service-card/service-card.component';
-import { MASAJES } from '../../data/services.data';
+import { ServiceCardView } from '../../../../core/data/services-catalog.utils';
 
 @Component({
   selector: 'app-masajes-panel',
@@ -9,5 +9,5 @@ import { MASAJES } from '../../data/services.data';
   styleUrl: './masajes-panel.component.scss'
 })
 export class MasajesPanelComponent {
-  readonly services = MASAJES;
+  services = input.required<ServiceCardView[]>();
 }

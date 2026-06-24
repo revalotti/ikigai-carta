@@ -1,6 +1,6 @@
 <section class="panel" role="tabpanel" id="panel-bonos" aria-labelledby="tab-bonos">
   <div class="bonos-grid">
-    @for (card of services; track card.id) {
+    @for (card of services(); track card.id) {
       <app-service-card [card]="card" />
     }
   </div>

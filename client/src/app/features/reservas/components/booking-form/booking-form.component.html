@@ -58,7 +58,7 @@
         <fieldset class="rf-fieldset">
           <legend class="sr-only">Tratamientos</legend>
           <div class="rf-checkboxes">
-            @for (t of allTreatments(); track t) {
+            @for (t of allBookableNames(); track t) {
               <label class="rf-check" [class.checked]="isChecked(t)">
                 <input type="checkbox" [value]="t" [checked]="isChecked(t)"
                        (change)="onCheckboxChange(t, $any($event.target).checked)" />

@@ -1,25 +1,9 @@
-import { Component, inject, signal, computed } from '@angular/core';
+import { Component, computed, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { BookingService } from '../../../../core/services/booking.service';
+import { ServicesStateService } from '../../../../core/services/services-state.service';
 import { BookingType } from '../../../../core/models/booking.model';
 import { CalendarComponent } from '../calendar/calendar.component';
-
-const MASAJES_LIST = [
-  'Masaje relajante Ikigai (30 min)',
-  'Masaje relajante Ikigai (50 min)',
-  'Masaje de Tejido profundo (30 min)',
-  'Masaje de Tejido profundo (50 min)',
-  'Masaje Californiano',
-  'Masaje con piedras calientes',
-  'Masaje craneal Hindú',
-  'Reflexología + Masaje de pies',
-];
-
-const RITUALES_LIST = [
-  'Ritual Ikigai',
-  'Ritual Exprés Ikigai',
-  'Ritual Ikigai en pareja',
-];
 
 @Component({
   selector: 'app-booking-form',
@@ -29,14 +13,36 @@ const RITUALES_LIST = [
 })
 export class BookingFormComponent {
   readonly booking = inject(BookingService);
+  readonly state = inject(ServicesStateService);
 
   calendarOpen = signal(false);
   showError = signal(false);
 
+  // Treatment names from Supabase — only active services
+  readonly masajeOptions = computed(() =>
+    this.state.bookableMasajes().map(s => s.name)
+  );
+  readonly ritualOptions = computed(() =>
+    this.state.bookableRituales().map(s => s.name)
+  );
+  // bono_mensual: first active deep-tissue variant, or fallback
+  readonly bonoMensualTreatment = computed(() => {
+    const deepTissue = this.state.bookableMasajes().find(s =>
+      s.catalogId === 'therapeutic-deep-tissue'
+    );
+    return deepTissue?.name ?? 'Masaje de Tejido profundo';
+  });
+  // bono_regalo: all active therapeutic + ritual names
+  readonly allBookableNames = computed(() => [
+    ...this.masajeOptions(),
+    ...this.ritualOptions(),
+  ]);
+
   readonly treatmentOptions = computed(() => {
     const type = this.booking.serviceType();
-    if (type === 'masaje') return MASAJES_LIST;
-    if (type === 'ritual') return RITUALES_LIST;
+    if (type === 'masaje') return this.masajeOptions();
+    if (type === 'ritual') return this.ritualOptions();
+    if (type === 'bono_mensual') return [this.bonoMensualTreatment()];
     return [];
   });
 
@@ -44,9 +50,7 @@ export class BookingFormComponent {
     const t = this.booking.serviceType();
     return t === 'masaje' || t === 'ritual' || t === 'bono_mensual';
   });
-
   readonly showTreatmentCheckboxes = computed(() => this.booking.serviceType() === 'bono_regalo');
-
   readonly showDateField = computed(() => {
     const t = this.booking.serviceType();
     return t === 'masaje' || t === 'ritual';
@@ -65,7 +69,6 @@ export class BookingFormComponent {
   });
 
   readonly isHintError = computed(() => this.showError() && this.booking.missingFields().length > 0);
-  readonly allTreatments = computed(() => [...MASAJES_LIST, ...RITUALES_LIST]);
   readonly formattedDate = computed(() => this.booking.formatDateES(this.booking.date()));
 
   onServiceTypeChange(value: string): void {
@@ -76,7 +79,7 @@ export class BookingFormComponent {
     this.calendarOpen.set(false);
     this.showError.set(false);
     if (value === 'bono_mensual') {
-      this.booking.treatment.set('Masaje de Tejido profundo');
+      this.booking.treatment.set(this.bonoMensualTreatment());
     }
   }
 
@@ -100,8 +103,7 @@ export class BookingFormComponent {
   }
 
   onDateSelected(iso: string): void {
-    const d = new Date(iso + 'T12:00:00');
-    if (d.getDay() === 0) return;
+    if (new Date(iso + 'T12:00:00').getDay() === 0) return;
     this.booking.date.set(iso);
     this.calendarOpen.set(false);
   }
