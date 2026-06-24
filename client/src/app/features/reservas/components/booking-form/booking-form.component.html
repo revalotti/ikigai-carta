@@ -86,7 +86,8 @@
           @if (calendarOpen()) {
             <app-calendar class="calendar-popup"
                           [selectedDate]="booking.date()"
-                          (dateSelected)="onDateSelected($event)" />
+                          (dateSelected)="onDateSelected($event)"
+                          (click)="$event.stopPropagation()" />
           }
         </div>
         @if (booking.date()) {

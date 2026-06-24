@@ -19,34 +19,38 @@ export function mergeCatalogWithStore(
 
   const catalogCards: ServiceCardView[] = catalogItems.map(cat => {
     const row = storeServices.find(s => s.catalogId === cat.id);
+    const mergedOptions = resolvePriceOptions(
+      row ?? { priceOptions: [], duration: null, price: null },
+      cat.priceOptions,
+    );
     return {
       ...cat,
       name: row?.name ?? cat.name,
       description: row?.description || cat.description,
       recommended: row ? row.recommended : (cat.recommended ?? false),
-      priceOptions: resolvePriceOptions(
-        row ?? { priceOptions: [], duration: null, price: null },
-        cat.priceOptions,
-      ),
-      price: row?.price ?? cat.price,
+      priceOptions: mergedOptions,
+      price: mergedOptions.length ? null : (row?.price ?? cat.price ?? null),
       storeId: row?.id ?? '',
       active: row?.active ?? false,
       isCustom: false,
     };
   });
 
-  const customCards: ServiceCardView[] = customItems.map(row => ({
-    id: row.id,
-    category: row.category,
-    name: row.name,
-    description: row.description,
-    recommended: row.recommended,
-    priceOptions: resolvePriceOptions(row),
-    price: row.price,
-    storeId: row.id,
-    active: row.active,
-    isCustom: true,
-  }));
+  const customCards: ServiceCardView[] = customItems.map(row => {
+    const mergedOptions = resolvePriceOptions(row);
+    return {
+      id: row.id,
+      category: row.category,
+      name: row.name,
+      description: row.description,
+      recommended: row.recommended,
+      priceOptions: mergedOptions,
+      price: mergedOptions.length ? null : (row.price ?? null),
+      storeId: row.id,
+      active: row.active,
+      isCustom: true,
+    };
+  });
 
   return [...catalogCards, ...customCards];
 }
