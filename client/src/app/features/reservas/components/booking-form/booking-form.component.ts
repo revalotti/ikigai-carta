@@ -3,11 +3,11 @@ import { FormsModule } from '@angular/forms';
 import { BookingService } from '../../../../core/services/booking.service';
 import { ServicesStateService } from '../../../../core/services/services-state.service';
 import { BookingType } from '../../../../core/models/booking.model';
-import { CalendarComponent } from '../calendar/calendar.component';
+import { DatePickerComponent } from '../date-picker/date-picker.component';
 
 @Component({
   selector: 'app-booking-form',
-  imports: [FormsModule, CalendarComponent],
+  imports: [FormsModule, DatePickerComponent],
   templateUrl: './booking-form.component.html',
   styleUrl: './booking-form.component.scss'
 })
@@ -15,7 +15,6 @@ export class BookingFormComponent {
   readonly booking = inject(BookingService);
   readonly state = inject(ServicesStateService);
 
-  calendarOpen = signal(false);
   showError = signal(false);
 
   // Treatment names from Supabase — only active services
@@ -69,14 +68,12 @@ export class BookingFormComponent {
   });
 
   readonly isHintError = computed(() => this.showError() && this.booking.missingFields().length > 0);
-  readonly formattedDate = computed(() => this.booking.formatDateES(this.booking.date()));
 
   onServiceTypeChange(value: string): void {
     this.booking.serviceType.set((value as BookingType) || null);
     this.booking.treatment.set('');
     this.booking.treatments.set([]);
     this.booking.date.set('');
-    this.calendarOpen.set(false);
     this.showError.set(false);
     if (value === 'bono_mensual') {
       this.booking.treatment.set(this.bonoMensualTreatment());
@@ -96,21 +93,6 @@ export class BookingFormComponent {
 
   isChecked(name: string): boolean {
     return this.booking.treatments().includes(name);
-  }
-
-  toggleCalendar(): void {
-    this.calendarOpen.update(v => !v);
-  }
-
-  onDateSelected(iso: string): void {
-    if (new Date(iso + 'T12:00:00').getDay() === 0) return;
-    this.booking.date.set(iso);
-    this.calendarOpen.set(false);
-  }
-
-  clearDate(): void {
-    this.booking.date.set('');
-    this.calendarOpen.set(false);
   }
 
   onWhatsappClick(e: Event): void {

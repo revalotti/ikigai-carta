@@ -1,0 +1,103 @@
+@use 'styles/tokens' as t;
+
+:host {
+  display: flex;
+  gap: 10px;
+  align-items: stretch;
+}
+
+.rf-input {
+  flex: 1 1 auto;
+  min-width: 0;
+  width: 100%;
+  min-height: 46px;
+  border: 1px solid t.$line;
+  border-radius: t.$radius;
+  background-color: rgba(255, 255, 255, 0.35);
+  padding: 12px 14px;
+  font-family: t.$sans;
+  font-size: 15px;
+  color: t.$ink;
+  cursor: pointer;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+
+  &:hover {
+    border-color: t.$line-strong;
+    background-color: rgba(255, 255, 255, 0.45);
+  }
+
+  &::placeholder {
+    color: t.$muted-2;
+  }
+}
+
+.date-wrap {
+  flex: 1 1 auto;
+  min-width: 0;
+  position: relative;
+  cursor: pointer;
+}
+
+.calendar-popup {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  margin-top: 8px;
+  z-index: 100;
+}
+
+.rf-clear {
+  flex: 0 0 46px;
+  width: 46px;
+  min-height: 46px;
+  border-radius: t.$radius;
+  border: 1px solid t.$line;
+  background-color: rgba(255, 255, 255, 0.35);
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  padding: 0;
+  transition: border-color 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
+
+  &:hover {
+    border-color: t.$line-strong;
+    background-color: rgba(255, 255, 255, 0.5);
+  }
+
+  &:focus-visible {
+    outline: none;
+    border-color: t.$nogal;
+    box-shadow: 0 0 0 2px rgba(119, 107, 93, 0.18);
+  }
+
+  .x::before,
+  .x::after {
+    background: t.$nogal;
+  }
+}
+
+.x {
+  width: 14px;
+  height: 14px;
+  position: relative;
+
+  &::before,
+  &::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: rgba(31, 31, 31, 0.65);
+    transform-origin: center;
+  }
+
+  &::before {
+    transform: translateY(-50%) rotate(45deg);
+  }
+
+  &::after {
+    transform: translateY(-50%) rotate(-45deg);
+  }
+}

@@ -79,24 +79,7 @@
   @if (showDateField()) {
     <label class="rf">
       <span>Fecha <span class="rf-required" aria-hidden="true">*</span></span>
-      <div class="rf-control">
-        <div class="date-wrap" (click)="toggleCalendar()">
-          <input type="text" class="rf-input" readonly
-                 [value]="formattedDate()" placeholder="DD/MM/AAAA" />
-          @if (calendarOpen()) {
-            <app-calendar class="calendar-popup"
-                          [selectedDate]="booking.date()"
-                          (dateSelected)="onDateSelected($event)"
-                          (click)="$event.stopPropagation()" />
-          }
-        </div>
-        @if (booking.date()) {
-          <button type="button" class="rf-clear" aria-label="Borrar fecha"
-                  (click)="clearDate(); $event.stopPropagation()">
-            <span class="x" aria-hidden="true"></span>
-          </button>
-        }
-      </div>
+      <app-date-picker [value]="booking.date()" (valueChange)="booking.date.set($event)" />
     </label>
   }
 
