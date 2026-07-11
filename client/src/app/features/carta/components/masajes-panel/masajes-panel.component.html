@@ -1,5 +1,5 @@
 <section class="panel" role="tabpanel" id="panel-masajes" aria-labelledby="tab-masajes">
-  <div class="grid-3">
+  <div class="services-grid">
     @for (card of services(); track card.id) {
       <app-service-card [card]="card" />
     }
