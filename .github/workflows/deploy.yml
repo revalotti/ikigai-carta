@@ -24,9 +24,17 @@ jobs:
           cache-dependency-path: client/package-lock.json
 
       - name: Create environment files
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
         run: |
-          cp client/src/environments/environment.example.ts client/src/environments/environment.ts
-          cp client/src/environments/environment.example.ts client/src/environments/environment.development.ts
+          cat <<EOF > client/src/environments/environment.ts
+          export const environment = {
+            supabaseUrl: '$SUPABASE_URL',
+            supabaseAnonKey: '$SUPABASE_ANON_KEY',
+          };
+          EOF
+          cp client/src/environments/environment.ts client/src/environments/environment.development.ts
 
       - name: Install dependencies
         run: npm ci
