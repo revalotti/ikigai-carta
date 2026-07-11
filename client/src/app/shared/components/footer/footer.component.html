@@ -1,0 +1,52 @@
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-top">
+      <p class="footer-prices">Para conocer más información sobre nosotros o nuestros servicios, contacta con nosotros.</p>
+      <div class="footer-actions">
+        <button class="cta-btn secondary contact-btn footer-contact-btn" type="button" (click)="openContactModal()">
+          Contáctanos
+        </button>
+      </div>
+    </div>
+    <div class="footer-divider" role="presentation"></div>
+    <div class="footer-bottom">
+      <p class="footer-instagram">
+        Síguenos en Instagram ·
+        <a [href]="igHref()" [attr.target]="igTarget()" rel="noopener noreferrer">
+          &#64;centroikigai.masajes
+        </a>
+      </p>
+    </div>
+    <div class="footer-divider" role="presentation"></div>
+    <div class="footer-bottom">
+      <p class="footer-rights">Todos los derechos reservados para<br>Ikigai · Centro de Masajes</p>
+    </div>
+  </div>
+</footer>
+
+@if (contactModalOpen()) {
+  <div
+    class="modal"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="consult-title"
+    (click)="onModalBackdropClick($event)"
+  >
+    <div class="modal-backdrop"></div>
+    <div class="modal-card" role="document">
+      <button class="modal-close" aria-label="Cerrar" type="button" (click)="closeContactModal()">
+        <span class="x" aria-hidden="true"></span>
+      </button>
+      <h2 class="modal-title" id="consult-title">Contáctanos</h2>
+      <p class="modal-body">Puedes hacerlo pulsando abajo, mediante WhatsApp o correo.</p>
+      <div class="modal-actions">
+        <a class="cta-btn primary" [href]="waUrl()" rel="noopener" target="_blank" (click)="onWaClick($event)">
+          WhatsApp
+        </a>
+        <a class="cta-btn secondary" href="#" (click)="onEmailClick($event)">
+          Correo
+        </a>
+      </div>
+    </div>
+  </div>
+}

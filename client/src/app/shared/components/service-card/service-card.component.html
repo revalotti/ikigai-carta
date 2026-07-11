@@ -1,0 +1,65 @@
+<article class="card" [class.featured]="card().recommended">
+  @if (card().recommended) {
+    <span class="flag">* Recomendado</span>
+  }
+  <h3 class="h3">{{ card().name }}</h3>
+
+  <!-- Includes (rituales) -->
+  @if (card().includes?.length) {
+    <div class="includes">
+      <div class="includes-title">Incluye</div>
+      @for (item of card().includes!; track item.name) {
+        <div class="includes-row">
+          <div><strong>{{ item.name }}</strong></div>
+          @if (item.duration) {
+            <div class="includes-time">{{ item.duration }}</div>
+          }
+        </div>
+      }
+    </div>
+  }
+
+  <!-- Description -->
+  @if (card().description) {
+    <p class="p">{{ card().description }}</p>
+  }
+
+  <!-- Price options (masajes terapéuticos) -->
+  @if (card().priceOptions?.length) {
+    <div class="time-bar" [class.single]="card().priceOptions!.length === 1">
+      @for (opt of card().priceOptions!; track opt.duration) {
+        <div>
+          <span class="price">{{ opt.price }} €</span>
+          <span class="time-sep">|</span>
+          <span class="duration">{{ opt.duration }} min</span>
+        </div>
+      }
+    </div>
+  }
+
+  <!-- Highlight (bonos) -->
+  @if (card().highlight) {
+    <div class="divider"></div>
+    <div class="highlight" aria-label="Detalle del bono">
+      <span>{{ card().highlight }}</span>
+    </div>
+  }
+
+  <!-- Conditions (bonos) -->
+  @if (card().conditions?.length) {
+    <div class="divider"></div>
+    <div class="conditions-title">Condiciones</div>
+    <ul class="bullets">
+      @for (c of card().conditions!; track c) {
+        <li>{{ c }}</li>
+      }
+    </ul>
+  }
+
+  <!-- Price bar (rituales + bonos) -->
+  @if (card().price != null || card().priceLabel) {
+    <div class="price-bar">
+      <span class="card-price">{{ formatPrice(card().price, card().priceLabel) }}</span>
+    </div>
+  }
+</article>

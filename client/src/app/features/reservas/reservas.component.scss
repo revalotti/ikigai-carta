@@ -1,0 +1,44 @@
+@use 'styles/tokens' as t;
+
+:host {
+  display: block;
+}
+
+.top-sticky {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  background: rgba(235, 227, 213, 0.92);
+  backdrop-filter: blur(10px);
+}
+
+main {
+  padding: 22px 0 calc(44px + 86px);
+}
+
+.booking-wrap {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.card {
+  border: 1px solid rgba(31, 31, 31, 0.28);
+  border-radius: t.$radius;
+  background: rgba(255, 255, 255, 0.06);
+  padding: 22px 22px 18px;
+  box-shadow: 0 0 0 1px rgba(31, 31, 31, 0.04) inset;
+}
+
+.modal-title {
+  font-family: t.$serif;
+  font-weight: 600;
+  font-size: 28px;
+  margin: 0 0 10px;
+}
+
+.modal-body {
+  margin: 0 0 16px;
+  color: t.$muted;
+  font-size: 14px;
+  line-height: 1.6;
+}

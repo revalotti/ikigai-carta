@@ -1,0 +1,131 @@
+@use 'styles/tokens' as t;
+
+.calendar {
+  width: 300px;
+  padding: 18px;
+  background: t.$paper;
+  border: 1px solid rgba(31, 31, 31, 0.28);
+  border-radius: t.$radius;
+  box-shadow: 0 0 0 1px rgba(31, 31, 31, 0.04) inset, 0 12px 40px rgba(0, 0, 0, 0.2);
+  font-family: t.$sans;
+}
+
+.cal-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 14px;
+  margin-bottom: 14px;
+  border-bottom: 1px solid t.$line;
+}
+
+.cal-title {
+  font-weight: 600;
+  font-size: 15px;
+  color: t.$ink;
+  letter-spacing: 0.02em;
+}
+
+.cal-nav {
+  display: flex;
+  gap: 8px;
+}
+
+.cal-nav-btn {
+  width: 34px;
+  height: 34px;
+  border: 1px solid t.$line;
+  border-radius: t.$radius;
+  background: rgba(31, 31, 31, 0.04);
+  color: t.$nogal;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  font-size: 16px;
+  line-height: 1;
+  transition: background 0.15s, border-color 0.15s;
+
+  &:hover:not(:disabled) {
+    background: rgba(31, 31, 31, 0.08);
+    border-color: t.$nogal;
+  }
+
+  &:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+    color: t.$muted-2;
+  }
+}
+
+.cal-weekdays {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 2px;
+  margin-bottom: 10px;
+}
+
+.cal-weekday {
+  text-align: center;
+  font-size: 11px;
+  font-weight: 500;
+  color: t.$muted;
+  letter-spacing: 0.03em;
+}
+
+.cal-days {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 2px;
+}
+
+.cal-day {
+  aspect-ratio: 1;
+  max-width: 36px;
+  max-height: 36px;
+  display: grid;
+  place-items: center;
+  font-size: 14px;
+  font-weight: 400;
+  color: t.$ink;
+  border-radius: t.$radius;
+  cursor: pointer;
+  border: 1px solid transparent;
+  background: transparent;
+  transition: background 0.15s, color 0.15s, border-color 0.15s;
+
+  &:hover:not(.disabled):not(.past) {
+    background: rgba(31, 31, 31, 0.04);
+    color: t.$nogal;
+  }
+
+  &.selected {
+    background: t.$nogal;
+    color: t.$albura;
+    border-color: t.$nogal;
+  }
+
+  &.other {
+    color: t.$muted-2;
+    visibility: hidden;
+  }
+
+  &.disabled {
+    color: t.$muted-2;
+    cursor: not-allowed;
+
+    &:hover {
+      background: transparent;
+      color: t.$muted-2;
+    }
+  }
+
+  &.past {
+    color: t.$muted-2;
+    cursor: not-allowed;
+
+    &:hover {
+      background: transparent;
+      color: t.$muted-2;
+    }
+  }
+}

@@ -1,0 +1,27 @@
+<div class="top-sticky">
+  <app-header mode="carta" />
+  <app-tabs-bar [activeTab]="activeTab()" (tabChange)="onTabChange($event)" />
+</div>
+<main>
+  <div class="wrap">
+    @if (state.loading()) {
+      <div class="loading" aria-live="polite" aria-label="Cargando servicios">
+        <span class="loading-dot"></span>
+        <span class="loading-dot"></span>
+        <span class="loading-dot"></span>
+      </div>
+    } @else if (state.error()) {
+      <p class="error-msg">{{ state.error() }}</p>
+    } @else {
+      @if (activeTab() === 'masajes') {
+        <app-masajes-panel [services]="state.masajes()" />
+      }
+      @if (activeTab() === 'rituales') {
+        <app-rituales-panel [services]="state.rituales()" />
+      }
+      @if (activeTab() === 'bonos') {
+        <app-bonos-panel [services]="state.bonos()" />
+      }
+    }
+  </div>
+</main>

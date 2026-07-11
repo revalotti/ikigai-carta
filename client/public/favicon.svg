@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="1000" height="1000"><g clip-path="url(#SvgjsClipPath1102)"><rect width="1000" height="1000" fill="#776b5d"></rect><g transform="matrix(19.444444444444443,0,0,19.444444444444443,150,150)"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="36" height="36"><svg id="Capa_1" data-name="Capa 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #776b5d;
+      }
+
+      .cls-2 {
+        fill: #ebe3d5;
+      }
+    </style>
+  <clipPath id="SvgjsClipPath1102"><rect width="1000" height="1000" x="0" y="0" rx="350" ry="350"></rect></clipPath></defs>
+  <rect class="cls-1" width="36" height="36" rx="8.52" ry="8.52"></rect>
+  <g>
+    <g>
+      <rect class="cls-2" x="9.94" y="15.85" width="16.12" height="3.78"></rect>
+      <path class="cls-2" d="M9.94,25.58v2.65c0,.74.6,1.33,1.33,1.33h13.45c.74,0,1.33-.6,1.33-1.33v-2.65H9.94Z"></path>
+      <rect class="cls-2" x="9.94" y="20.71" width="16.12" height="3.78"></rect>
+    </g>
+    <g>
+      <g>
+        <path class="cls-2" d="M11.82,10.59c0-1.6.61-3.06,1.61-4.16h-2.15c-.74,0-1.33.6-1.33,1.33v5.65c0,.74.6,1.33,1.33,1.33h2.15c-1-1.1-1.61-2.56-1.61-4.16Z"></path>
+        <path class="cls-2" d="M22.57,6.44c1,1.1,1.61,2.56,1.61,4.16s-.61,3.06-1.61,4.16h2.15c.74,0,1.33-.6,1.33-1.33v-5.65c0-.74-.6-1.33-1.33-1.33h-2.15Z"></path>
+      </g>
+      <path class="cls-2" d="M21.16,6.44h-6.31c-1.26.95-2.07,2.46-2.07,4.16s.81,3.2,2.07,4.16h6.31c1.26-.95,2.07-2.46,2.07-4.16s-.81-3.2-2.07-4.16ZM18,13.25c-1.47,0-2.66-1.19-2.66-2.66s1.19-2.66,2.66-2.66,2.66,1.19,2.66,2.66-1.19,2.66-2.66,2.66Z"></path>
+    </g>
+  </g>
+</svg></svg></g></g></svg>

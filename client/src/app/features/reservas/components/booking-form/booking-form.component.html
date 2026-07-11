@@ -1,0 +1,98 @@
+<div class="form-wrap">
+  <label class="rf">
+    <span>Nombre <span class="rf-required" aria-hidden="true">*</span></span>
+    <div class="rf-control">
+      <input type="text" class="rf-input" autocomplete="name" placeholder="Escribe tu nombre"
+             [value]="booking.name()" (input)="booking.name.set($any($event.target).value)" />
+      @if (booking.name()) {
+        <button type="button" class="rf-clear" aria-label="Borrar nombre" (click)="booking.name.set('')">
+          <span class="x" aria-hidden="true"></span>
+        </button>
+      }
+    </div>
+  </label>
+
+  <label class="rf">
+    <span>Tipo de servicio <span class="rf-required" aria-hidden="true">*</span></span>
+    <div class="rf-control">
+      <select class="rf-select" [value]="booking.serviceType() ?? ''" (change)="onServiceTypeChange($any($event.target).value)">
+        <option value="" disabled selected>Selecciona un tipo de servicio</option>
+        <option value="masaje">Masaje terapéutico</option>
+        <option value="ritual">Ritual</option>
+        <option value="bono_mensual">Bono mensual</option>
+        <option value="bono_regalo">Bono regalo</option>
+      </select>
+      @if (booking.serviceType()) {
+        <button type="button" class="rf-clear" aria-label="Borrar tipo" (click)="onServiceTypeChange('')">
+          <span class="x" aria-hidden="true"></span>
+        </button>
+      }
+    </div>
+  </label>
+
+  @if (showTreatmentSelect()) {
+    <label class="rf">
+      <span>Tratamiento <span class="rf-required" aria-hidden="true">*</span></span>
+      <div class="rf-control">
+        <select class="rf-select" [value]="booking.treatment()"
+                (change)="onTreatmentChange($any($event.target).value)"
+                [disabled]="booking.serviceType() === 'bono_mensual'">
+          <option value="" disabled selected>Selecciona un tratamiento</option>
+          @for (opt of treatmentOptions(); track opt) {
+            <option [value]="opt">{{ opt }}</option>
+          }
+        </select>
+        @if (booking.treatment() && booking.serviceType() !== 'bono_mensual') {
+          <button type="button" class="rf-clear" aria-label="Borrar tratamiento" (click)="booking.treatment.set('')">
+            <span class="x" aria-hidden="true"></span>
+          </button>
+        }
+      </div>
+    </label>
+  }
+
+  @if (showTreatmentCheckboxes()) {
+    <div class="rf">
+      <span>Tratamientos</span>
+      <div class="rf-control-fieldset">
+        <fieldset class="rf-fieldset">
+          <legend class="sr-only">Tratamientos</legend>
+          <div class="rf-checkboxes">
+            @for (t of allBookableNames(); track t) {
+              <label class="rf-check" [class.checked]="isChecked(t)">
+                <input type="checkbox" [value]="t" [checked]="isChecked(t)"
+                       (change)="onCheckboxChange(t, $any($event.target).checked)" />
+                <span>{{ t }}</span>
+              </label>
+            }
+          </div>
+        </fieldset>
+        @if (booking.treatments().length > 0) {
+          <button type="button" class="rf-clear" aria-label="Borrar tratamientos" (click)="booking.treatments.set([])">
+            <span class="x" aria-hidden="true"></span>
+          </button>
+        }
+      </div>
+    </div>
+  }
+
+  @if (showDateField()) {
+    <label class="rf">
+      <span>Fecha <span class="rf-required" aria-hidden="true">*</span></span>
+      <app-date-picker [value]="booking.date()" (valueChange)="booking.date.set($event)" />
+    </label>
+  }
+
+  <p class="reserve-hint" [class.error]="isHintError()" aria-live="polite">{{ hint() }}</p>
+
+  <div class="modal-actions">
+    <a class="cta-btn primary" [class.disabled]="!booking.isValid()" href="#"
+       (click)="onWhatsappClick($event)">
+      Reservar por WhatsApp
+    </a>
+    <a class="cta-btn secondary" [class.disabled]="!booking.isValid()" href="#"
+       (click)="onEmailClick($event)">
+      Reservar por correo
+    </a>
+  </div>
+</div>

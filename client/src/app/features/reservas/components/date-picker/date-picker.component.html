@@ -1,0 +1,16 @@
+<div class="date-wrap" (click)="toggle()">
+  <input type="text" class="rf-input" readonly
+         [value]="formattedDate()" [placeholder]="placeholder()" />
+  @if (open()) {
+    <app-calendar class="calendar-popup"
+                  [selectedDate]="value()"
+                  (dateSelected)="onDateSelected($event)"
+                  (click)="$event.stopPropagation()" />
+  }
+</div>
+@if (value()) {
+  <button type="button" class="rf-clear" aria-label="Borrar fecha"
+          (click)="clear(); $event.stopPropagation()">
+    <span class="x" aria-hidden="true"></span>
+  </button>
+}

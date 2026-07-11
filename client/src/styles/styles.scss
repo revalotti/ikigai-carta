@@ -1,0 +1,13 @@
+@use 'tokens' as t;
+@use 'reset';
+@use 'typography';
+@use 'layout';
+
+body {
+  background: t.$paper;
+  color: t.$ink;
+  font-family: t.$sans;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
